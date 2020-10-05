@@ -19,7 +19,7 @@ jobs:
 
 workflows:
   version: 2
-  wdioimagediff:
+  cypressimagediff:
     jobs:
       - build_and_publish:
           filters:
