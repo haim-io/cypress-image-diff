@@ -1,0 +1,27 @@
+version: 2
+aliases:
+  - &node_version node:12.14.1
+
+  build_and_publish:
+    docker:
+      - image: *node_version
+    working_directory: ~/cypress-image-diff
+    steps:
+      - checkout
+      - run: npm ci
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Publish (semantic release - main only)
+          command: ./node_modules/.bin/semantic-release
+
+workflows:
+  version: 2
+  wdioimagediff:
+    jobs:
+      - build_and_publish:
+          filters:
+            branches:
+              only:
+                - main
