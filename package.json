@@ -4,8 +4,9 @@
   "description": "Visual regression testing tool with cypress",
   "main": "dist/command.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d dist"
+    "test:unit": "jest src/",
+    "test:e2e": "npx run build && cypress run --browser chrome",
+    "build": "npx babel src -d dist"
   },
   "repository": {
     "type": "git",
@@ -27,20 +28,20 @@
   },
   "homepage": "https://github.com/uktrade/cypress-image-diff#readme",
   "dependencies": {
-    "cypress": "^5.2.0",
+    "cypress": "^5.3.0",
     "pixelmatch": "^5.1.0",
     "pngjs": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^24.0.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
-    "jest": "^25.3.0",
+    "jest": "^25.5.4",
     "semantic-release": "^15.13.31"
   }
 }
