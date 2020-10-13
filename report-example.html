@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="[% title %]">
+    <title>Wdio Image Diff Report</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style type="text/css">
+      body {
+        background-color: #fafafa;
+        font-weight: 200;
+      }
+      h1, .h1, h2, .h2, h3, .h3 {
+        margin: 10px;
+        font-weight: 200;
+      }
+      h1, .h1 {
+        font-size: 30px;
+      }
+      h2, .h2 {
+        font-size: 24px;
+      }
+      h4, .h4 {
+        font-size: 25px;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+      }
+      .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        /*border-color: #ECEFF1;*/
+      }
+      span.error {
+        color: #AD2B2B;
+      }
+      span.success {
+        color: #53891E;
+      }
+      span.pending {
+        color: grey;
+      }
+      .test-pass, .suite-pass {
+        background-color: #C8E6C9;
+      }
+      .test-fail, .suite-fail {
+        background-color: #FFCDD2;
+      }
+      .test-skipped, .suite-pending {
+        background-color: #B5C8D1;;
+      }
+      .test-unknown, .suite-unknown {
+        background-color: #5EA3D1;;
+      }
+      .log-output {
+        background-color: rgba(255, 192, 0, 0.36);
+        margin-left:24px;
+      }
+      .screenshot {
+        margin-left:24px;
+      }
+      .screenshot-large {
+        height: 100%;
+        width: 100%;
+      }
+      .screenshot-column {
+        float: left;
+        width: 50%;
+        padding: 5px;
+      }
+      .table-test {
+        margin: 0px;
+      }
+      tr.test-row {
+        border-top: 2px solid white;
+      }
+      /* Clear floats after image containers */
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="report-header" class="page-header"><h1></h1></div>
+      <h2>Results</h2>
+      <table>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub contacts page - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub companies page - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub interactions page - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub investments page - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub omis page - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub events page - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub home page content - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub home page header - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-pass">
+                    <span class="success">&#10004;</span>
+                    Data Hub home page search bar - chrome
+                  </td>
+                </tr>
+              </table>
+            </td>
+          <tr>
+      </table>
+    </div>
+  </body>
+</html>
