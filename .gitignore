@@ -1,2 +1,8 @@
 node_modules
 dist
+
+# test
+cypress-visual-screenshots/comparison
+cypress-visual-screenshots/diff
+cypress/videos
+cypress/fixtures
