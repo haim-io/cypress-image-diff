@@ -44,14 +44,16 @@ async function compareSnapshotsPlugin(args) {
     diff.data,
     baselineFullCanvas.width,
     baselineFullCanvas.height,
-    { threshold: process.env.CYPRESS_VISUAL_THRESHOLD || 0.1 }
+    { threshold: 0.1 }
   )
+  
+  const percentage = (pixelMismatchResult / diff.width / diff.height) ** 0.5
 
-  if (pixelMismatchResult != 0) {
+  if (percentage > args.threshold) {
     diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
   }
 
-  return pixelMismatchResult
+  return percentage
 }
 
 const getCompareSnapshotsPlugin = (on) => {
