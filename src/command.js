@@ -7,13 +7,12 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     'compareSnapshot',
     { prevSubject: 'optional' },
     (subject, name, testThreshold = 0) => {
-      let screenshotOptions = defaultScreenshotOptions
       const testName = `${Cypress.spec.name.replace('.js', '')} - ${name}`
       // take snapshot
       const objToOperateOn = subject ? cy.get(subject) : cy
 
       objToOperateOn
-        .screenshot(testName, screenshotOptions)
+        .screenshot(testName, defaultScreenshotOptions)
         .task('copyScreenshot', {
           testName,
         })

@@ -4,6 +4,7 @@
   "description": "Visual regression testing tool with cypress",
   "main": "dist/command.js",
   "scripts": {
+    "lint": "eslint src/ cypress/",
     "test:unit": "jest src/",
     "test:e2e": "npm run build && cypress run --browser chrome --headless",
     "build": "npx babel src -d dist"

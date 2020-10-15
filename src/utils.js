@@ -13,7 +13,7 @@ const parseImage = async image => {
   return new Promise((resolve, reject) => {
     const fd = fs.createReadStream(image)
     fd.pipe(new PNG())
-      .on('parsed', function() {
+      .on('parsed', () => {
         const that = this
         resolve(that)
       })

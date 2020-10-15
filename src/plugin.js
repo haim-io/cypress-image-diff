@@ -56,15 +56,15 @@ async function compareSnapshotsPlugin(args) {
   return percentage
 }
 
-const getCompareSnapshotsPlugin = (on) => {
+const getCompareSnapshotsPlugin = on => {
   setupFolders()
-  on('after:screenshot', (details) => {
+  on('after:screenshot', details => {
     // We rename cypress screenshot and move it to our own
     // managed folder structure that lives on ./config.js
     return new Promise((resolve, reject) => {
-      fs.rename(details.path, paths.image.comparison(details.name), (err) => {
+      fs.rename(details.path, paths.image.comparison(details.name), err => {
         if (err) return reject(err)
-        resolve({ path: paths.image.comparison(details.name) })
+        return resolve({ path: paths.image.comparison(details.name) })
       })
     })
   })

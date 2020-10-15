@@ -1,5 +1,5 @@
-import { createDir } from './utils'
 import { existsSync, mkdirSync } from 'fs-extra'
+import { createDir } from './utils'
 
 jest.mock('fs-extra', () => ({
   ...jest.requireActual('fs-extra'),
