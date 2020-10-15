@@ -5,7 +5,7 @@
   "main": "dist/command.js",
   "scripts": {
     "test:unit": "jest src/",
-    "test:e2e": "npx run build && cypress run --browser chrome",
+    "test:e2e": "npm run build && cypress run --browser chrome --headless",
     "build": "npx babel src -d dist"
   },
   "repository": {
