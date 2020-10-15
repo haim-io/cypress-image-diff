@@ -3,6 +3,39 @@ aliases:
   - &node_version node:12.14.1
 
 jobs:
+  lint:
+    docker:
+      - image: *node_version
+    working_directory: ~/cypress-image-diff
+    steps:
+      - checkout
+      - run: npm ci    
+      - run:
+          name: Run eslint
+          command: npm run lint
+
+  unit:
+    docker:
+      - image: *node_version
+    working_directory: ~/cypress-image-diff
+    steps:
+      - checkout
+      - run: npm ci    
+      - run:
+          name: Run unit tests
+          command: npm run test:unit
+
+  e2e:
+    docker:
+      - image: *node_version
+    working_directory: ~/cypress-image-diff
+    steps:
+      - checkout
+      - run: npm ci    
+      - run:
+          name: Run e2e tests
+          command: npm run test:e2e
+
   build_and_publish:
     docker:
       - image: *node_version
@@ -21,7 +54,14 @@ workflows:
   version: 2
   cypressimagediff:
     jobs:
+      - lint
+      - unit
+      - e2e
       - build_and_publish:
+          requires:
+            - lint
+            - unit
+            - e2e
           filters:
             branches:
               only:
