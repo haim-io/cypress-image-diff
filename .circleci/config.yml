@@ -9,7 +9,6 @@ jobs:
     working_directory: ~/cypress-image-diff
     steps:
       - checkout
-      - run: npm ci
       - run:
           name: Build docker
           command: make build
@@ -41,14 +40,10 @@ workflows:
   version: 2
   cypressimagediff:
     jobs:
-      - lint
-      - unit
-      - e2e
+      - test
       - build_and_publish:
           requires:
-            - lint
-            - unit
-            - e2e
+            - test
           filters:
             branches:
               only:
