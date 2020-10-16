@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./cypress-visual-screenshots:/code/cypress-visual-screenshots
