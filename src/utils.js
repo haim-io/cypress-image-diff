@@ -9,11 +9,40 @@ const createDir = dirs => {
   })
 }
 
+const cleanDir = dirs => {
+  dirs.forEach(dir => {
+    if (fs.existsSync(dir)) {
+      fs.emptyDirSync(dir)
+    }
+  })
+}
+
+const setFilePermission = (dir, permission) => {
+  try {
+    const fd = fs.openSync(dir, 'r')
+    fs.fchmodSync(fd, permission)
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error)
+  }
+}
+
+const renameAndMoveFile = (originalFilePath, newFilePath) => {
+  const readStream = fs.createReadStream(originalFilePath)
+  const writeStream = fs.createWriteStream(newFilePath)
+  readStream.pipe(writeStream)
+  // eslint-disable-next-line func-names
+  readStream.on('end', function() {
+    fs.unlinkSync(originalFilePath)
+  })
+}
+
 const parseImage = async image => {
   return new Promise((resolve, reject) => {
     const fd = fs.createReadStream(image)
     fd.pipe(new PNG())
-      .on('parsed', () => {
+      // eslint-disable-next-line func-names
+      .on('parsed', function() {
         const that = this
         resolve(that)
       })
@@ -38,4 +67,4 @@ const adjustCanvas = async (image, width, height) => {
   return imageAdjustedCanvas
 }
 
-export { createDir, parseImage, adjustCanvas }
+export { createDir, cleanDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile }
