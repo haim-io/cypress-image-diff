@@ -2,11 +2,20 @@ import fs from 'fs-extra'
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
 
-import { createDir, adjustCanvas, parseImage } from './utils'
+import { createDir,
+         cleanDir,
+         adjustCanvas,
+         parseImage,
+         setFilePermission,
+         renameAndMoveFile } from './utils'
 import paths from './config'
 
 const setupFolders = () => {
   createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff])
+}
+
+const tearDownImages = () => {
+  cleanDir([paths.dir.comparison, paths.dir.diff])
 }
 
 const copyScreenshot = args => {
@@ -26,14 +35,14 @@ async function compareSnapshotsPlugin(args) {
     height: Math.max(comparisonImg.height, baselineImg.height),
   })
 
-  const comparisonFullCanvas = await adjustCanvas(
-    comparisonImg,
+  const baselineFullCanvas = await adjustCanvas(
+    baselineImg,
     diff.width,
     diff.height
   )
 
-  const baselineFullCanvas = await adjustCanvas(
-    baselineImg,
+  const comparisonFullCanvas = await adjustCanvas(
+    comparisonImg,
     diff.width,
     diff.height
   )
@@ -42,32 +51,46 @@ async function compareSnapshotsPlugin(args) {
     baselineFullCanvas.data,
     comparisonFullCanvas.data,
     diff.data,
-    baselineFullCanvas.width,
-    baselineFullCanvas.height,
+    diff.width,
+    diff.height,
     { threshold: 0.1 }
   )
   
   const percentage = (pixelMismatchResult / diff.width / diff.height) ** 0.5
 
-  if (percentage > args.threshold) {
+  if (percentage > args.testThreshold) {
     diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
   }
 
   return percentage
 }
 
-const getCompareSnapshotsPlugin = (on) => {
+const getCompareSnapshotsPlugin = on => {
+  // Create folder structure
   setupFolders()
-  on('after:screenshot', (details) => {
-    // We rename cypress screenshot and move it to our own
-    // managed folder structure that lives on ./config.js
-    return new Promise((resolve, reject) => {
-      fs.rename(details.path, paths.image.comparison(details.name), (err) => {
-        if (err) return reject(err)
-        resolve({ path: paths.image.comparison(details.name) })
-      })
-    })
+
+  // Delete comparison and diff images to ensure a clean run
+  tearDownImages()
+
+  // Force screenshot resolution to keep consistency of test runs across machines
+  on('before:browser:launch', (browser, launchOptions) => {
+    const height = process.env.HEIGHT || '1280'
+    const width = process.env.WIDTH || '720'
+    if (browser.name === 'chrome') {
+      launchOptions.args.push(`--window-size=${height},${width}`)
+      launchOptions.args.push('--force-device-scale-factor=1')
+    }
+    return launchOptions
   })
+
+  // Intercept cypress screenshot and create a new image with our own
+  // name convention and file structure for simplicity and consistency
+  on('after:screenshot', details => {
+    // Change screenshots file permission so it can be moved from drive to drive
+    setFilePermission(details.path, 0o777)
+    renameAndMoveFile(details.path, paths.image.comparison(details.name))
+  })
+
   on('task', {
     compareSnapshotsPlugin,
     copyScreenshot,

@@ -1,0 +1,17 @@
+{
+    "extends": [
+      "airbnb-base",
+      "prettier"
+    ],
+    "rules": {
+      "prefer-object-spread": 0
+    },
+    "overrides": [
+      {
+        "files": ["src/**/*.js", "cypress/**/*.js"],
+        "rules": {
+          "no-undef": "off"
+        }
+      }
+    ]
+}

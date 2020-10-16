@@ -3,6 +3,25 @@ aliases:
   - &node_version node:12.14.1
 
 jobs:
+  test:
+    machine:
+      docker_layer_caching: true
+    working_directory: ~/cypress-image-diff
+    steps:
+      - checkout
+      - run:
+          name: Build docker
+          command: make build
+      - run:
+          name: Run eslint
+          command: make lint-test
+      - run:
+          name: Run unit
+          command: make unit-test
+      - run:
+          name: Run eslint
+          command: make e2e-test
+
   build_and_publish:
     docker:
       - image: *node_version
@@ -21,7 +40,10 @@ workflows:
   version: 2
   cypressimagediff:
     jobs:
+      - test
       - build_and_publish:
+          requires:
+            - test
           filters:
             branches:
               only:
