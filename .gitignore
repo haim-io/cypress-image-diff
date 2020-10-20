@@ -4,5 +4,6 @@ dist
 # test
 cypress-visual-screenshots/comparison
 cypress-visual-screenshots/diff
+cypress-visual-report
 cypress/videos
 cypress/fixtures
