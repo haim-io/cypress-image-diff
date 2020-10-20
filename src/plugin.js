@@ -9,13 +9,24 @@ import { createDir,
          setFilePermission,
          renameAndMoveFile } from './utils'
 import paths from './config'
+import TestStatus from './reporter/test-status'
+import { createReport } from './reporter'
+
+const testStatuses = []
 
 const setupFolders = () => {
   createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff])
 }
 
-const tearDownImages = () => {
-  cleanDir([paths.dir.comparison, paths.dir.diff])
+const tearDownDirs = () => {
+  cleanDir([paths.dir.comparison, paths.dir.diff, paths.reportDir])
+}
+
+const generateReport = (instance = '') => {
+  if (testStatuses.length > 0) {
+    createReport({ tests: testStatuses, instance })
+  }
+  return true
 }
 
 const copyScreenshot = args => {
@@ -57,10 +68,14 @@ async function compareSnapshotsPlugin(args) {
   )
   
   const percentage = (pixelMismatchResult / diff.width / diff.height) ** 0.5
+  const testFailed = percentage > args.testThreshold
 
-  if (percentage > args.testThreshold) {
+  if (testFailed) {
     diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
   }
+
+  // Saving test status object to build report if task is triggered
+  testStatuses.push(new TestStatus(!testFailed, args.testName))
 
   return percentage
 }
@@ -69,8 +84,8 @@ const getCompareSnapshotsPlugin = on => {
   // Create folder structure
   setupFolders()
 
-  // Delete comparison and diff images to ensure a clean run
-  tearDownImages()
+  // Delete comparison, diff images and generated reports to ensure a clean run
+  tearDownDirs()
 
   // Force screenshot resolution to keep consistency of test runs across machines
   on('before:browser:launch', (browser, launchOptions) => {
@@ -94,6 +109,7 @@ const getCompareSnapshotsPlugin = on => {
   on('task', {
     compareSnapshotsPlugin,
     copyScreenshot,
+    generateReport,
   })
 }
 

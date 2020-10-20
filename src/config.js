@@ -5,6 +5,7 @@ const parentDir = path.join(process.cwd(), parentDirFolderName)
 const baseline = path.join(process.cwd(), parentDirFolderName, 'baseline')
 const comparison = path.join(process.cwd(), parentDirFolderName, 'comparison')
 const diff = path.join(process.cwd(), parentDirFolderName, 'diff')
+const reportDir = path.join(process.cwd(), 'cypress-visual-report')
 
 const paths = {
   image: {
@@ -18,6 +19,8 @@ const paths = {
     diff,
   },
   parentDir,
+  reportDir,
+  report: instance => { return path.join(reportDir, `cypress-visual-report${instance}.html`) },
 }
 
 export default paths

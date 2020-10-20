@@ -15,7 +15,8 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     'compareSnapshot',
     { prevSubject: 'optional' },
     (subject, name, testThreshold = 0) => {
-      const testName = `${Cypress.spec.name.replace('.js', '')} - ${name}`
+      const specName = Cypress.spec.name
+      const testName = `${specName.replace('.js', '')}-${name}`
       
       // Take a screenshot and copy to baseline if it does not exist
       const objToOperateOn = subject ? cy.get(subject) : cy
