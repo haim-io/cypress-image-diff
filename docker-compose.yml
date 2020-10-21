@@ -7,3 +7,4 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./cypress-visual-screenshots:/code/cypress-visual-screenshots
+      - ./cypress-visual-report:/code/cypress-visual-report

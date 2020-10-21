@@ -7,7 +7,7 @@
     "lint": "eslint src/ cypress/",
     "test:unit": "jest src/",
     "test:e2e": "npm run build && cypress run --browser chrome --headless",
-    "build": "npx babel src -d dist"
+    "build": "npx babel src -d dist && cp src/reporter/template.hbs dist/reporter/"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   "dependencies": {
     "cypress": "^5.3.0",
     "fs-extra": "^9.0.1",
+    "handlebars": "^4.7.6",
     "pixelmatch": "^5.1.0",
     "pngjs": "^3.4.0"
   },
