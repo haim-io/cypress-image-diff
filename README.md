@@ -3,7 +3,7 @@
 Visual regression test with cypress
 
 This tool was created to make visual regression as simple as possible, by exposing basic functions that allow you to view the difference between images.
-The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is simple and powerful and relies on [cypress](https://github.com/webdriverio) to take screenshots.
+The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is simple and powerful and relies on [cypress](https://github.com/cypress-io) to take screenshots.
 
 [![NPM Downloads][npm-downloads-image]][npm-url]
 
