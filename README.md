@@ -16,12 +16,12 @@ The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is sim
 
 ## Table of contents
 
-- [Get started](./docs/Get%20started.md)
-- [Contributing](./docs/CONTRIBUTING.md)
-- [Publishing](./docs/Publishing.md)
-- [Running tests](./docs/Running%20tests.md)
+- [Getting started](./docs/Getting%20started.md)
 - [Cypress integration](./docs/Cypress%20integration.md)
 - [Reporting](./docs/Reporting.md)
+- [Running tests](./docs/Running%20tests.md)
+- [Contributing](./docs/CONTRIBUTING.md)
+- [Publishing](./docs/Publishing.md)
 
 ## Capabilities
 
