@@ -19,9 +19,10 @@ Then initialise cypress if you don't have a project:
 
 ## Cypress plugin
 
-import and initialise the cypress image diff plugin in `cypress/plugin/index.js`:
+import and initialise the cypress image diff plugin:
 
 ```
+// cypress/plugin/index.js
 module.exports = (on, config) => {
   const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin')
   getCompareSnapshotsPlugin(on, config)
@@ -30,15 +31,17 @@ module.exports = (on, config) => {
 
 ## Cypress support
 
-import and add cypress image command in `cypress/support/commands.js`:
+import and add cypress image command:
 
 ```
+// cypress/support/commands.js
 const compareSnapshotCommand = require('cypress-image-diff-js/dist/command')
 compareSnapshotCommand()
 ```
 
-ensure to require the commands folder in `cypress/support/index.js`:
+ensure to require the commands file:
 
 ```
+// cypress/support/index.js
 require('./commands')
 ```
