@@ -1,4 +1,4 @@
-# Get started
+# Getting started
 
 Once you have setup cypress and followed [Cypress integration](./Cypress%20integration.md) you can start writing tests
 
