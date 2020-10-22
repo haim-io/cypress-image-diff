@@ -23,7 +23,7 @@ module.exports = (on, config) => {
 }
 ```
 
-### Cypress support
+## Cypress support
 
 import and add cypress image command in `cypress/support/commands.js`:
 
