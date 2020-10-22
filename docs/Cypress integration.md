@@ -8,9 +8,14 @@ Install cypress:
 
 `npm i -D cypress`
 
-Then initialise it:
+Install the package:
+
+`npm i -D cypress-image-diff-js`
+
+Then initialise cypress if you don't have a project:
 
 `npx cypress open`
+
 
 ## Cypress plugin
 
