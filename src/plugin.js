@@ -15,7 +15,7 @@ import { createReport } from './reporter'
 const testStatuses = []
 
 const setupFolders = () => {
-  createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff])
+  createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff, paths.reportDir])
 }
 
 const tearDownDirs = () => {
