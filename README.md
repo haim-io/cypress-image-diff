@@ -23,7 +23,7 @@ The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is sim
 
 ## Getting started
 
-Once you have setup cypress and followed [Cypress integration](./Cypress%20integration.md) you can start writing tests
+Once you have setup cypress and followed [Cypress integration](./docs/Cypress%20integration.md) you can start writing tests
 
 ### Writing a test
 
