@@ -33,7 +33,7 @@ Then use the cypress image diff command to take screenshots of pages or elements
 
 ### Take screenshot and compare of the whole page
 
-```
+```js
 describe('Visuals', () => {
   it('should compare screenshot of the entire page', () => {
     cy.visit('www.google.com')
@@ -44,7 +44,7 @@ describe('Visuals', () => {
 
 You can also make the comparison assertion more flexible by applying a higher threshold (default is 0):
 
-```
+```js
 describe('Visuals', () => {
   it('should compare screenshot of the entire page', () => {
     cy.visit('www.google.com')
@@ -55,7 +55,7 @@ describe('Visuals', () => {
 
 ### Take screenshot and compare an element
 
-```
+```js
 describe('Visuals', () => {
   it('should compare screenshot from a given element', () => {
     cy.visit('www.google.com')
@@ -88,7 +88,7 @@ Folder structure is hard coded (see below). There will be enhancements coming in
 
 In order to force the screenshot resolution when running a test you will need to set the following environment variables:
 
-```
+```js
 export HEIGHT=2240 // Default is set to 1280
 export WIDTH=1980 // Default is set to 720
 ```
