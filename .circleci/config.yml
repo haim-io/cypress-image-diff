@@ -28,7 +28,7 @@ jobs:
     working_directory: ~/cypress-image-diff
     steps:
       - checkout
-      - run: npm ci
+      - run: npm install
       - run:
           name: Build
           command: npm run build
