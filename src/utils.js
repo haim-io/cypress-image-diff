@@ -28,13 +28,7 @@ const setFilePermission = (dir, permission) => {
 }
 
 const renameAndMoveFile = (originalFilePath, newFilePath) => {
-  const readStream = fs.createReadStream(originalFilePath)
-  const writeStream = fs.createWriteStream(newFilePath)
-  readStream.pipe(writeStream)
-  // eslint-disable-next-line func-names
-  readStream.on('end', function() {
-    fs.unlinkSync(originalFilePath)
-  })
+  fs.copySync(originalFilePath, newFilePath);
 }
 
 const parseImage = async image => {

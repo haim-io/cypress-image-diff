@@ -32,7 +32,7 @@ const generateReport = (instance = '') => {
 const copyScreenshot = args => {
   // If baseline does not exist, copy comparison image to baseline folder
   if (!fs.existsSync(paths.image.baseline(args.testName))) {
-    fs.copyFileSync(paths.image.comparison(args.testName), paths.image.baseline(args.testName))
+    fs.copySync(paths.image.comparison(args.testName), paths.image.baseline(args.testName))
   }
   
   return true
@@ -71,6 +71,7 @@ async function compareSnapshotsPlugin(args) {
   const testFailed = percentage > args.testThreshold
 
   if (testFailed) {
+    fs.ensureFileSync(paths.image.diff(args.testName))
     diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
   }
 
