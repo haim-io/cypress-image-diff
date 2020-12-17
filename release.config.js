@@ -1,5 +1,4 @@
 module.exports = {
-  branch: 'main',
   plugins: [
     '@semantic-release/release-notes-generator',
     '@semantic-release/npm',
