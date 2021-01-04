@@ -16,6 +16,7 @@ The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is sim
 
 ## Table of contents
 - [Cypress integration](./docs/Cypress%20integration.md)
+- [CLI](./docs/CLI.md)
 - [Reporting](./docs/Reporting.md)
 - [Running tests](./docs/Running%20tests.md)
 - [Contributing](./docs/CONTRIBUTING.md)
