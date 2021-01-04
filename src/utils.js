@@ -17,6 +17,10 @@ const cleanDir = dirs => {
   })
 }
 
+const readDir = dir => {
+  return fs.readdirSync(dir)
+}
+
 const setFilePermission = (dir, permission) => {
   try {
     const fd = fs.openSync(dir, 'r')
@@ -61,4 +65,4 @@ const adjustCanvas = async (image, width, height) => {
   return imageAdjustedCanvas
 }
 
-export { createDir, cleanDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile }
+export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile }
