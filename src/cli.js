@@ -21,7 +21,8 @@ const parseArgumentsIntoOptions = rawArgs => {
  }
 }
 
-const cli = (args) => {
+// eslint-disable-next-line import/prefer-default-export
+export function cli(args) {
  const options = parseArgumentsIntoOptions(args)
  if (options.updateBaseline) {
    // Only update image if it failed the comparison
@@ -37,5 +38,3 @@ const cli = (args) => {
    }
  }
 }
-
-export default cli

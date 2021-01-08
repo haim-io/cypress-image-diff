@@ -1,7 +1,7 @@
 import colors from 'colors/safe'
 import { copySync, readdirSync } from 'fs-extra'
 
-import cli from './cli'
+import { cli } from './cli'
 
 jest.mock('fs-extra', () => ({
   ...jest.requireActual('fs-extra'),
