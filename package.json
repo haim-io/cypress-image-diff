@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Visual regression testing tool with cypress",
   "main": "dist/command.js",
+  "bin": {
+    "cypress-image-diff": "./bin/cypress-image-diff.js"
+  },
   "scripts": {
     "lint": "eslint src/ cypress/",
     "test:unit": "jest src/",
