@@ -2,7 +2,7 @@ import arg from 'arg'
 import colors from 'colors/safe'
 import fs from 'fs-extra'
 
-import path from './config'
+import Path from './paths'
 import { readDir } from './utils'
 
 const parseArgumentsIntoOptions = rawArgs => {
@@ -23,6 +23,7 @@ const parseArgumentsIntoOptions = rawArgs => {
 
 // eslint-disable-next-line import/prefer-default-export
 export function cli(args) {
+ const path = Path(args);
  const options = parseArgumentsIntoOptions(args)
  if (options.updateBaseline) {
    // Only update image if it failed the comparison

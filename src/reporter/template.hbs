@@ -57,16 +57,13 @@
         margin-left:24px;
       }
       .screenshot {
-        margin-left:24px;
       }
       .screenshot-large {
         height: 100%;
         width: 100%;
       }
       .screenshot-column {
-        float: left;
-        width: 50%;
-        padding: 5px;
+        width: 33%;
       }
       .table-test {
         margin: 0px;
@@ -92,35 +89,31 @@
             <td>
               <table class="table table-test">
                 <tr>
-                  <td colspan="2" class="test-{{test.testStatus}}">
+                  <td colspan="3" class="test-{{test.testStatus}}">
                     {{#testStateIcon test.testStatus}}{{/testStateIcon}}
                     {{test.name}}
                   </td>
                 </tr>
                 {{#equal test.testStatus 'fail'}}
                   <tr class="test-row screenshot">
-                    <td colspan="2">
-                      <div class="row">
-                        <div class="screenshot-column">
+                    <td class="screenshot-column">
                           <h4>Baseline</h4>
-                          <a href="../cypress-visual-screenshots/baseline/{{test.name}}.png">
-                            <img src="../cypress-visual-screenshots/baseline/{{test.name}}.png" alt="Snow" style="width:100%">
+                          <a href="{{../../paths.baseline}}/{{test.name}}.png">
+                            <img src="{{../../paths.baseline}}/{{test.name}}.png" alt="Baseline" style="width:100%">
                           </a>
-                        </div>
-                        <div class="screenshot-column">
-                          <h4>Comparison</h4>
-                          <a href="../cypress-visual-screenshots/comparison/{{test.name}}.png">
-                            <img src="../cypress-visual-screenshots/comparison/{{test.name}}.png" alt="Snow" style="width:100%">
-                          </a>
-                        </div>
-                        <div class="screenshot-column">
-                          <h4>Diff</h4>
-                          <a href="../cypress-visual-screenshots/diff/{{test.name}}.png">
-                            <img src="../cypress-visual-screenshots/diff/{{test.name}}.png" alt="Snow" style="width:100%">
-                          </a>
-                        </div>
-                      </div>
                     </td>
+                      <td class="screenshot-column">
+                          <h4>Comparison</h4>
+                          <a href="{{../../paths.comparison}}/{{test.name}}.png">
+                            <img src="{{../../paths.comparison}}/{{test.name}}.png" alt="Comparison" style="width:100%">
+                          </a>
+                      </td>
+                      <td class="screenshot-column">
+                          <h4>Diff</h4>
+                          <a href="{{../../paths.diff}}/{{test.name}}.png">
+                            <img src="{{../../paths.diff}}/{{test.name}}.png" alt="Diff" style="width:100%">
+                          </a>
+                        </td>
                   </tr>
                 {{/equal}}
               </table>

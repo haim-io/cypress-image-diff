@@ -3,5 +3,17 @@
   "pluginsFile": "cypress/plugins/index.js",
   "supportFile": "cypress/support/index.js",
   "defaultCommandTimeout": 20000,
-  "requestTimeout": 20000
+  "requestTimeout": 20000,
+  "viewportHeight": 720,
+  "viewportWidth": 1080,
+  "numTestsKeptInMemory": 1,
+  "video": false,
+  "trashAssetsBeforeRuns": true,
+  "screenshotOnRunFailure": false,
+  "screenshotsFolder": "cypress/__screenshots__",
+  "cypressImageDiffConfig": {
+    "screenshotsFolder": "cypress/__regression__",
+    "reportFolder": "cypress/__reports__",
+    "reportName": "Visual Regression Testing"
+  }
 }
