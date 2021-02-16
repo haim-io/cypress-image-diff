@@ -67,11 +67,9 @@ describe('Visuals', () => {
 
 ### Updating baseline images
 
-If there are wanted changes to the application in test and if we need to update baseline image, you will have to manually copy the comparison image into the baseline folder, replacing the image.
+If there are wanted changes to the application in test and if we need to update baseline images, you can follow the steps in [CLI](./docs/CLI.md) documentation to update the baselines.
 
-Or deleting the baseline image that you wish to be updated and rerunning the tests, this will create a new baseline image with the updated result.
-
-Enhancements will be built to ease the process of updating baseline images.
+Alternatively you can delete the baseline image that you wish to be updated and rerun the tests, this will create a new baseline image with the updated image.
 
 ### Folder structure
 
