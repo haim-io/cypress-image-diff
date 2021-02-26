@@ -17,4 +17,10 @@ describe('Visuals', () => {
     cy.visit('../../report-example.html')
     cy.get('#report-header').compareSnapshot('element')
   })
+
+  it('should compare hide an element', () => {
+    cy.visit('../../report-example.html')
+    cy.hideElement('#report-header')
+    cy.compareSnapshot('hideElement')
+  })
 })
