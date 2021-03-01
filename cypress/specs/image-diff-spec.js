@@ -20,7 +20,7 @@ describe('Visuals', () => {
 
   it('should compare hide an element', () => {
     cy.visit('../../report-example.html')
-    cy.hideElement('#report-header')
+    cy.get('#report-header').hideElement()
     cy.compareSnapshot('hideElement')
   })
 })

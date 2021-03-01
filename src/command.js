@@ -39,13 +39,13 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     }
   )
 
-  Cypress.Commands.add('hideElement', { prevSubject: 'optional' }, (subject, cssPath, hide=true) => {
+  Cypress.Commands.add('hideElement', { prevSubject: 'optional' }, (subject, hide=true) => {
     if (hide) {
-      cy.exec(document.querySelector(cssPath).style.display = 'none')
+      cy.get(subject).invoke('attr', 'style', `display: none;`)
     } else {
-      cy.exec(document.querySelector(cssPath).style.display = '')
+      cy.get(subject).invoke('attr', 'style', `display: '';`)
     }
-    return subject  
+    return undefined
   })
 }
 
