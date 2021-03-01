@@ -38,6 +38,15 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
       })
     }
   )
+
+  Cypress.Commands.add('hideElement', { prevSubject: 'optional' }, (subject, hide=true) => {
+    if (hide) {
+      cy.get(subject).invoke('attr', 'style', `display: none;`)
+    } else {
+      cy.get(subject).invoke('attr', 'style', `display: '';`)
+    }
+    return undefined
+  })
 }
 
 module.exports = compareSnapshotCommand

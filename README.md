@@ -65,6 +65,18 @@ describe('Visuals', () => {
 })
 ```
 
+### Hiding an element before taking a screenshot
+
+```js
+describe('Visuals', () => {
+  it('should compare screenshot from a given element', () => {
+    cy.visit('www.google.com')
+    cy.get('#report-header').hideElement() // hideElement(false) to unhide
+    cy.compareSnapshot('search-bar-element')
+  })
+})
+```
+
 ### Updating baseline images
 
 If there are wanted changes to the application in test and if we need to update baseline images, you can follow the steps in [CLI](./docs/CLI.md) documentation to update the baselines.
