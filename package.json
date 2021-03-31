@@ -62,5 +62,8 @@
     "jest": "^25.5.4",
     "prettier": "^2.1.2",
     "semantic-release": "^17.2.3"
+  },
+  "resolutions": {
+    "y18n": ">=4.0.1"
   }
 }
