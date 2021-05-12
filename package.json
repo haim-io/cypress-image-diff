@@ -64,6 +64,8 @@
     "semantic-release": "^17.2.3"
   },
   "resolutions": {
-    "y18n": ">=4.0.1"
+    "y18n": ">=4.0.1",
+    "lodash": ">=4.17.21",
+    "hosted-git-info": ">=2.8.9"
   }
 }
