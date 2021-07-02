@@ -7,7 +7,6 @@
     "cypress-image-diff": "./bin/cypress-image-diff.js"
   },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "lint": "eslint src/ cypress/",
     "test:unit": "jest src/",
     "test:e2e": "npm run build && cypress run --browser chrome --headless",
