@@ -42,7 +42,7 @@
     "colors": "^1.4.0",
     "cypress": "^8.2.0",
     "fs-extra": "^9.0.1",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "pixelmatch": "^5.1.0",
     "pngjs": "^3.4.0"
   },
