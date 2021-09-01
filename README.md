@@ -100,8 +100,8 @@ Folder structure is hard coded (see below). There will be enhancements coming in
 In order to force the screenshot resolution when running a test you will need to set the following environment variables:
 
 ```js
-export HEIGHT=2240 // Default is set to 1280
-export WIDTH=1980 // Default is set to 720
+export HEIGHT=1980 // Default is set to 1440
+export WIDTH=2240 // Default is set to 1980
 ```
 
 ### Please notice
