@@ -69,6 +69,7 @@
     "hosted-git-info": ">=2.8.9",
     "browserslist": ">=4.16.5",
     "ws": ">=7.4.6",
-    "path-parse": ">=1.0.7"
+    "path-parse": ">=1.0.7",
+    "trim-off-newlines": ">=1.0.1"
   }
 }
