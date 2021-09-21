@@ -61,7 +61,7 @@
     "eslint-plugin-import": "^2.22.1",
     "jest": "^27.0.6",
     "prettier": "^2.1.2",
-    "semantic-release": "^17.4.7"
+    "semantic-release": "^18.0.0"
   },
   "resolutions": {
     "y18n": ">=4.0.1",
