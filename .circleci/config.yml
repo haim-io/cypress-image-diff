@@ -19,7 +19,7 @@ jobs:
           name: Run unit
           command: make unit-test
       - run:
-          name: Run eslint
+          name: Run e2e test
           command: make e2e-test
 
   build_and_publish:
