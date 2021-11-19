@@ -1,6 +1,6 @@
 const compareSnapshotCommand = defaultScreenshotOptions => {
-  const height = process.env.HEIGHT || '1440'
-  const width = process.env.WIDTH || '1980'
+  const height = process.env.HEIGHT || 1440
+  const width = process.env.WIDTH || 1980
 
   // Force screenshot resolution to keep consistency of test runs across machines
   Cypress.config('viewportHeight', height)
