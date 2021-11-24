@@ -50,12 +50,12 @@ describe('Utils', () => {
     it('should not trigger clean directory function when path doesn\'t exist', () => {
       existsSync.mockReturnValue(false)
       
-      cleanDir (args)
+      cleanDir(args)
       expect(existsSync).toHaveBeenCalledTimes(1)
       expect(emptyDirSync).toHaveBeenCalledTimes(0)
     })
   })
-  
+
   describe('Move files', () => {
     it('should move files', () => {
       renameAndMoveFile(args[0], args[0] + 'new')
