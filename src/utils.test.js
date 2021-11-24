@@ -58,9 +58,9 @@ describe('Utils', () => {
 
   describe('Move files', () => {
     it('should move files', () => {
-      renameAndMoveFile(args[0], args[0] + 'new')
+      renameAndMoveFile(sampleFiles[0], sampleFiles[1])
       expect(moveSync).toHaveBeenCalledTimes(1)
-      expect(moveSync).toBeCalledWith(args[0], args[0] + 'new')
+      expect(moveSync).toBeCalledWith(sampleFiles[0], sampleFiles[1])
     })
   })
 })
