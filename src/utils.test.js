@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, emptyDirSync, readdirSync } from 'fs-extra'
-import { createDir, cleanDir } from './utils'
+import { existsSync, mkdirSync, emptyDirSync, readdirSync, moveSync } from 'fs-extra'
+import { createDir, cleanDir, renameAndMoveFile } from './utils'
 
 jest.mock('fs-extra', () => ({
   ...jest.requireActual('fs-extra'),
@@ -7,6 +7,7 @@ jest.mock('fs-extra', () => ({
   mkdirSync: jest.fn(),
   emptyDirSync: jest.fn(),
   readdirSync: jest.fn(),
+  moveSync: jest.fn(),
 }))
 
 describe('Utils', () => {
@@ -49,9 +50,17 @@ describe('Utils', () => {
     it('should not trigger clean directory function when path doesn\'t exist', () => {
       existsSync.mockReturnValue(false)
       
-      cleanDir(args)
+      cleanDir (args)
       expect(existsSync).toHaveBeenCalledTimes(1)
       expect(emptyDirSync).toHaveBeenCalledTimes(0)
     })
-  })  
+  })
+  
+  describe('Move files', () => {
+    it('should move files', () => {
+      renameAndMoveFile(args[0], args[0] + 'new')
+      expect(moveSync).toHaveBeenCalledTimes(1)
+      expect(moveSync).toBeCalledWith(args[0], args[0] + 'new')
+    })
+  })
 })
