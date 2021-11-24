@@ -32,7 +32,7 @@ const setFilePermission = (dir, permission) => {
 }
 
 const renameAndMoveFile = (originalFilePath, newFilePath) => {
-  fs.copySync(originalFilePath, newFilePath)
+  fs.moveSync(originalFilePath, newFilePath)
 }
 
 const parseImage = async image => {
