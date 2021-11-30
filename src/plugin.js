@@ -90,11 +90,19 @@ const getCompareSnapshotsPlugin = on => {
 
   // Force screenshot resolution to keep consistency of test runs across machines
   on('before:browser:launch', (browser, launchOptions) => {
-    const height = process.env.HEIGHT || '1280'
-    const width = process.env.WIDTH || '720'
+    const width = process.env.WIDTH || '1280'
+    const height = process.env.HEIGHT || '720'
     if (browser.name === 'chrome') {
-      launchOptions.args.push(`--window-size=${height},${width}`)
+      launchOptions.args.push(`--window-size=${width},${height}`)
       launchOptions.args.push('--force-device-scale-factor=1')
+    }
+    if (browser.name === 'electron') {
+      launchOptions.preferences.width = width
+      launchOptions.preferences.height = height
+    }
+    if (browser.name === 'firefox') {
+      launchOptions.args.push(`--width=${width}`)
+      launchOptions.args.push(`--height=${height}`)
     }
     return launchOptions
   })
