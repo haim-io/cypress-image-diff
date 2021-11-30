@@ -97,7 +97,9 @@ const getCompareSnapshotsPlugin = on => {
       launchOptions.args.push('--force-device-scale-factor=1')
     }
     if (browser.name === 'electron') {
+      // eslint-disable-next-line no-param-reassign
       launchOptions.preferences.width = width
+      // eslint-disable-next-line no-param-reassign
       launchOptions.preferences.height = height
     }
     if (browser.name === 'firefox') {
