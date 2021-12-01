@@ -60,7 +60,7 @@ describe('Utils', () => {
     it('should move files', () => {
       renameAndMoveFile(sampleFiles[0], sampleFiles[1])
       expect(moveSync).toHaveBeenCalledTimes(1)
-      expect(moveSync).toBeCalledWith(sampleFiles[0], sampleFiles[1])
+      expect(moveSync).toBeCalledWith(sampleFiles[0], sampleFiles[1], {"overwrite": true})
     })
   })
 })
