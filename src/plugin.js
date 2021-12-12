@@ -98,9 +98,9 @@ const getCompareSnapshotsPlugin = on => {
     }
     if (browser.name === 'electron') {
       // eslint-disable-next-line no-param-reassign
-      launchOptions.preferences.width = width
+      launchOptions.preferences.width = Number.parseInt(width, 10)
       // eslint-disable-next-line no-param-reassign
-      launchOptions.preferences.height = height
+      launchOptions.preferences.height = Number.parseInt(height, 10)
     }
     if (browser.name === 'firefox') {
       launchOptions.args.push(`--width=${width}`)
