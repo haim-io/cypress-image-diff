@@ -1,3 +1,5 @@
+import { recurse } from 'cypress-recurse';
+
 const compareSnapshotCommand = defaultScreenshotOptions => {
   const height = process.env.HEIGHT || 1440
   const width = process.env.WIDTH || 1980
@@ -9,28 +11,43 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
   Cypress.Commands.add(
     'compareSnapshot',
     { prevSubject: 'optional' },
-    (subject, name, testThreshold = 0) => {
+    (subject, name, testThreshold = 0, recurseOptions = {}) => {
       const specName = Cypress.spec.name
       const testName = `${specName.replace('.js', '')}-${name}`
-      
-      // Take a screenshot and copy to baseline if it does not exist
-      const objToOperateOn = subject ? cy.get(subject) : cy
-      objToOperateOn
-        .screenshot(testName, defaultScreenshotOptions)
-        .task('copyScreenshot', {
-          testName,
-        })
 
-      // Compare screenshots
-      const options = {
-        testName,
-        testThreshold,
+      const defaultRecurseOptions = {
+        limit: 1,
+        log: (percentage) => {
+          const prefix = percentage <= testThreshold ? 'PASS' : 'FAIL'
+          cy.log(`${prefix}: Image difference percentage ${percentage}`)
+        },
+        error: `Image difference greater than threshold: ${testThreshold}`
       }
-      cy.task('compareSnapshotsPlugin', options).then((percentage) => {
-        if (percentage > testThreshold) {
-          throw new Error(`The image difference percentage ${percentage} exceeded the threshold: ${testThreshold}`)
-        }
-      })
+
+      recurse(
+        () => {
+          // Clear the comparison and diff screenshots for this test
+          cy.task('deleteScreenshot', { testName })
+
+          // Take a screenshot and copy to baseline if it does not exist
+          const objToOperateOn = subject ? cy.get(subject) : cy
+          objToOperateOn
+            .screenshot(testName, defaultScreenshotOptions)
+            .task('copyScreenshot', {
+              testName,
+            })
+
+          // Compare screenshots
+          const options = {
+            testName,
+            testThreshold,
+          }
+          
+          return cy.task('compareSnapshotsPlugin', options)
+        },
+        (percentage) => percentage <= testThreshold,
+        Object.assign({}, defaultRecurseOptions, recurseOptions)
+      );
     }
   )
 
