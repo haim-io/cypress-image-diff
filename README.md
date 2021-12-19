@@ -54,6 +54,21 @@ describe('Visuals', () => {
 })
 ```
 
+You can also retry the snapshot comparison by passing in an optional third parameter. It accepts the same options as [cypress-recurse](https://github.com/bahmutov/cypress-recurse#options).
+
+```js
+describe('Visuals', () => {
+  it('should compare screenshot of the entire page', () => {
+    cy.visit('www.google.com')
+    const retryOptions = {
+      limit: 5, // max number of retries
+      delay: 500 // delay before next iteration, ms
+    }
+    cy.compareSnapshot('home-page-with-threshold', 0, retryOptions)
+  })
+})
+```
+
 ### Take screenshot and compare an element
 
 ```js
