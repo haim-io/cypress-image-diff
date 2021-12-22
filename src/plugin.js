@@ -38,6 +38,19 @@ const copyScreenshot = args => {
   return true
 }
 
+// Delete screenshot from comparison and diff directories
+const deleteScreenshot = args => {
+  if (fs.existsSync(paths.image.comparison(args.testName))) {
+    fs.unlinkSync(paths.image.comparison(args.testName))
+  }
+
+  if (fs.existsSync(paths.image.diff(args.testName))) {
+    fs.unlinkSync(paths.image.diff(args.testName))
+  }
+
+  return true
+}
+
 async function compareSnapshotsPlugin(args) {
   const baselineImg = await parseImage(paths.image.baseline(args.testName))
   const comparisonImg = await parseImage(paths.image.comparison(args.testName))
@@ -120,6 +133,7 @@ const getCompareSnapshotsPlugin = on => {
   on('task', {
     compareSnapshotsPlugin,
     copyScreenshot,
+    deleteScreenshot,
     generateReport,
   })
 }
