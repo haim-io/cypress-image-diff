@@ -26,8 +26,9 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
 
       recurse(
         () => {
-          // Clear the comparison and diff screenshots for this test
+          // Clear the comparison/diff screenshots/reports for this test
           cy.task('deleteScreenshot', { testName })
+          cy.task('deleteReport', { testName })
 
           // Take a screenshot and copy to baseline if it does not exist
           const objToOperateOn = subject ? cy.get(subject) : cy

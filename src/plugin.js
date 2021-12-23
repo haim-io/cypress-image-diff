@@ -12,7 +12,7 @@ import paths from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
 
-const testStatuses = []
+let testStatuses = []
 
 const setupFolders = () => {
   createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff, paths.reportDir])
@@ -26,6 +26,12 @@ const generateReport = (instance = '') => {
   if (testStatuses.length > 0) {
     createReport({ tests: testStatuses, instance })
   }
+  return true
+}
+
+const deleteReport = args => {
+  testStatuses = testStatuses.filter(testStatus => testStatus.name !== args.testName)
+
   return true
 }
 
@@ -135,6 +141,7 @@ const getCompareSnapshotsPlugin = on => {
     copyScreenshot,
     deleteScreenshot,
     generateReport,
+    deleteReport,
   })
 }
 
