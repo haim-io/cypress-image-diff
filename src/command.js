@@ -3,7 +3,7 @@ import { recurse } from 'cypress-recurse';
 const compareSnapshotCommand = defaultScreenshotOptions => {
   const height = process.env.HEIGHT || 1440
   const width = process.env.WIDTH || 1980
-  const failOnSnapshotDiff = Cypress.env('ignoreFailOnImageDiff') || false
+  const ignoreFailOnImageDiff = Cypress.env('ignoreFailOnImageDiff') || false
 
   // Force screenshot resolution to keep consistency of test runs across machines
   Cypress.config('viewportHeight', parseInt(height, 10))
@@ -47,7 +47,7 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
 
           return cy.task('compareSnapshotsPlugin', options)
         },
-        (percentage) => failOnSnapshotDiff ? true : percentage <= testThreshold,
+        (percentage) => ignoreFailOnImageDiff ? true : percentage <= testThreshold,
         Object.assign({}, defaultRecurseOptions, recurseOptions)
       );
     }
