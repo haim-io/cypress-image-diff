@@ -23,8 +23,10 @@ const readDir = dir => {
 
 const setFilePermission = (dir, permission) => {
   try {
-    const fd = fs.openSync(dir, 'r')
-    fs.fchmodSync(fd, permission)
+    if (fs.existsSync(dir)) {
+      const fd = fs.openSync(dir, 'r')
+      fs.fchmodSync(fd, permission)
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error)
