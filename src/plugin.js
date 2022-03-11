@@ -133,6 +133,7 @@ const getCompareSnapshotsPlugin = on => {
   on('after:screenshot', details => {
     // Change screenshots file permission so it can be moved from drive to drive
     setFilePermission(details.path, 0o777)
+    setFilePermission(paths.image.comparison(details.name), 0o777)
     renameAndMoveFile(details.path, paths.image.comparison(details.name))
   })
 
