@@ -112,11 +112,13 @@ Folder structure is hard coded (see below). There will be enhancements coming in
 
 ### Force resolution size
 
-In order to force the screenshot resolution when running a test you will need to set the following environment variables:
+In order to force the screenshot resolution when running a test you will need to set the following cypress config values in `cypress.json`:
 
 ```js
-export HEIGHT=1980 // Default is set to 1440
-export WIDTH=2240 // Default is set to 1980
+{
+  "viewportWidth": 1000, // Default value: 1280
+  "viewportHeight": 660 // Default value: 720
+}
 ```
 
 ### Please notice

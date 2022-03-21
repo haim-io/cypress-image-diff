@@ -100,7 +100,7 @@ async function compareSnapshotsPlugin(args) {
   return percentage
 }
 
-const getCompareSnapshotsPlugin = on => {
+const getCompareSnapshotsPlugin = (on, config) => {
   // Create folder structure
   setupFolders()
 
@@ -109,8 +109,9 @@ const getCompareSnapshotsPlugin = on => {
 
   // Force screenshot resolution to keep consistency of test runs across machines
   on('before:browser:launch', (browser, launchOptions) => {
-    const width = process.env.WIDTH || '1280'
-    const height = process.env.HEIGHT || '720'
+    const width = config.viewportWidth || '1280'
+    const height = config.viewportHeight || '720'
+
     if (browser.name === 'chrome') {
       launchOptions.args.push(`--window-size=${width},${height}`)
       launchOptions.args.push('--force-device-scale-factor=1')
