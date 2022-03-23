@@ -1,8 +1,8 @@
 import { recurse } from 'cypress-recurse';
 
 const compareSnapshotCommand = defaultScreenshotOptions => {
-  const height = process.env.HEIGHT || 1440
-  const width = process.env.WIDTH || 1980
+  const height = Cypress.config('viewportHeight') || 1440
+  const width = Cypress.config('viewportWidth') || 1980
 
   // Force screenshot resolution to keep consistency of test runs across machines
   Cypress.config('viewportHeight', parseInt(height, 10))
