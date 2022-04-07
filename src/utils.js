@@ -38,6 +38,10 @@ const renameAndMoveFile = (originalFilePath, newFilePath) => {
   fs.moveSync(originalFilePath, newFilePath, {overwrite: true})
 }
 
+const renameAndCopyFile = (originalFilePath, newFilePath) => {
+  fs.copySync(originalFilePath, newFilePath, {overwrite: true})
+}
+
 const parseImage = async image => {
   return new Promise((resolve, reject) => {
     const fd = fs.createReadStream(image)
@@ -68,4 +72,4 @@ const adjustCanvas = async (image, width, height) => {
   return imageAdjustedCanvas
 }
 
-export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile }
+export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile }

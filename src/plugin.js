@@ -2,12 +2,14 @@ import fs from 'fs-extra'
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
 
-import { createDir,
-         cleanDir,
-         adjustCanvas,
-         parseImage,
-         setFilePermission,
-         renameAndMoveFile } from './utils'
+import {
+  createDir,
+  cleanDir,
+  adjustCanvas,
+  parseImage,
+  setFilePermission,
+  renameAndMoveFile, renameAndCopyFile
+} from './utils'
 import paths from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
@@ -135,7 +137,12 @@ const getCompareSnapshotsPlugin = (on, config) => {
     // Change screenshots file permission so it can be moved from drive to drive
     setFilePermission(details.path, 0o777)
     setFilePermission(paths.image.comparison(details.name), 0o777)
-    renameAndMoveFile(details.path, paths.image.comparison(details.name))
+
+    if (config.env.preserveOriginalScreenshot === true) {
+      renameAndCopyFile(details.path, paths.image.comparison(details.name))
+    } else {
+      renameAndMoveFile(details.path, paths.image.comparison(details.name))
+    }
   })
 
   on('task', {
