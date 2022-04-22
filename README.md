@@ -54,6 +54,18 @@ describe('Visuals', () => {
 })
 ```
 
+Additionally, you can also pass run options, where you can allow comparison to fail. This is useful if you want to generate visual test report, but do not want to fail whole cypress suite in case of failure.
+
+```js
+describe('Visuals', () => {
+  it('should compare screenshot of the entire page', () => {
+    cy.visit('www.google.com')
+    cy.compareSnapshot('home-page-with-threshold', {threshold: 0.2, allowToFail: true})
+  })
+})
+```
+
+
 You can also retry the snapshot comparison by passing in an optional third parameter. It accepts the same options as [cypress-recurse](https://github.com/bahmutov/cypress-recurse#options).
 
 ```js
