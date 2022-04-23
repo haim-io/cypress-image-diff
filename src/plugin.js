@@ -7,7 +7,7 @@ import { createDir,
          adjustCanvas,
          parseImage,
          setFilePermission,
-         renameAndMoveFile } from './utils'
+         renameAndCopyFile } from './utils'
 import paths from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
@@ -135,7 +135,7 @@ const getCompareSnapshotsPlugin = (on, config) => {
     // Change screenshots file permission so it can be moved from drive to drive
     setFilePermission(details.path, 0o777)
     setFilePermission(paths.image.comparison(details.name), 0o777)
-    renameAndMoveFile(details.path, paths.image.comparison(details.name))
+    renameAndCopyFile(details.path, paths.image.comparison(details.name))
   })
 
   on('task', {
