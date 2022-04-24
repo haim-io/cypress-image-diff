@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="[% title %]">
+    <title>Cypress Image Diff Report</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style type="text/css">
+      body {
+        background-color: #fafafa;
+        font-weight: 200;
+      }
+      h1, .h1, h2, .h2, h3, .h3 {
+        margin: 10px;
+        font-weight: 200;
+      }
+      h1, .h1 {
+        font-size: 30px;
+      }
+      h2, .h2 {
+        font-size: 24px;
+      }
+      h4, .h4 {
+        font-size: 25px;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+      }
+      .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        /*border-color: #ECEFF1;*/
+      }
+      span.error {
+        color: #AD2B2B;
+      }
+      span.success {
+        color: #53891E;
+      }
+      span.pending {
+        color: grey;
+      }
+      .test-pass, .suite-pass {
+        background-color: #C8E6C9;
+      }
+      .test-fail, .suite-fail {
+        background-color: #FFCDD2;
+      }
+      .test-skipped, .suite-pending {
+        background-color: #B5C8D1;;
+      }
+      .test-unknown, .suite-unknown {
+        background-color: #5EA3D1;;
+      }
+      .log-output {
+        background-color: rgba(255, 192, 0, 0.36);
+        margin-left:24px;
+      }
+      .screenshot {
+        margin-left:24px;
+      }
+      .screenshot-large {
+        height: 100%;
+        width: 100%;
+      }
+      .screenshot-column {
+        float: left;
+        width: 50%;
+        padding: 5px;
+      }
+      .table-test {
+        margin: 0px;
+      }
+      tr.test-row {
+        border-top: 2px solid white;
+      }
+      /* Clear floats after image containers */
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="report-header" class="page-header"><h1>{{title}}</h1></div>
+      <h2>Results</h2>
+      <table>
+        {{#each tests as |test|}}
+          <tr>
+            <td>
+              <table class="table table-test">
+                <tr>
+                  <td colspan="2" class="test-{{test.testStatus}}">
+                    {{#testStateIcon test.testStatus}}{{/testStateIcon}}
+                    {{test.name}}
+                  </td>
+                </tr>
+                {{#equal test.testStatus 'fail'}}
+                  <tr class="test-row screenshot">
+                    <td colspan="2">
+                      <div class="row">
+                        <div class="screenshot-column">
+                          <h4>Baseline</h4>
+                          <a href="../cypress-visual-screenshots/baseline/{{test.name}}.png">
+                            <img src="../cypress-visual-screenshots/baseline/{{test.name}}.png" alt="Snow" style="width:100%">
+                          </a>
+                        </div>
+                        <div class="screenshot-column">
+                          <h4>Comparison</h4>
+                          <a href="../cypress-visual-screenshots/comparison/{{test.name}}.png">
+                            <img src="../cypress-visual-screenshots/comparison/{{test.name}}.png" alt="Snow" style="width:100%">
+                          </a>
+                        </div>
+                        <div class="screenshot-column">
+                          <h4>Diff</h4>
+                          <a href="../cypress-visual-screenshots/diff/{{test.name}}.png">
+                            <img src="../cypress-visual-screenshots/diff/{{test.name}}.png" alt="Snow" style="width:100%">
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                {{/equal}}
+              </table>
+            </td>
+          <tr>
+        {{/each}}
+      </table>
+    </div>
+  </body>
+</html>
