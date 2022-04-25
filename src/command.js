@@ -11,7 +11,15 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
   Cypress.Commands.add(
     'compareSnapshot',
     { prevSubject: 'optional' },
-    (subject, name, testThreshold = 0, recurseOptions = {}) => {
+    (subject, name, optionsOrThreshold, recurseOptions = {}) => {
+      let testThreshold;
+      let allowToFail = false;
+      if (typeof optionsOrThreshold === 'object') {
+          testThreshold = optionsOrThreshold.threshold || 0;
+          allowToFail = !!optionsOrThreshold.allowToFail;
+      } else {
+          testThreshold = optionsOrThreshold || 0;
+      }
       const specName = Cypress.spec.name
       const testName = `${specName.replace('.js', '')}-${name}`
 
@@ -42,6 +50,7 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
           const options = {
             testName,
             testThreshold,
+            allowToFail
           }
           
           return cy.task('compareSnapshotsPlugin', options)
