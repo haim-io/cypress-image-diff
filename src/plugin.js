@@ -94,10 +94,8 @@ async function compareSnapshotsPlugin(args) {
     diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
   }
 
-   if (!args.allowToFail) {
-     // Saving test status object to build report if task is triggered
-     testStatuses.push(new TestStatus(!testFailed, args.testName))
-   }
+  // Saving test status object to build report if task is triggered
+  testStatuses.push(new TestStatus(!testFailed, args.testName))
 
   return percentage
 }
