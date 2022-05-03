@@ -12,11 +12,6 @@ describe('Visuals', () => {
     cy.visit('../../report-example.html')
     cy.compareSnapshot('wholePageThreshold', 0.2)
   })
-
-  it('should not fail test if allowToFail option is paassed', () => {
-    cy.visit('../../report-example.html')
-    cy.compareSnapshot('wholePageThreshold', {threshold: -1, allowToFail: true})
-  })
   
   it('should compare screenshot from a given element', () => {
     cy.visit('../../report-example.html')
