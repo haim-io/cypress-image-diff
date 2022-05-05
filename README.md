@@ -121,6 +121,17 @@ In order to force the screenshot resolution when running a test you will need to
 }
 ```
 
+### Preserving the original screenshot
+All screenshots will be renamed and moved from the default screenshot location to a new screenshot folder structure. To preserve the screenshot in the original location, set the following values in `cypress.json`:
+
+```json
+{
+  "env": {
+    "preserveOriginalScreenshot": true
+  }
+}
+```
+
 ### Please notice
 
 Be aware that despite forcing a screenshot resolution to a particular height and width for a test, if this test is run on different computers (i.e a 13" Mac vs PC attached to a 30" monitor), the results will be different. So it's extremely important that you standardize where the tests will run, both locally and CI.
