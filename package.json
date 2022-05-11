@@ -73,6 +73,7 @@
     "path-parse": ">=1.0.7",
     "trim-off-newlines": ">=1.0.1",
     "set-value": ">=4.0.1",
-    "tmpl": ">=1.0.5"
+    "tmpl": ">=1.0.5",
+    "minimist": ">=1.2.6"
   }
 }
