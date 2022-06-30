@@ -62,34 +62,30 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
       const defaultRecurseOptions = {
         limit: 1,
         log: (percentage) => {
+          //Flipped from >= to <=
           const prefix = percentage <= testThreshold ? 'PASS' : 'FAIL'
           cy.log(`${prefix}: Image difference percentage ${percentage}`)
         },
-        error: `Image difference greater than threshold: ${testThreshold}`
+        //Invert function throws error if image difference is less than specified threshold
+        error: `Image difference less than threshold: ${testThreshold}`
       }
-
       recurse(
         () => {
-          // Clear the comparison/diff screenshots/reports for this test
           cy.task('deleteScreenshot', { testName })
           cy.task('deleteReport', { testName })
-
-          // Take a screenshot and copy to baseline if it does not exist
           const objToOperateOn = subject ? cy.get(subject) : cy
           objToOperateOn
             .screenshot(testName, defaultScreenshotOptions)
             .task('copyScreenshot', {
               testName,
             })
-
-          // Compare screenshots
           const options = {
             testName,
             testThreshold,
           }
-          
           return cy.task('compareSnapshotsPluginInvert', options)
         },
+        //Flipped from >= to <=
         (percentage) => percentage <= testThreshold,
         Object.assign({}, defaultRecurseOptions, recurseOptions)
       );
