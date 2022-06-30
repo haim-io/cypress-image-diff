@@ -145,8 +145,51 @@ const getCompareSnapshotsPlugin = (on, config) => {
     }
   })
 
+  const getCompareSnapshotsPluginInvert = (on, config) => {
+  setupFolders()
+  tearDownDirs()
+  on('before:browser:launch', (browser, launchOptions) => {
+    const width = config.viewportWidth || '1280'
+    const height = config.viewportHeight || '720'
+    if (browser.name === 'chrome') {
+      launchOptions.args.push(`--window-size=${width},${height}`)
+      launchOptions.args.push('--force-device-scale-factor=1')
+    }
+    if (browser.name === 'electron') {
+      // eslint-disable-next-line no-param-reassign
+      launchOptions.preferences.width = Number.parseInt(width, 10)
+      // eslint-disable-next-line no-param-reassign
+      launchOptions.preferences.height = Number.parseInt(height, 10)
+    }
+    if (browser.name === 'firefox') {
+      launchOptions.args.push(`--width=${width}`)
+      launchOptions.args.push(`--height=${height}`)
+    }
+    return launchOptions
+  })
+  on('after:screenshot', details => {
+    setFilePermission(details.path, 0o777)
+    setFilePermission(paths.image.comparison(details.name), 0o777)
+    if (config.env.preserveOriginalScreenshot === true) {
+      renameAndCopyFile(details.path, paths.image.comparison(details.name))
+    } else {
+      renameAndMoveFile(details.path, paths.image.comparison(details.name))
+    }
+  })
+
   on('task', {
     compareSnapshotsPlugin,
+    compareSnapshotsPluginInvert,
+    copyScreenshot,
+    deleteScreenshot,
+    generateReport,
+    deleteReport,
+  })
+}
+  
+  on('task', {
+    compareSnapshotsPlugin,
+    compareSnapshotsPluginInvert
     copyScreenshot,
     deleteScreenshot,
     generateReport,
@@ -154,4 +197,4 @@ const getCompareSnapshotsPlugin = (on, config) => {
   })
 }
 
-module.exports = getCompareSnapshotsPlugin
+module.exports = getCompareSnapshotsPlugin, getCompareSnapshotsPluginInvert
