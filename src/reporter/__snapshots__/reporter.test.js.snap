@@ -43,6 +43,9 @@ exports[`Reporter create report should create html template 1`] = `
       span.pending {
         color: grey;
       }
+      .container-fluid {
+        padding: 0 50px;
+      }
       .test-pass, .suite-pass {
         background-color: #C8E6C9;
       }
@@ -59,34 +62,28 @@ exports[`Reporter create report should create html template 1`] = `
         background-color: rgba(255, 192, 0, 0.36);
         margin-left:24px;
       }
-      .screenshot {
-        margin-left:24px;
-      }
-      .screenshot-large {
-        height: 100%;
-        width: 100%;
-      }
-      .screenshot-column {
-        float: left;
-        width: 50%;
-        padding: 5px;
-      }
       .table-test {
         margin: 0px;
       }
       tr.test-row {
         border-top: 2px solid white;
       }
-      /* Clear floats after image containers */
-      .row::after {
-        content: \\"\\";
-        clear: both;
-        display: table;
+      table > tbody > tr.test-row > td {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        margin: 0;
+      }
+      .row::after, .row::before {
+        display: none;
       }
     </style>
   </head>
   <body>
-    <div class=\\"container\\">
+    <div class=\\"container-fluid\\">
       <div id=\\"report-header\\" class=\\"page-header\\"><h1></h1></div>
       <h2>Results</h2>
       <table>
@@ -111,25 +108,25 @@ exports[`Reporter create report should create html template 1`] = `
                     Visual Test 2
                   </td>
                 </tr>
-                  <tr class=\\"test-row screenshot\\">
+                  <tr class=\\"test-row\\">
                     <td colspan=\\"2\\">
                       <div class=\\"row\\">
-                        <div class=\\"screenshot-column\\">
+                        <div>
                           <h4>Baseline</h4>
                           <a href=\\"../cypress-visual-screenshots/baseline/Visual Test 2.png\\">
                             <img src=\\"../cypress-visual-screenshots/baseline/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
                           </a>
                         </div>
-                        <div class=\\"screenshot-column\\">
-                          <h4>Comparison</h4>
-                          <a href=\\"../cypress-visual-screenshots/comparison/Visual Test 2.png\\">
-                            <img src=\\"../cypress-visual-screenshots/comparison/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
-                          </a>
-                        </div>
-                        <div class=\\"screenshot-column\\">
+                        <div>
                           <h4>Diff</h4>
                           <a href=\\"../cypress-visual-screenshots/diff/Visual Test 2.png\\">
                             <img src=\\"../cypress-visual-screenshots/diff/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
+                          </a>
+                        </div>
+                        <div>
+                          <h4>Comparison</h4>
+                          <a href=\\"../cypress-visual-screenshots/comparison/Visual Test 2.png\\">
+                            <img src=\\"../cypress-visual-screenshots/comparison/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
                           </a>
                         </div>
                       </div>
@@ -141,5 +138,6 @@ exports[`Reporter create report should create html template 1`] = `
       </table>
     </div>
   </body>
-</html>"
+</html>
+"
 `;
