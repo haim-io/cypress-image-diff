@@ -6,9 +6,11 @@ Baseline, comparison and diff images will only be added to the report for failin
 
 ## Cypress support index
 
-Add the following after hook in `cypress/support/index.js`:
+Add the following after hook
 
-```
+```js
+// cypress/support/index.js for Cypress versions below 10
+// cypress/support/{scheme}.js for Cypress versions 10 and above, where {scheme} defaults to e2e
 after(() => {
   cy.task('generateReport')
 })
