@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Visual regression testing tool with cypress",
   "main": "dist/command.js",
+  "types": "types/index.d.ts",
   "bin": {
     "cypress-image-diff": "./bin/cypress-image-diff.js"
   },
