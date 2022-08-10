@@ -1,14 +1,9 @@
 class TestStatus {
-  constructor(status, name) {
-    this.status = status
+  constructor({ status, name, percentage, failureThreshold }) {
+    this.status = status ? 'pass' : 'fail'
     this.name = name
-  }
-
-  get testStatus() {
-    if (this.status) {
-      return 'pass'
-    }
-    return 'fail'
+    this.percentage = percentage
+    this.failureThreshold = failureThreshold
   }
 }
 

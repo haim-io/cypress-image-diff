@@ -4,139 +4,984 @@ exports[`Reporter create report should create html template 1`] = `
 "<!DOCTYPE html>
 <html lang=\\"en\\">
   <head>
-    <meta charset=\\"utf-8\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
-    <meta name=\\"description\\" content=\\"[% title %]\\">
+    <meta charset=\\"utf-8\\" />
+    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" />
+    <meta name=\\"description\\" content=\\"[% title %]\\" />
     <title>Cypress Image Diff Report</title>
-    <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css\\">
+
     <style type=\\"text/css\\">
+      /* Base style: start */
+      :root {
+        --app-white-variant-0: #f9f8f8;
+        --app-black-variant-0: #302c34;
+        --app-black-variant-1: #5c6464;
+        --app-cream-variant-0: #f5f6e6;
+        --app-red-variant-0: #eb4e76;
+        --app-red-variant-1: rgba(228, 87, 112, 0.6);
+        --app-red-variant-2: rgba(228, 87, 112, 0.1);
+        --app-green-variant-0: #105156;
+        --app-green-variant-1: #1fa971;
+        --app-green-variant-2: #ecefd2;
+        --app-grey-overlay: rgba(0, 0, 0, 0.5);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        line-height: 1.5;
+      }
       body {
-        background-color: #fafafa;
-        font-weight: 200;
+        margin: 0;
+        line-height: inherit;
+        min-height: 100vh;
+        color: var(--app-green-variant-0);
+        background-color: var(--app-cream-variant-0);
       }
-      h1, .h1, h2, .h2, h3, .h3 {
-        margin: 10px;
-        font-weight: 200;
-      }
-      h1, .h1 {
-        font-size: 30px;
-      }
-      h2, .h2 {
-        font-size: 24px;
-      }
-      h4, .h4 {
-        font-size: 25px;
-        text-align: center;
-      }
-      table {
-        width: 100%;
-      }
-      .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-        /*border-color: #ECEFF1;*/
-      }
-      span.error {
-        color: #AD2B2B;
-      }
-      span.success {
-        color: #53891E;
-      }
-      span.pending {
-        color: grey;
-      }
-      .container-fluid {
-        padding: 0 50px;
-      }
-      .test-pass, .suite-pass {
-        background-color: #C8E6C9;
-      }
-      .test-fail, .suite-fail {
-        background-color: #FFCDD2;
-      }
-      .test-skipped, .suite-pending {
-        background-color: #B5C8D1;;
-      }
-      .test-unknown, .suite-unknown {
-        background-color: #5EA3D1;;
-      }
-      .log-output {
-        background-color: rgba(255, 192, 0, 0.36);
-        margin-left:24px;
-      }
-      .table-test {
-        margin: 0px;
-      }
-      tr.test-row {
-        border-top: 2px solid white;
-      }
-      table > tbody > tr.test-row > td {
-        padding-left: 0;
-        padding-right: 0;
-      }
-      .row {
-        display: flex;
-        gap: 10px;
+      h2,
+      h3 {
         margin: 0;
       }
-      .row::after, .row::before {
+      /* Base style: end */
+
+      /* Icon: start */
+      .expand-all-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23f5f6e6' class='bi bi-arrows-expand' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      .collapse-all-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23f5f6e6' class='bi bi-arrows-collapse' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zm7-8a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 4.293V.5A.5.5 0 0 1 8 0zm-.5 11.707-1.146 1.147a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 11.707V15.5a.5.5 0 0 1-1 0v-3.793z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      .task-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' fill='%23f5f6e6' class='bi bi-pass-fill' viewBox='0 0 16 16'%3E%3Cpath d='M10 0a2 2 0 1 1-4 0H3.5A1.5 1.5 0 0 0 2 1.5v13A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 12.5 0H10ZM4.5 5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1Zm0 2h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1Z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      .checkmark-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231fa971' class='bi bi-check-lg' viewBox='0 0 16 16'%3E%3Cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      .close-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23eb4e76' class='bi bi-x' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      .arrow-right-icon {
+        mask: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23105156' class='bi bi-chevron-right' viewBox='0 0 20 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+        -webkit-mask: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23105156' class='bi bi-chevron-right' viewBox='0 0 20 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+
+        background-color: var(--app-green-variant-0);
+      }
+      .frown-face-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23eb4e76' class='bi bi-emoji-frown-fill' viewBox='0 0 16 16'%3E%3Cpath d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm-2.715 5.933a.5.5 0 0 1-.183-.683A4.498 4.498 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      .happy-face-icon {
+        background: url(\\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231fa971' class='bi bi-emoji-smile-fill' viewBox='0 0 16 16'%3E%3Cpath d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z'/%3E%3C/svg%3E\\")
+          no-repeat center/contain;
+      }
+      /* Icon: end */
+
+      /* Header styles: start */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 99;
+
+        background-color: var(--app-black-variant-0);
+        color: var(--app-white-variant-0);
+
+        -webkit-box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.4);
+      }
+      .header__content {
+        height: 4rem;
+        padding: 0 4rem;
+
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .header__progress {
+        height: 0.25rem;
+
+        background-color: var(--app-red-variant-0);
+      }
+      .header__progress--success {
+        height: 100%;
+        width: 100%;
+
+        background-color: var(--app-green-variant-1);
+      }
+      .header__content > .icon-container {
+        display: flex;
+        align-items: center;
+
+        border-radius: 5px;
+
+        padding: 5px;
+
+        cursor: pointer;
+      }
+      .header__content[data-current-filter='total'] > [data-filter-type='total'],
+      .header__content[data-current-filter='pass'] > [data-filter-type='pass'],
+      .header__content[data-current-filter='fail'] > [data-filter-type='fail'] {
+        background-color: var(--app-black-variant-1);
+      }
+      .header__content > [data-toggle-state='expanded'],
+      .header__content > [data-toggle-state='collapsed'] {
         display: none;
       }
+      .header__content[data-current-toggle-state='expanded'] > [data-toggle-state='collapsed'],
+      .header__content[data-current-toggle-state='collapsed'] > [data-toggle-state='expanded'] {
+        display: flex;
+      }
+      .header__content > .icon-container:hover {
+        background-color: var(--app-green-variant-0);
+      }
+      .header__content > .icon-container > * {
+        pointer-events: none;
+      }
+      .header__content > .icon-container > .icon {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      .header__content > .icon-container > h3 {
+        padding-right: 10px;
+      }
+      .spacer {
+        flex: 1;
+      }
+      /* Header styles: end */
+
+      /* Main content styles: start */
+      .main {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        padding: 4rem;
+      }
+      /* Main content styles: end */
+
+      /* Collapse item styles: start */
+      .collapse-item {
+        overflow: hidden;
+        border-radius: 5px;
+
+        background-color: var(--app-white-variant-0);
+      }
+      .main > .collapse-item {
+        -webkit-box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 5px 10px -1px rgba(0, 0, 0, 0.2);
+      }
+      .collapse-item.leaf.failed-leaf {
+        background-color: var(--app-red-variant-2);
+        color: var(--app-red-variant-0);
+
+        border-left: 5px solid var(--app-red-variant-0);
+      }
+      .collapse-item.leaf.passed-leaf {
+        background-color: var(--app-green-variant-2);
+        color: var(--app-green-variant-1);
+
+        border-left: 5px solid var(--app-green-variant-1);
+      }
+
+      .collapse-item__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+
+        padding: 1rem;
+      }
+      .branch > .collapse-item__header,
+      .failed-leaf > .collapse-item__header {
+        cursor: pointer;
+      }
+      .collapse-item.leaf.failed-leaf > .collapse-item__header {
+        background-color: var(--app-red-variant-2);
+      }
+      .collapse-item.branch > .collapse-item__header {
+        border-bottom: 1px solid var(--app-green-variant-2);
+      }
+      .collapse-item__header > .icon-container {
+        display: none;
+        align-items: center;
+      }
+      .collapse-item__header .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        transition: all 0.2s ease-in-out;
+      }
+      .collapse-item__header > b {
+        margin-right: 0.75rem;
+      }
+      .collapse-item.leaf.failed-leaf > .collapse-item__header > .arrow-right-icon {
+        background-color: var(--app-red-variant-0);
+      }
+      .collapse-item.expanded > .collapse-item__header > .arrow-right-icon {
+        transform: rotate(90deg);
+      }
+      .collapse-item.branch[data-current-filter='total'] [data-filter-type='pass'],
+      .collapse-item.branch[data-current-filter='total'] [data-filter-type='fail'],
+      .collapse-item.branch[data-current-filter='pass'] [data-filter-type='pass'],
+      .collapse-item.branch[data-current-filter='fail'] [data-filter-type='fail'] {
+        display: flex;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0 }
+        to { opacity: 1 }
+      }
+      .collapse-item__content {
+        opacity: 0;
+        animation: fadeIn 0.2s ease-in-out;
+
+        display: none;
+
+        padding: 1rem;
+      }
+      .collapse-item.expanded.branch > .collapse-item__content {
+        opacity: 1;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        margin-left: 1rem;
+      }
+      .collapse-item.expanded.leaf > .collapse-item__content {
+        opacity: 1;
+
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 1rem;
+      }
+      .collapse-item.expanded.leaf > .collapse-item__content > * {
+        justify-self: center;
+      }
+      .collapse-item.expanded.leaf > .collapse-item__content > h3 {
+        width: 100%;
+
+        padding: 0.5rem 1rem;
+
+        text-align: center;
+
+        color: var(--app-white-variant-0);
+        background-color: var(--app-red-variant-1);
+
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .collapse-item.expanded.leaf > .collapse-item__content img {
+        width: 100%;
+      }
+      /* Collapse item styles: end */
+
+      /* Modal styles: start */
+      #modal-container {
+        --padding-y: 3rem;
+        visibility: hidden;
+
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99;
+
+        width: 100vw;
+        height: 100vh;
+
+        padding: var(--padding-y) 6rem;
+
+        background-color: var(--app-grey-overlay);
+      }
+      .modal-container__content {
+        position: relative;
+
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 1rem;
+
+        width: 100%;
+        height: 100%;
+        max-height: calc(100vh - var(--padding-y) * 2);
+
+        border-radius: 5px;
+        padding: 1rem 4rem;
+
+        background-color: var(--app-grey-overlay);
+      }
+      .modal-container__content > .snapshot-title {
+        font-size: 1.5rem;
+        text-transform: capitalize;
+
+        color: var(--app-white-variant-0);
+        text-align: center;
+      }
+      .modal-container__content > .snapshot-container {
+        display: flex;
+        justify-content: center;
+
+        height: 100%;
+        width: 100%;
+      }
+      .modal-container__content > .snapshot-container > img {
+        object-fit: contain;
+        object-position: center;
+        max-width: 100%;
+        height: 100%;
+      }
+
+      #modal-container > .icon-container > .arrow-right-icon {
+        width: 7rem;
+        height: 9rem;
+
+        background-color: var(--app-white-variant-0);
+      }
+      #modal-container > .icon-container:hover {
+        border-radius: 5px;
+
+        background-color: var(--app-grey-overlay);
+
+        cursor: pointer;
+      }
+
+      #modal-prev-icon {
+        transform: rotate(180deg);
+      }
+
+      #snapshot-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+
+        width: min-content;
+        justify-self: center;
+      }
+      #snapshot-indicators > .indicator {
+        width: 3rem;
+        height: 0.5rem;
+
+        border-radius: 2px;
+        background-color: var(--app-black-variant-1);
+
+        cursor: pointer;
+      }
+      #snapshot-indicators[data-current-slide='0'] > [data-slide-to='0'],
+      #snapshot-indicators[data-current-slide='1'] > [data-slide-to='1'],
+      #snapshot-indicators[data-current-slide='2'] > [data-slide-to='2'] {
+        background-color: var(--app-white-variant-0);
+      }
+      /* Modal styles: end */
+
+      /* Tooltip style: start */
+      [data-tooltip] {
+        --tooltip-width: 8rem;
+        position: relative;
+      }
+
+      [data-tooltip]::before {
+        visibility: hidden;
+        content: attr(data-tooltip);
+
+        position: absolute;
+        z-index: 1;
+        top: 100%;
+        left: 50%;
+        text-align: center;
+
+        margin-top: 10px;
+        margin-left: calc(var(--tooltip-width) / -2);
+        padding: 5px;
+
+        width: var(--tooltip-width);
+
+        border-radius: 6px;
+
+        background-color: var(--app-black-variant-0);
+        color:  var(--app-cream-variant-0);
+
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        transition-delay: 0.5s;
+      }
+
+      [data-tooltip]::after {
+        visibility: hidden;
+        content: \\"\\";
+
+        position: absolute;
+        top: 100%;
+        left: 50%;
+
+        margin-left: -5px;
+        
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent var(--app-black-variant-0) transparent;
+
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        transition-delay: 0.4s;
+      }
+
+      [data-tooltip]:hover::before, [data-tooltip]:hover::after {
+        visibility: visible;
+
+        opacity: 1;
+      }
+      /* Tooltip style: end */
     </style>
   </head>
   <body>
-    <div class=\\"container-fluid\\">
-      <div id=\\"report-header\\" class=\\"page-header\\"><h1></h1></div>
-      <h2>Results</h2>
-      <table>
-          <tr>
-            <td>
-              <table class=\\"table table-test\\">
-                <tr>
-                  <td colspan=\\"2\\" class=\\"test-pass\\">
-                    <span class=\\"success\\">&#10004;</span>
-                    Visual Test 1
-                  </td>
-                </tr>
-              </table>
-            </td>
-          <tr>
-          <tr>
-            <td>
-              <table class=\\"table table-test\\">
-                <tr>
-                  <td colspan=\\"2\\" class=\\"test-fail\\">
-                    <span class=\\"error\\">&#10006;</span>
-                    Visual Test 2
-                  </td>
-                </tr>
-                  <tr class=\\"test-row\\">
-                    <td colspan=\\"2\\">
-                      <div class=\\"row\\">
-                        <div>
-                          <h4>Baseline</h4>
-                          <a href=\\"../cypress-visual-screenshots/baseline/Visual Test 2.png\\">
-                            <img src=\\"../cypress-visual-screenshots/baseline/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
-                          </a>
-                        </div>
-                        <div>
-                          <h4>Diff</h4>
-                          <a href=\\"../cypress-visual-screenshots/diff/Visual Test 2.png\\">
-                            <img src=\\"../cypress-visual-screenshots/diff/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
-                          </a>
-                        </div>
-                        <div>
-                          <h4>Comparison</h4>
-                          <a href=\\"../cypress-visual-screenshots/comparison/Visual Test 2.png\\">
-                            <img src=\\"../cypress-visual-screenshots/comparison/Visual Test 2.png\\" alt=\\"Snow\\" style=\\"width:100%\\">
-                          </a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-              </table>
-            </td>
-          <tr>
-      </table>
+    <header class=\\"header\\">
+      <div
+        class=\\"header__content\\"
+        data-current-toggle-state=\\"collapsed\\"
+        data-current-filter=\\"total\\"
+      >
+        <h2>Cypress Image Diff Report</h2>
+
+        <div class=\\"spacer\\"></div>
+
+        <div class=\\"icon-container\\" data-toggle-state=\\"expanded\\" data-tooltip=\\"Expand all\\">
+          <div class=\\"icon expand-all-icon\\"></div>
+        </div>
+
+        <div class=\\"icon-container\\" data-toggle-state=\\"collapsed\\" data-tooltip=\\"Collapse all\\">
+          <div class=\\"icon collapse-all-icon\\"></div>
+        </div>
+
+        <div class=\\"icon-container\\" data-filter-type=\\"total\\" data-tooltip=\\"View all snapshots\\">
+          <div class=\\"icon task-icon\\"></div>
+          <h3 id=\\"test-total\\"></h3>
+        </div>
+
+        <div class=\\"icon-container\\" data-filter-type=\\"pass\\" data-tooltip=\\"View only passes\\">
+          <div class=\\"icon checkmark-icon\\"></div>
+          <h3 id=\\"test-passes\\"></h3>
+        </div>
+
+        <div class=\\"icon-container\\" data-filter-type=\\"fail\\" data-tooltip=\\"View only fails\\">
+          <div class=\\"icon close-icon\\"></div>
+          <h3 id=\\"test-fails\\"></h3>
+        </div>
+      </div>
+
+      <div class=\\"header__progress\\">
+        <div class=\\"header__progress--success\\"></div>
+      </div>
+    </header>
+
+    <main class=\\"main\\" id=\\"report-container\\"></main>
+
+    <div id=\\"modal-container\\">
+      <div class=\\"icon-container\\" id=\\"modal-prev-icon\\">
+        <div class=\\"arrow-right-icon\\"></div>
+      </div>
+
+      <div class=\\"modal-container__content\\">
+        <div class=\\"snapshot-title\\"></div>
+
+        <div class=\\"snapshot-container\\">
+          <img src=\\"/\\" alt=\\"display-snapshot\\" id=\\"display-snapshot\\" />
+        </div>
+
+        <div id=\\"snapshot-indicators\\" data-current-slide=\\"0\\">
+          <div class=\\"indicator\\" data-slide-to=\\"0\\"></div>
+          <div class=\\"indicator\\" data-slide-to=\\"1\\"></div>
+          <div class=\\"indicator\\" data-slide-to=\\"2\\"></div>
+        </div>
+      </div>
+
+      <div class=\\"icon-container\\" id=\\"modal-next-icon\\">
+        <div class=\\"arrow-right-icon\\"></div>
+      </div>
     </div>
+
+    <!-- inject following variables: title, percentage, failureThreshold, id -->
+    <template id=\\"passed-leaf-template\\">
+      <div class=\\"pseudo-wrapper\\">
+        <div class=\\"collapse-item leaf passed-leaf\\" id=\\"$__id__\\">
+          <div class=\\"collapse-item__header\\">
+            <strong>$__title__</strong>
+            <div class=\\"spacer\\"></div>
+            <div class=\\"icon happy-face-icon\\"></div>
+            <div>Failure threshold: </div>
+            <strong>$__failureThreshold__%</strong>
+            <div>Actual: </div>
+            <strong>$__percentage__%</strong>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- inject following variables: title, percentage, failureThreshold, id -->
+    <template id=\\"failed-leaf-template\\">
+      <div class=\\"pseudo-wrapper\\">
+        <div class=\\"collapse-item leaf failed-leaf\\" id=\\"$__id__\\">
+          <div class=\\"collapse-item__header\\">
+            <div class=\\"icon arrow-right-icon\\"></div>
+            <strong>$__title__</strong>
+            <div class=\\"spacer\\"></div>
+            <div class=\\"icon frown-face-icon\\"></div>
+            <div>Failure threshold: </div>
+            <strong>$__failureThreshold__%</strong>
+            <div>Actual: </div>
+            <strong>$__percentage__%</strong>
+          </div>
+
+          <div class=\\"collapse-item__content\\">
+            <h3>Baseline</h3>
+            <h3>Diff</h3>
+            <h3>Comparison</h3>
+            <div class=\\"baseline-container\\">
+              <img
+                src=\\"../cypress-visual-screenshots/baseline/$__id__.png\\"
+                alt=\\"$__id__\\"
+              />
+            </div>
+            <div class=\\"diff-container\\">
+              <img
+                src=\\"../cypress-visual-screenshots/diff/$__id__.png\\"
+                alt=\\"$__id__\\"
+              />
+            </div>
+            <div class=\\"comparison-container\\">
+              <img
+                src=\\"../cypress-visual-screenshots/comparison/$__id__.png\\"
+                alt=\\"$__id__\\"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- inject following variables: title, passes, fails, id -->
+    <template id=\\"branch-template\\">
+      <div class=\\"pseudo-wrapper\\">
+        <div
+          class=\\"collapse-item branch\\"
+          data-current-filter=\\"total\\"
+          id=\\"$__id__\\"
+        >
+          <div class=\\"collapse-item__header\\">
+            <div class=\\"icon arrow-right-icon\\"></div>
+            <strong>$__title__</strong>
+            <div class=\\"spacer\\"></div>
+            <div class=\\"icon-container\\" data-filter-type=\\"pass\\">
+              <div class=\\"icon checkmark-icon\\"></div>
+              <b>$__passes__</b>
+            </div>
+            <div class=\\"icon-container\\" data-filter-type=\\"fail\\">
+              <div class=\\"icon close-icon\\"></div>
+              <b>$__fails__</b>
+            </div>
+          </div>
+
+          <div class=\\"collapse-item__content\\"></div>
+        </div>
+      </div>
+    </template>
+
+    <script type=\\"text/javascript\\">
+      const testData = [object Object],[object Object]
+
+      const ITEM_STATUS = {
+        PASS: 'pass',
+        FAIL: 'fail',
+        NULL: null,
+      }
+
+      const BUILD_MAP = {
+        [ITEM_STATUS.PASS]: 'createPassedLeaf',
+        [ITEM_STATUS.FAIL]: 'createFailedLeaf',
+        [ITEM_STATUS.NULL]: 'createBranch',
+      }
+
+      const SNAPSHOT_SLIDES = ['baseline', 'diff', 'comparison']
+
+      const HeaderHelpers = {
+        updateVisibilityByFilter(type, children = reportTree.tree) {
+          children.forEach(({ children, id, total}) => {
+            const visibilityMap = {
+              total: 'block',
+              pass: total.passes ? 'block' : 'none',
+              fail: total.fails ? 'block' : 'none'
+            }
+
+            const element = document.getElementById(id)
+            element.style.display = visibilityMap[type]
+
+            if (children.length) {
+              element.dataset.currentFilter = type
+              this.updateVisibilityByFilter(type, children)
+            }
+          })
+        },
+
+        addFilterSelectionEventListener() {
+          const header = document.querySelector('.header__content')
+          header.addEventListener('click', function ({ target }) {
+            const selectedFilter = target.dataset.filterType
+            if (selectedFilter === undefined) return
+
+            header.dataset.currentFilter = selectedFilter
+            HeaderHelpers.updateVisibilityByFilter(selectedFilter)
+          })
+        },
+
+        updateToggleState(type, children = reportTree.tree) {
+          children.forEach(({ children, id, total}) => {
+            const element = document.getElementById(id)
+
+            const toggleMap = {
+              expanded: () => element.classList.contains('expanded') || element.classList.add('expanded'),
+              collapsed: () => element.classList.remove('expanded'),
+            }
+            toggleMap[type]()
+
+            if (children.length) {
+              this.updateToggleState(type, children)
+            }
+          })
+        },
+
+        addGlobalToggleVisibilityEventListener() {
+          const header = document.querySelector('.header__content')
+          header.addEventListener('click', function ({ target }) {
+            const state = target.dataset.toggleState
+            if (state === undefined) return
+
+            header.dataset.currentToggleState = state
+            HeaderHelpers.updateToggleState(state)
+          })
+        },
+
+        patchHeader() {
+          const passes = testData.filter((t) => t.status === ITEM_STATUS.PASS).length
+          const fails = testData.filter((t) => t.status === ITEM_STATUS.FAIL).length
+          const totalTests = passes + fails
+          document.querySelector('#test-total').textContent = totalTests
+          document.querySelector('#test-passes').textContent = passes
+          document.querySelector('#test-fails').textContent = fails
+          document.querySelector('.header__progress--success').style.width = \`\${
+            (passes * 100) / totalTests
+          }%\`
+        }
+      }
+
+      const ModalHelpers = {
+        show() {
+          const modal = document.querySelector('#modal-container')
+          modal.style.visibility = 'visible'
+          document.body.style.overflow = 'hidden'
+        },
+
+        hide() {
+          const modal = document.querySelector('#modal-container')
+          modal.style.visibility = 'hidden'
+          document.body.style.overflow = 'auto'
+        },
+
+        addShowSnapshotsModalEventListener(target, snapshotName) {
+          // expect selectors to be: ['.baseline-container', '.diff-container', '.comparison-container']
+          const selectors = SNAPSHOT_SLIDES.map(s => \`.\${s}-container\`)
+          selectors.forEach((selector, index) => {
+            const element = target.querySelector(selector)
+            element.addEventListener('click', function () {
+              ModalHelpers.show()
+              ModalHelpers.setDisplaySnapshot(index, snapshotName)
+            })
+          })
+        },
+
+        addHideEventListener() {
+          const modal = document.querySelector('#modal-container')
+          modal.addEventListener('click', function ({ target }) {
+            if (target.id === 'modal-container') {
+              ModalHelpers.hide()
+            }
+          })
+          document.addEventListener('keyup', function (e) {
+            if (e.key === 'Escape') {
+              ModalHelpers.hide()
+            }
+          })
+        },
+
+        setDisplaySnapshot(slideIndex, snapshotName) {
+          const displaySnapshot = document.querySelector('#display-snapshot')
+          displaySnapshot.src = this.getDisplaySnapshotSrc({ slideIndex, snapshotName, currentSrc: displaySnapshot.src })
+
+          const indicator = document.querySelector('#snapshot-indicators')
+          indicator.dataset.currentSlide = slideIndex
+
+          const title = document.querySelector('.snapshot-title')
+          title.textContent = SNAPSHOT_SLIDES[slideIndex]
+        },
+
+        getDisplaySnapshotSrc({slideIndex, snapshotName, currentSrc }) {
+          const isDisplaySnapshotEmpty = snapshotName !== undefined
+          return isDisplaySnapshotEmpty
+            ? \`../cypress-visual-screenshots/\${SNAPSHOT_SLIDES[slideIndex]}/\${snapshotName}.png\`
+            : currentSrc.replace(
+                /\\\\/cypress-visual-screenshots\\\\/(baseline|diff|comparison)\\\\//,
+                \`/cypress-visual-screenshots/\${SNAPSHOT_SLIDES[slideIndex]}/\`
+              )
+        },
+
+        getNextSlideIndex(step) {
+          const snapshotIndicators = document.querySelector('#snapshot-indicators')
+          const currentSlide = Number(snapshotIndicators.dataset.currentSlide)
+          const nextSlide = (currentSlide + step + 3) % 3
+          return nextSlide
+        },
+
+        addIndicatorEventListener() {
+          const snapshotIndicators = document.querySelector('#snapshot-indicators')
+          snapshotIndicators.addEventListener('click', function ({ target }) {
+            const nextSlide = target.dataset.slideTo
+            if (SNAPSHOT_SLIDES[nextSlide] === undefined) return
+
+            ModalHelpers.setDisplaySnapshot(nextSlide)
+          })
+        },
+
+        addChangeSlideClickEventListener() {
+          const iconSelectors = ['#modal-prev-icon', '#modal-next-icon']
+          iconSelectors.forEach((selector) => {
+            const element = document.querySelector(selector)
+            element.addEventListener('click', function () {
+              const step = selector === '#modal-prev-icon' ? -1 : 1
+              const nextSlide = ModalHelpers.getNextSlideIndex(step)
+              ModalHelpers.setDisplaySnapshot(nextSlide)
+            })
+          })
+        },
+
+        addChangeSlideKeypressEventListener() {
+          const modal = document.querySelector('#modal-container')
+          document.addEventListener('keyup', function (e) {
+            if (modal.style.visibility === 'hidden') return
+
+            const keyMap = ['ArrowLeft', 'ArrowRight']
+            if (!keyMap.includes(e.key)) return
+
+            const step = e.key === 'ArrowLeft' ? -1 : 1
+            const nextSlide = ModalHelpers.getNextSlideIndex(step)
+            ModalHelpers.setDisplaySnapshot(nextSlide)
+          })
+        },
+
+        setupModalEventListener() {
+          this.addHideEventListener()
+          this.addIndicatorEventListener()
+          this.addChangeSlideClickEventListener()
+          this.addChangeSlideKeypressEventListener()
+        }
+      }
+
+      const DOMBuilder = {
+        cloneTemplate(templateId, props = {}) {
+          let templateClone = document
+            .getElementById(templateId)
+            .content.cloneNode(true)
+            .querySelector('.pseudo-wrapper')
+
+            templateClone.innerHTML = Object.entries(props).reduce(
+            (template, [key, value]) => {
+              // our templates use convention pattern of $__key__ to mark and represent variables that need to change dynamically
+              // find and replace all matched combinations of $__key__ with value
+              const pattern = new RegExp(\`\\\\\\\\$__\${key}__\`, 'g')
+              return template.replace(pattern, value)
+            },
+            templateClone.innerHTML
+          )
+
+          // .pseudo-wrapper should only contain one root element
+          return templateClone.firstElementChild
+        },
+
+        addExpansionEventListener(target) {
+          const header = target.querySelector('.collapse-item__header')
+
+          header.addEventListener('click', function () {
+            target.classList.contains('expanded')
+              ? target.classList.remove('expanded')
+              : target.classList.add('expanded')
+          })
+        },
+
+        insertChildren({ target = document, selector, children }) {
+          const container = target.querySelector(selector)
+          container.append(...children)
+        },
+      }
+
+      const CollapseItemBuilder = {
+        createPassedLeaf({ title, percentage, failureThreshold, id }) {
+          const leaf = DOMBuilder.cloneTemplate('passed-leaf-template', {
+            title,
+            percentage,
+            failureThreshold,
+            id,
+          })
+          return leaf
+        },
+
+        createFailedLeaf({ title, percentage, failureThreshold, id }) {
+          const leaf = DOMBuilder.cloneTemplate('failed-leaf-template', {
+            title,
+            percentage,
+            failureThreshold,
+            id,
+          })
+          DOMBuilder.addExpansionEventListener(leaf)
+          ModalHelpers.addShowSnapshotsModalEventListener(leaf, id)
+          return leaf
+        },
+
+        createBranch({ title, passes, fails, children, id }) {
+          const branch = DOMBuilder.cloneTemplate('branch-template', {
+            title,
+            passes,
+            fails,
+            id
+          })
+          DOMBuilder.insertChildren({
+            target: branch,
+            selector: '.collapse-item__content',
+            children,
+          })
+          DOMBuilder.addExpansionEventListener(branch)
+          return branch
+        },
+      }
+
+      class FamilyLine {
+        constructor(str) {
+          this.line = str.split('/')
+        }
+
+        getId(index) {
+          return this.line.slice(0, index + 1).join('/')
+        }
+
+        getParentId(index) {
+          return this.line.slice(0, index).join('/')
+        }
+      }
+
+      class TreeBuilder {
+        constructor(rawData) {
+          const normalizedData = this.normalizeInput(rawData)
+          this.tree = this.createTreeFrom(normalizedData)
+          this.DOM = this.buildDOMFromTree()
+        }
+
+        normalizeInput(rawData) {
+          const itemMap = rawData.reduce((map, item) => {
+            const familyLine = new FamilyLine(item.name)
+
+            familyLine.line.forEach((memberName, index) => {
+              const id = familyLine.getId(index)
+              if (map[id]) return
+
+              map[id] = {
+                status: item.status,
+                title: memberName,
+                percentage: item.percentage,
+                failureThreshold: item.failureThreshold,
+                id,
+                parentId: familyLine.getParentId(index),
+                children: [],
+                total: {
+                  passes: 0,
+                  fails: 0,
+                },
+              }
+            })
+            return map
+          }, {})
+
+          return Object.values(itemMap).map((v) => v)
+        }
+
+        countTotal(children, status) {
+          return {
+            passes: children.length
+              ? children.reduce((acc, i) => acc + i.total.passes, 0)
+              : status === ITEM_STATUS.PASS
+              ? 1
+              : 0,
+            fails: children.length
+              ? children.reduce((acc, i) => acc + i.total.fails, 0)
+              : status === ITEM_STATUS.FAIL
+              ? 1
+              : 0
+          }
+        }
+
+        createTreeFrom(items, parentId = '') {
+          return items
+            .filter((item) => item.parentId === parentId)
+            .map(({ id, parentId, title, status, percentage, failureThreshold }) => {
+              const children = this.createTreeFrom(items, id)
+
+              return {
+                id,
+                parentId,
+                title,
+                children,
+                ...(children.length ? {} : { status, percentage, failureThreshold }),
+                total: this.countTotal(children, status),
+              }
+            })
+        }
+
+        buildDOMFromTree(items = this.tree) {
+          return items.map((item) => {
+            const children = item.children.length
+              ? this.buildDOMFromTree(item.children)
+              : ''
+            const buildType = BUILD_MAP[item.status || ITEM_STATUS.NULL]
+            return CollapseItemBuilder[buildType]({
+              title: item.title,
+              passes: item.total.passes,
+              fails: item.total.fails,
+              percentage: (item.percentage * 100).toFixed(1),
+              failureThreshold: (item.failureThreshold * 100).toFixed(1),
+              id: item.id,
+              children,
+            })
+          })
+        }
+      }
+
+      const reportTree = new TreeBuilder(testData)
+      DOMBuilder.insertChildren({
+        selector: '#report-container',
+        children: reportTree.DOM,
+      })
+
+      HeaderHelpers.patchHeader()
+      HeaderHelpers.addFilterSelectionEventListener()
+      HeaderHelpers.addGlobalToggleVisibilityEventListener()
+
+      ModalHelpers.setupModalEventListener()
+    </script>
   </body>
 </html>
 "
