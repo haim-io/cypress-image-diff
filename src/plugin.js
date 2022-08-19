@@ -26,7 +26,7 @@ const tearDownDirs = () => {
 
 const generateReport = (instance = '') => {
   if (testStatuses.length > 0) {
-    createReport({ tests: testStatuses, instance })
+    createReport({ tests: JSON.stringify(testStatuses), instance })
   }
   return true
 }
@@ -97,7 +97,12 @@ async function compareSnapshotsPlugin(args) {
   }
 
   // Saving test status object to build report if task is triggered
-  testStatuses.push(new TestStatus(!testFailed, args.testName))
+  testStatuses.push(new TestStatus({ 
+    status: !testFailed,
+    name: args.testName,
+    percentage,
+    failureThreshold: args.testThreshold
+  }))
 
   return percentage
 }
