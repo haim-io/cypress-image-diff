@@ -2,17 +2,19 @@ import fs from 'fs-extra'
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
 
-import { createDir,
-         cleanDir,
-         adjustCanvas,
-         parseImage,
-         setFilePermission,
-         renameAndMoveFile } from './utils'
+import {
+  createDir,
+  cleanDir,
+  adjustCanvas,
+  parseImage,
+  setFilePermission,
+  renameAndMoveFile, renameAndCopyFile
+} from './utils'
 import paths from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
 
-const testStatuses = []
+let testStatuses = []
 
 const setupFolders = () => {
   createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff, paths.reportDir])
@@ -24,8 +26,14 @@ const tearDownDirs = () => {
 
 const generateReport = (instance = '') => {
   if (testStatuses.length > 0) {
-    createReport({ tests: testStatuses, instance })
+    createReport({ tests: JSON.stringify(testStatuses), instance })
   }
+  return true
+}
+
+const deleteReport = args => {
+  testStatuses = testStatuses.filter(testStatus => testStatus.name !== args.testName)
+
   return true
 }
 
@@ -89,12 +97,17 @@ async function compareSnapshotsPlugin(args) {
   }
 
   // Saving test status object to build report if task is triggered
-  testStatuses.push(new TestStatus(!testFailed, args.testName))
+  testStatuses.push(new TestStatus({ 
+    status: !testFailed,
+    name: args.testName,
+    percentage,
+    failureThreshold: args.testThreshold
+  }))
 
   return percentage
 }
 
-const getCompareSnapshotsPlugin = on => {
+const getCompareSnapshotsPlugin = (on, config) => {
   // Create folder structure
   setupFolders()
 
@@ -103,8 +116,9 @@ const getCompareSnapshotsPlugin = on => {
 
   // Force screenshot resolution to keep consistency of test runs across machines
   on('before:browser:launch', (browser, launchOptions) => {
-    const width = process.env.WIDTH || '1280'
-    const height = process.env.HEIGHT || '720'
+    const width = config.viewportWidth || '1280'
+    const height = config.viewportHeight || '720'
+
     if (browser.name === 'chrome') {
       launchOptions.args.push(`--window-size=${width},${height}`)
       launchOptions.args.push('--force-device-scale-factor=1')
@@ -134,7 +148,13 @@ const getCompareSnapshotsPlugin = on => {
 
     // Change screenshots file permission so it can be moved from drive to drive
     setFilePermission(details.path, 0o777)
-    renameAndMoveFile(details.path, paths.image.comparison(details.name))
+    setFilePermission(paths.image.comparison(details.name), 0o777)
+
+    if (config.env.preserveOriginalScreenshot === true) {
+      renameAndCopyFile(details.path, paths.image.comparison(details.name))
+    } else {
+      renameAndMoveFile(details.path, paths.image.comparison(details.name))
+    }
   })
 
   on('task', {
@@ -142,6 +162,7 @@ const getCompareSnapshotsPlugin = on => {
     copyScreenshot,
     deleteScreenshot,
     generateReport,
+    deleteReport,
   })
 }
 

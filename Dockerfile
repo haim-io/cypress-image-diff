@@ -3,7 +3,7 @@ FROM node:14.17.0
 ENV NPM_CONFIG_LOGLEVEL    warn
 ENV NPM_CONFIG_UNSAFE_PERM true
 ENV TERM                   xterm
-ENV CHROME_VERSION         86.0.4240.75-1
+ENV CHROME_VERSION         99.0.4844.82-1
 
 RUN apt-get update
 

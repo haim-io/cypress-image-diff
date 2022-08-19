@@ -23,8 +23,11 @@ const readDir = dir => {
 
 const setFilePermission = (dir, permission) => {
   try {
-    const fd = fs.openSync(dir, 'r')
-    fs.fchmodSync(fd, permission)
+    if (fs.existsSync(dir)) {
+      const fd = fs.openSync(dir, 'r')
+      fs.fchmodSync(fd, permission)
+      fs.closeSync(fd)
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error)
@@ -33,6 +36,10 @@ const setFilePermission = (dir, permission) => {
 
 const renameAndMoveFile = (originalFilePath, newFilePath) => {
   fs.moveSync(originalFilePath, newFilePath, {overwrite: true})
+}
+
+const renameAndCopyFile = (originalFilePath, newFilePath) => {
+  fs.copySync(originalFilePath, newFilePath, {overwrite: true})
 }
 
 const parseImage = async image => {
@@ -65,4 +72,4 @@ const adjustCanvas = async (image, width, height) => {
   return imageAdjustedCanvas
 }
 
-export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile }
+export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile }

@@ -32,7 +32,7 @@ Create a spec file under cypress integration folder i.e `cypress/integration/spe
 
 Then use the cypress image diff command to take screenshots of pages or elements:
 
-### Take screenshot and compare of the whole page
+### Take screenshot and compare the whole page
 
 ```js
 describe('Visuals', () => {
@@ -96,7 +96,7 @@ describe('Visuals', () => {
 
 If there are wanted changes to the application in test and if we need to update baseline images, you can follow the steps in [CLI](./docs/CLI.md) documentation to update the baselines.
 
-Alternatively you can delete the baseline image that you wish to be updated and rerun the tests, this will create a new baseline image with the updated image.
+Alternatively, you can delete the baseline image that you wish to be updated and rerun the tests, this will create a new baseline image with the updated image.
 
 ### Folder structure
 
@@ -112,11 +112,24 @@ Folder structure is hard coded (see below). There will be enhancements coming in
 
 ### Force resolution size
 
-In order to force the screenshot resolution when running a test you will need to set the following environment variables:
+In order to force the screenshot resolution when running a test you will need to set the following cypress config values in `cypress.json`:
 
 ```js
-export HEIGHT=1980 // Default is set to 1440
-export WIDTH=2240 // Default is set to 1980
+{
+  "viewportWidth": 1000, // Default value: 1280
+  "viewportHeight": 660 // Default value: 720
+}
+```
+
+### Preserving the original screenshot
+All screenshots will be renamed and moved from the default screenshot location to a new screenshot folder structure. To preserve the screenshot in the original location, set the following values in `cypress.json`:
+
+```json
+{
+  "env": {
+    "preserveOriginalScreenshot": true
+  }
+}
 ```
 
 ### Please notice

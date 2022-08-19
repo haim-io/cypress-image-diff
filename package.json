@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Visual regression testing tool with cypress",
   "main": "dist/command.js",
+  "types": "types/index.d.ts",
   "bin": {
     "cypress-image-diff": "./bin/cypress-image-diff.js"
   },
@@ -40,7 +41,7 @@
     "@babel/runtime": "^7.12.5",
     "arg": "^4.1.1",
     "colors": "^1.4.0",
-    "cypress": "^9.0.0",
+    "cypress": "^9.6.1",
     "cypress-recurse": "^1.13.1",
     "fs-extra": "^9.0.1",
     "handlebars": "^4.7.7",
@@ -62,7 +63,7 @@
     "eslint-plugin-import": "^2.22.1",
     "jest": "^27.0.6",
     "prettier": "^2.1.2",
-    "semantic-release": "^18.0.0"
+    "semantic-release": "^19.0.2"
   },
   "resolutions": {
     "y18n": ">=4.0.1",
@@ -73,6 +74,7 @@
     "path-parse": ">=1.0.7",
     "trim-off-newlines": ">=1.0.1",
     "set-value": ">=4.0.1",
-    "tmpl": ">=1.0.5"
+    "tmpl": ">=1.0.5",
+    "minimist": ">=1.2.6"
   }
 }

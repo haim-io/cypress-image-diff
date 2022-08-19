@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, emptyDirSync, readdirSync, moveSync } from 'fs-extra'
-import { createDir, cleanDir, renameAndMoveFile } from './utils'
+import { existsSync, mkdirSync, emptyDirSync, readdirSync, moveSync, copySync } from 'fs-extra'
+import { createDir, cleanDir, renameAndMoveFile, renameAndCopyFile } from './utils'
 
 jest.mock('fs-extra', () => ({
   ...jest.requireActual('fs-extra'),
@@ -8,6 +8,7 @@ jest.mock('fs-extra', () => ({
   emptyDirSync: jest.fn(),
   readdirSync: jest.fn(),
   moveSync: jest.fn(),
+  copySync: jest.fn(),
 }))
 
 describe('Utils', () => {
@@ -61,6 +62,14 @@ describe('Utils', () => {
       renameAndMoveFile(sampleFiles[0], sampleFiles[1])
       expect(moveSync).toHaveBeenCalledTimes(1)
       expect(moveSync).toBeCalledWith(sampleFiles[0], sampleFiles[1], {"overwrite": true})
+    })
+  })
+
+  describe('Copy files', () => {
+    it('should copy files', () => {
+      renameAndCopyFile(sampleFiles[0], sampleFiles[1])
+      expect(copySync).toHaveBeenCalledTimes(1)
+      expect(copySync).toBeCalledWith(sampleFiles[0], sampleFiles[1], {"overwrite": true})
     })
   })
 })

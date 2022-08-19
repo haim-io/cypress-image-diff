@@ -1,8 +1,8 @@
 import { recurse } from 'cypress-recurse';
 
 const compareSnapshotCommand = defaultScreenshotOptions => {
-  const height = process.env.HEIGHT || 1440
-  const width = process.env.WIDTH || 1980
+  const height = Cypress.config('viewportHeight') || 1440
+  const width = Cypress.config('viewportWidth') || 1980
 
   // Force screenshot resolution to keep consistency of test runs across machines
   Cypress.config('viewportHeight', parseInt(height, 10))
@@ -26,8 +26,9 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
 
       recurse(
         () => {
-          // Clear the comparison and diff screenshots for this test
+          // Clear the comparison/diff screenshots/reports for this test
           cy.task('deleteScreenshot', { testName })
+          cy.task('deleteReport', { testName })
 
           // Take a screenshot and copy to baseline if it does not exist
           const objToOperateOn = subject ? cy.get(subject) : cy
