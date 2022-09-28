@@ -36,7 +36,7 @@ module.exports = (on, config) => {
 
 // Cypress 10 and above
 // cypress.config.js
-const getCompareSnapshotsPlugin = require "cypress-image-diff-js/dist/plugin");
+const getCompareSnapshotsPlugin = require("cypress-image-diff-js/dist/plugin");
 
 export default defineConfig({
   e2e: {
