@@ -1,9 +1,0 @@
-{
-  "integrationFolder": "cypress/specs",
-  "pluginsFile": "cypress/plugins/index.js",
-  "supportFile": "cypress/support/index.js",
-  "defaultCommandTimeout": 20000,
-  "requestTimeout": 20000,
-  "viewportWidth": 1280,
-  "viewportHeight": 720
-}

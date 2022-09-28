@@ -37,4 +37,3 @@ COPY package-lock.json .
 RUN npm install
 
 COPY . /code
-RUN npx cypress install --force
