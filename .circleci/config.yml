@@ -21,6 +21,10 @@ jobs:
       - run:
           name: Run e2e
           command: make e2e-test
+      - store-artifacts:
+          path: cypress-visual-screenshots
+      - store-artifacts:
+          path: cypress-visual-report
 
   build_and_publish:
     docker:
