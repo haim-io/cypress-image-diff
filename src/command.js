@@ -51,6 +51,47 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
       );
     }
   )
+  
+  Cypress.Commands.add(
+    'compareSnapshotInvert',
+    { prevSubject: 'optional' },
+    (subject, name, testThreshold = 0.8, recurseOptions = {}) => {
+      const specName = Cypress.spec.name
+      const testName = `${specName.replace('.js', '')}-${name}`
+
+      const defaultRecurseOptions = {
+        limit: 1,
+        log: (percentage) => {
+          //Flipped from >= to <=
+          const prefix = percentage <= testThreshold ? 'PASS' : 'FAIL'
+          cy.log(`${prefix}: Image difference percentage ${percentage}`)
+        },
+        //Invert function throws error if image difference is less than specified threshold
+        error: `Image difference less than threshold: ${testThreshold}`
+      }
+      recurse(
+        () => {
+          cy.task('deleteScreenshot', { testName })
+          cy.task('deleteReport', { testName })
+          const objToOperateOn = subject ? cy.get(subject) : cy
+          objToOperateOn
+            .screenshot(testName, defaultScreenshotOptions)
+            .task('copyScreenshot', {
+              testName,
+            })
+          const options = {
+            testName,
+            testThreshold,
+          }
+          return cy.task('compareSnapshotsPluginInvert', options)
+        },
+        //Flipped from >= to <=
+        (percentage) => percentage <= testThreshold,
+        Object.assign({}, defaultRecurseOptions, recurseOptions)
+      );
+    }
+  )
+
 
   Cypress.Commands.add('hideElement', { prevSubject: 'optional' }, (subject, hide=true) => {
     if (hide) {
