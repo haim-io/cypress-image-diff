@@ -10,17 +10,17 @@ import {
   setFilePermission,
   renameAndMoveFile, renameAndCopyFile
 } from './utils'
-import paths from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
+import { buildPaths } from './config'
 
 let testStatuses = []
 
-const setupFolders = () => {
+const setupFolders = (paths) => {
   createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff, paths.reportDir])
 }
 
-const tearDownDirs = () => {
+const tearDownDirs = (paths) => {
   cleanDir([paths.dir.comparison, paths.dir.diff, paths.reportDir])
 }
 
@@ -108,11 +108,14 @@ async function compareSnapshotsPlugin(args) {
 }
 
 const getCompareSnapshotsPlugin = (on, config) => {
+  // build paths from config
+  const paths = buildPaths(config.env.cypressImageDiffBaseDir)
+
   // Create folder structure
-  setupFolders()
+  setupFolders(paths)
 
   // Delete comparison, diff images and generated reports to ensure a clean run
-  tearDownDirs()
+  tearDownDirs(paths)
 
   // Force screenshot resolution to keep consistency of test runs across machines
   on('before:browser:launch', (browser, launchOptions) => {

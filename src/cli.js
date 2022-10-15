@@ -2,12 +2,13 @@ import arg from 'arg'
 import colors from 'colors/safe'
 import fs from 'fs-extra'
 
-import path from './config'
+import buildPaths from './config'
 import { readDir } from './utils'
 
 const parseArgumentsIntoOptions = rawArgs => {
  const args = arg(
    {
+     '--baseDir': String,
      '--update': Boolean,
      '-u': '--update',
    },
@@ -23,13 +24,14 @@ const parseArgumentsIntoOptions = rawArgs => {
 
 // eslint-disable-next-line import/prefer-default-export
 export function cli(args) {
- const options = parseArgumentsIntoOptions(args)
+  const options = parseArgumentsIntoOptions(args)
+  const paths = buildPaths(options.baseDir)
  if (options.updateBaseline) {
    // Only update image if it failed the comparison
-   const filesToUpdate = readDir(path.dir.diff)
+   const filesToUpdate = readDir(paths.dir.diff)
    if (filesToUpdate) {
      filesToUpdate.forEach(file => {
-       fs.copySync(`${path.dir.comparison}/${file}`, `${path.dir.baseline}/${file}`)
+       fs.copySync(`${paths.dir.comparison}/${file}`, `${paths.dir.baseline}/${file}`)
        console.log(colors.green(`Updated baseline image ${file}`))
      })
    } else {

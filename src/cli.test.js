@@ -22,6 +22,22 @@ describe('Cli', () => {
       expect(copySync).toHaveBeenCalledTimes(0)
     })
 
+    it('should accept baseDir argument', () => {
+      cli(['--baseDir', 'baseDir', '--update'])
+      expect(copySync).toHaveBeenCalledTimes(0)
+    })
+
+    it('should update baseline images if custom baseDir is specified', () => {
+      const files = ['File1.png', 'File2.png']
+      readdirSync.mockReturnValue(files)
+
+      cli(['--dummyArg1', '--dummyArg2', '-u', '--baseDir', 'baseDir'])
+      expect(copySync).toHaveBeenCalledTimes(2)
+      expect(console.log.mock.calls[0][0]).toBe(colors.green(`Updated baseline image ${files[0]}`))
+      expect(console.log.mock.calls[1][0]).toBe(colors.green(`Updated baseline image ${files[1]}`))
+    })
+
+
     it('should update baseline images if argument is specified', () => {
       const files = ['File1.png', 'File2.png']
       readdirSync.mockReturnValue(files)

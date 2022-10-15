@@ -100,14 +100,22 @@ Alternatively, you can delete the baseline image that you wish to be updated and
 
 ### Folder structure
 
-Folder structure is hard coded (see below). There will be enhancements coming in to make it configurable:
-
+Folder structure is hard coded (see below), though you have the ability to set the base folder.
 ```
     .
     ├── cypress-visual-screenshots
         ├── baseline
         ├── comparison
         ├── diff
+```
+
+Set custom base folder
+```json
+{
+  "env": {
+    "visualRegressionFolder": "cypress-visual-screenshots"
+  }
+}
 ```
 
 ### Force resolution size
