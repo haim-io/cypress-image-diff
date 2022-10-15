@@ -12,7 +12,7 @@ import {
 } from './utils'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
-import { buildPaths } from './config'
+import buildPaths from './config'
 
 let testStatuses = []
 
