@@ -39,8 +39,8 @@ const deleteReport = args => {
 
 const copyScreenshot = args => {
   // If baseline does not exist, copy comparison image to baseline folder
-  if (!fs.existsSync(paths.image.baseline(args.testName))) {
-    fs.copySync(paths.image.comparison(args.testName), paths.image.baseline(args.testName))
+  if (!fs.existsSync(args.paths.image.baseline(args.testName))) {
+    fs.copySync(args.paths.image.comparison(args.testName), paths.image.baseline(args.testName))
   }
   
   return true
@@ -48,20 +48,20 @@ const copyScreenshot = args => {
 
 // Delete screenshot from comparison and diff directories
 const deleteScreenshot = args => {
-  if (fs.existsSync(paths.image.comparison(args.testName))) {
-    fs.unlinkSync(paths.image.comparison(args.testName))
+  if (fs.existsSync(args.paths.image.comparison(args.testName))) {
+    fs.unlinkSync(args.paths.image.comparison(args.testName))
   }
 
-  if (fs.existsSync(paths.image.diff(args.testName))) {
-    fs.unlinkSync(paths.image.diff(args.testName))
+  if (fs.existsSync(args.paths.image.diff(args.testName))) {
+    fs.unlinkSync(args.paths.image.diff(args.testName))
   }
 
   return true
 }
 
 async function compareSnapshotsPlugin(args) {
-  const baselineImg = await parseImage(paths.image.baseline(args.testName))
-  const comparisonImg = await parseImage(paths.image.comparison(args.testName))
+  const baselineImg = await parseImage(args.paths.image.baseline(args.testName))
+  const comparisonImg = await parseImage(args.paths.image.comparison(args.testName))
   const diff = new PNG({
     width: Math.max(comparisonImg.width, baselineImg.width),
     height: Math.max(comparisonImg.height, baselineImg.height),
@@ -92,8 +92,8 @@ async function compareSnapshotsPlugin(args) {
   const testFailed = percentage > args.testThreshold
 
   if (testFailed) {
-    fs.ensureFileSync(paths.image.diff(args.testName))
-    diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
+    fs.ensureFileSync(args.paths.image.diff(args.testName))
+    diff.pack().pipe(fs.createWriteStream(args.paths.image.diff(args.testName)))
   }
 
   // Saving test status object to build report if task is triggered

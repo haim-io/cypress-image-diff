@@ -1,6 +1,8 @@
 import { recurse } from 'cypress-recurse';
 
 const compareSnapshotCommand = defaultScreenshotOptions => {
+  const baseDir = Cypress.env('visualRegressionFolder');
+  const paths = buildPaths(baseDir);
   const height = Cypress.config('viewportHeight') || 1440
   const width = Cypress.config('viewportWidth') || 1980
 
@@ -27,21 +29,22 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
       recurse(
         () => {
           // Clear the comparison/diff screenshots/reports for this test
-          cy.task('deleteScreenshot', { testName })
-          cy.task('deleteReport', { testName })
+          cy.task('deleteScreenshot', { testName, paths })
+          cy.task('deleteReport', { testName, paths })
 
           // Take a screenshot and copy to baseline if it does not exist
           const objToOperateOn = subject ? cy.get(subject) : cy
           objToOperateOn
             .screenshot(testName, defaultScreenshotOptions)
             .task('copyScreenshot', {
-              testName,
+              testName, paths
             })
 
           // Compare screenshots
           const options = {
             testName,
             testThreshold,
+            paths
           }
           
           return cy.task('compareSnapshotsPlugin', options)
