@@ -1,4 +1,6 @@
 import { recurse } from 'cypress-recurse';
+import buildPaths from './config';
+
 
 const compareSnapshotCommand = defaultScreenshotOptions => {
   const baseDir = Cypress.env('visualRegressionFolder');
