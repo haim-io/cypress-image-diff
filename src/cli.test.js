@@ -1,4 +1,4 @@
-import colors from 'colors/safe'
+import colors from '@colors/colors/safe'
 import { copySync, readdirSync } from 'fs-extra'
 
 import { cli } from './cli'
