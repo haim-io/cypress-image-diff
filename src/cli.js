@@ -1,5 +1,5 @@
 import arg from 'arg'
-import colors from 'colors/safe'
+import colors from '@colors/colors/safe'
 import fs from 'fs-extra'
 
 import path from './config'
