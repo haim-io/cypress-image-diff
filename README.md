@@ -100,7 +100,7 @@ Alternatively, you can delete the baseline image that you wish to be updated and
 
 ### Folder structure
 
-Folder structure is hard coded (see below). There will be enhancements coming in to make it configurable:
+This folder structure will be created by default at the root of your project where your `package.json` lives:
 
 ```
     .
@@ -108,6 +108,37 @@ Folder structure is hard coded (see below). There will be enhancements coming in
         ├── baseline
         ├── comparison
         ├── diff
+    ├── cypress-visual-report
+```
+
+In some cases, you may want to specify the root folder for this structure. You could pass `rootDir` option into this plugin setup function. `rootDir` is a path relative to the current working directory.
+
+This is an example for Cypress version 10.0.0 or above. Should be similar for the deprecated plugins file in older version as well:
+```
+// Cypress v10+
+// cypress.config.js
+const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin')
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      getCompareSnapshotsPlugin(on, config, {
+        rootDir: 'visual-test/custom-folder-name'
+      })
+    }
+  }
+})
+```
+Output directory:
+```
+    .
+    ├── visual-test
+        ├── custom-folder-name
+            ├── cypress-visual-screenshots
+                ├── baseline
+                ├── comparison
+                ├── diff
+            ├── cypress-visual-report
 ```
 
 ### Force resolution size

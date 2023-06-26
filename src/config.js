@@ -1,26 +1,57 @@
 import path from 'path'
 
-const parentDirFolderName = 'cypress-visual-screenshots'
-const parentDir = path.join(process.cwd(), parentDirFolderName)
-const baseline = path.join(process.cwd(), parentDirFolderName, 'baseline')
-const comparison = path.join(process.cwd(), parentDirFolderName, 'comparison')
-const diff = path.join(process.cwd(), parentDirFolderName, 'diff')
-const reportDir = path.join(process.cwd(), 'cypress-visual-report')
+export class Paths {
+  constructor() {
+    this.rootDir = ''
+    this.screenshotFolderName = 'cypress-visual-screenshots'
+    this.reportFolderName = 'cypress-visual-report'
+  }
 
-const paths = {
-  image: {
-    baseline: (testName) => { return path.join(baseline, `${testName}.png`) },
-    comparison: (testName) => { return path.join(comparison, `${testName}.png`) },
-    diff: (testName) => { return path.join(diff, `${testName}.png`) },
-  },
-  dir: {
-    baseline,
-    comparison,
-    diff,
-  },
-  parentDir,
-  reportDir,
-  report: instance => { return path.join(reportDir, `cypress-visual-report${instance}.html`) },
+  get screenshotDir() {
+    return path.join(this.rootDir, this.screenshotFolderName)
+  }
+
+  get baseline() {
+    return path.join(process.cwd(), this.screenshotDir, 'baseline')
+  }
+
+  get comparison() {
+    return path.join(process.cwd(), this.screenshotDir, 'comparison')
+  }
+
+  get diff() {
+    return path.join(process.cwd(), this.screenshotDir, 'diff')
+  }
+
+  get image() {
+    return {
+      baseline: (testName) => {
+        return path.join(this.baseline, `${testName}.png`)
+      },
+      comparison: (testName) => {
+        return path.join(this.comparison, `${testName}.png`)
+      },
+      diff: (testName) => {
+        return path.join(this.diff, `${testName}.png`)
+      },
+    }
+  }
+
+  get dir() {
+    return {
+      baseline: this.baseline,
+      comparison: this.comparison,
+      diff: this.diff,
+    }
+  }
+
+  get reportDir() {
+    return path.join(process.cwd(), this.rootDir, this.reportFolderName)
+  }
+
+  report(instance) {
+    return path.join(this.reportDir, `cypress-visual-report${instance}.html`)
+  }
 }
 
-export default paths
+export default new Paths()
