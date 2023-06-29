@@ -39,7 +39,7 @@ const deleteReport = args => {
 
 const copyScreenshot = args => {
   // If baseline does not exist, copy comparison image to baseline folder
-  if (!fs.existsSync(paths.image.baseline(args.testName))) {
+  if (!fs.existsSync(paths.image.baseline(args.testName)) || args.force) {
     fs.copySync(paths.image.comparison(args.testName), paths.image.baseline(args.testName))
   }
   
