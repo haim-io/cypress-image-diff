@@ -1,8 +1,21 @@
 import path from 'path'
 
+let config
+
+try {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  config = require(path.join(process.cwd(), 'cypress-image-diff.config'))
+} catch (err) {
+  config = { ROOT_DIR: '' }
+}
+
+if (config && !config.ROOT_DIR) {
+  config.ROOT_DIR = '';
+}
+
 export class Paths {
   constructor() {
-    this.rootDir = ''
+    this.rootDir = config.ROOT_DIR
     this.screenshotFolderName = 'cypress-visual-screenshots'
     this.reportFolderName = 'cypress-visual-report'
   }

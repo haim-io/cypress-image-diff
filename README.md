@@ -92,6 +92,26 @@ describe('Visuals', () => {
 })
 ```
 
+### Custom config file
+
+If you'd like to take advantages of additional features, you will need to set up the custom config file.
+
+Create a file called `cypress-image-diff.config.js`. This should live along side `cypress.config.js`, in the root of the directory.
+
+```js
+// cypress-image-diff.config.js
+const config = {
+  ROOT_DIR: 'custom-folder-name',
+};
+
+module.exports = config;
+
+```
+
+Currently supported values in the custom config file:
+
+- ROOT_DIR (value relative to the root of the directory)
+
 ### Updating baseline images
 
 If there are wanted changes to the application in test and if we need to update baseline images, you can follow the steps in [CLI](./docs/CLI.md) documentation to update the baselines.
@@ -111,23 +131,16 @@ This folder structure will be created by default at the root of your project whe
     ├── cypress-visual-report
 ```
 
-In some cases, you may want to specify the root folder for this structure. You could pass `rootDir` option into this plugin setup function. `rootDir` is a path relative to the current working directory.
+In some cases, you may want to modify the folder structure relative to the directory. To accomplish this you will need to set a value on the ROOT_DIR key value on the `cypress-image-diff.config.js` [custom config file](#custom-config-file). `ROOT_DIR` is a path relative to the current working directory.
 
-This is an example for Cypress version 10.0.0 or above. Should be similar for the deprecated plugins file in older version as well:
-```
-// Cypress v10+
-// cypress.config.js
-const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin')
+```js
+// cypress-image-diff.config.js
+const config = {
+  ROOT_DIR: 'custom-folder-name',
+};
 
-export default defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      getCompareSnapshotsPlugin(on, config, {
-        rootDir: 'visual-test/custom-folder-name'
-      })
-    }
-  }
-})
+module.exports = config;
+
 ```
 Output directory:
 ```
