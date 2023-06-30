@@ -9,6 +9,8 @@ The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is sim
 
 [![Build Status][circleci-image]][circleci-url]
 
+[![Version][version-image]][version-url]
+
 [npm-downloads-image]: https://badgen.net/npm/dm/cypress-image-diff-js
 [npm-url]: https://www.npmjs.com/package/cypress-image-diff-js
 [circleci-url]: https://circleci.com/gh/uktrade/cypress-image-diff/tree/main
