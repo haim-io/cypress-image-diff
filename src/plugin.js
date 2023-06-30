@@ -107,8 +107,7 @@ async function compareSnapshotsPlugin(args) {
   return percentage
 }
 
-const getCompareSnapshotsPlugin = (on, config, { rootDir = '' } = {}) => {
-  paths.rootDir = rootDir
+const getCompareSnapshotsPlugin = (on, config) => {
   // Create folder structure
   setupFolders()
 
