@@ -15,6 +15,8 @@ The wrapper uses [pixelmatch](https://github.com/mapbox/pixelmatch) which is sim
 [npm-url]: https://www.npmjs.com/package/cypress-image-diff-js
 [circleci-url]: https://circleci.com/gh/uktrade/cypress-image-diff/tree/main
 [circleci-image]: https://circleci.com/gh/uktrade/cypress-image-diff/tree/main.svg?style=svg
+[version-image]: https://img.shields.io/npm/v/cypress-image-diff-js.svg
+[version-url]: https://www.npmjs.com/package/cypress-image-diff-js
 
 ## Table of contents
 - [Cypress integration](./docs/Cypress%20integration.md)
