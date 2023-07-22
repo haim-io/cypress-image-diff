@@ -140,7 +140,7 @@ In some cases, you may want to modify the folder structure relative to the direc
 ```js
 // cypress-image-diff.config.js
 const config = {
-  ROOT_DIR: 'custom-folder-name',
+  ROOT_DIR: 'visual-test/custom-folder-name',
 };
 
 module.exports = config;
