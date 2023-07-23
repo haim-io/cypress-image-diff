@@ -1,21 +1,25 @@
 import path from 'path'
 
-let config
-
-try {
-  // eslint-disable-next-line import/no-dynamic-require, global-require
-  config = require(path.join(process.cwd(), 'cypress-image-diff.config'))
-} catch (err) {
-  config = { ROOT_DIR: '' }
+function getUserConfigFile() {
+  try {
+    // eslint-disable-next-line import/no-dynamic-require, global-require
+    return require(path.join(process.cwd(), 'cypress-image-diff.config'))
+  } catch (err) {
+    return {}
+  }
 }
 
-if (config && !config.ROOT_DIR) {
-  config.ROOT_DIR = '';
+const DEFAULT_CONFIG = {
+  ROOT_DIR: '',
+  FAILURE_THRESHOLD: 0,
+  RETRY_OPTIONS: {}
 }
+
+export const userConfig = { ...DEFAULT_CONFIG, ...getUserConfigFile() }
 
 export class Paths {
   constructor() {
-    this.rootDir = config.ROOT_DIR
+    this.rootDir = userConfig.ROOT_DIR
     this.screenshotFolderName = 'cypress-visual-screenshots'
     this.reportFolderName = 'cypress-visual-report'
   }
