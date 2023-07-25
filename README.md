@@ -115,7 +115,7 @@ module.exports = config;
 Currently supported values in the custom config file:
 
 - ROOT_DIR (value relative to the root of the directory)
-- FAILURE_THRESHOLD: must between 0 and 1, default to 0
+- FAILURE_THRESHOLD: must be between 0 and 1, default to 0
 - RETRY_OPTIONS: see [retry options](https://www.npmjs.com/package/cypress-recurse#options)
 
 > **Note**: In order to make this custom config values effective, remember to return `getCompareSnapshotsPlugin` instance inside function `setupNodeEvents`:
