@@ -10,7 +10,7 @@ import {
   setFilePermission,
   renameAndMoveFile, renameAndCopyFile
 } from './utils'
-import paths from './config'
+import paths, { userConfig } from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
 
@@ -164,6 +164,11 @@ const getCompareSnapshotsPlugin = (on, config) => {
     generateReport,
     deleteReport,
   })
+
+  // eslint-disable-next-line no-param-reassign
+  config.env.cypressImageDiff = userConfig
+
+  return config
 }
 
 module.exports = getCompareSnapshotsPlugin
