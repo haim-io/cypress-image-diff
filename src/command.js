@@ -37,18 +37,21 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
           cy.task('deleteScreenshot', { testName })
           cy.task('deleteReport', { testName })
 
-          // Take a screenshot and copy to baseline if it does not exist
           const objToOperateOn = subject ? cy.get(subject) : cy
-          objToOperateOn
-            .screenshot(testName, defaultScreenshotOptions)
-            .task('copyScreenshot', {
+          const screenshotted = objToOperateOn.screenshot(testName, defaultScreenshotOptions)
+
+          if (userConfig.FAIL_ON_MISSING_BASELINE === false) {
+            // copy to baseline if it does not exist
+            screenshotted.task('copyScreenshot', {
               testName,
             })
+          }
 
           // Compare screenshots
           const options = {
             testName,
             testThreshold,
+            failOnMissingBaseline: userConfig.FAIL_ON_MISSING_BASELINE
           }
           
           return cy.task('compareSnapshotsPlugin', options)
