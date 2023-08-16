@@ -117,7 +117,7 @@ Currently supported values in the custom config file:
 - ROOT_DIR (value relative to the root of the directory)
 - FAILURE_THRESHOLD: must be between 0 and 1, default to 0
 - RETRY_OPTIONS: see [retry options](https://www.npmjs.com/package/cypress-recurse#options)
-- FAIL_ON_MISSING_BASELINE: a boolean to determine whether to fail a test if its baseline doesn't exist
+- FAIL_ON_MISSING_BASELINE: a boolean to determine whether to fail a test if its baseline doesn't exist, default to false
 
 > **Note**: In order to make this custom config values effective, remember to return `getCompareSnapshotsPlugin` instance inside function `setupNodeEvents`:
 
