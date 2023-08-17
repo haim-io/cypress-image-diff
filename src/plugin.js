@@ -59,8 +59,16 @@ const deleteScreenshot = args => {
   return true
 }
 
-async function compareSnapshotsPlugin(args) {
-  const baselineImg = await parseImage(paths.image.baseline(args.testName))
+const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
+  let baselineImg
+  try {
+    baselineImg = await parseImage(paths.image.baseline(args.testName))
+  } catch (e) {
+    return args.failOnMissingBaseline
+      ? { percentage: 1, testFailed: true }
+      : { percentage: 0, testFailed: false }
+  }
+
   const comparisonImg = await parseImage(paths.image.comparison(args.testName))
   const diff = new PNG({
     width: Math.max(comparisonImg.width, baselineImg.width),
@@ -95,6 +103,12 @@ async function compareSnapshotsPlugin(args) {
     fs.ensureFileSync(paths.image.diff(args.testName))
     diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
   }
+
+  return { percentage, testFailed }
+}
+
+async function compareSnapshotsPlugin(args) {
+  const { percentage, testFailed } = await getStatsComparisonAndPopulateDiffIfAny(args)
 
   // Saving test status object to build report if task is triggered
   testStatuses.push(new TestStatus({ 
