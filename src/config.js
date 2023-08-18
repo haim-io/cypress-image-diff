@@ -12,7 +12,8 @@ function getUserConfigFile() {
 const DEFAULT_CONFIG = {
   ROOT_DIR: '',
   FAILURE_THRESHOLD: 0,
-  RETRY_OPTIONS: {}
+  RETRY_OPTIONS: {},
+  FAIL_ON_MISSING_BASELINE: false
 }
 
 export const userConfig = { ...DEFAULT_CONFIG, ...getUserConfigFile() }

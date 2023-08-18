@@ -45,13 +45,13 @@ const renameAndCopyFile = (originalFilePath, newFilePath) => {
 const parseImage = async image => {
   return new Promise((resolve, reject) => {
     const fd = fs.createReadStream(image)
-    fd.pipe(new PNG())
+    fd.on('error', (error) => reject(error))
+      .pipe(new PNG())
       // eslint-disable-next-line func-names
       .on('parsed', function() {
         const that = this
         resolve(that)
       })
-      .on('error', (error) => reject(error))
   })
 }
 
