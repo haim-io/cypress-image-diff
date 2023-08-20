@@ -898,6 +898,7 @@ exports[`Reporter create report should create html template 1`] = `
             familyLine.line.forEach((memberName, index) => {
               const id = familyLine.getId(index)
               if (map[id]) return
+              if (!id) return
 
               map[id] = {
                 status: item.status,
