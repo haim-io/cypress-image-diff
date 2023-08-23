@@ -118,6 +118,9 @@ Currently supported values in the custom config file:
 - FAILURE_THRESHOLD: must be between 0 and 1, default to 0
 - RETRY_OPTIONS: see [retry options](https://www.npmjs.com/package/cypress-recurse#options)
 - FAIL_ON_MISSING_BASELINE: a boolean to determine whether to fail a test if its baseline doesn't exist, default to false
+- COMPARISON_OPTIONS: custom options passed to pixelmatch, see [pixelmatch options](https://github.com/mapbox/pixelmatch#api), default to `{ threshold: 0.1 }`. Please note that the `COMPARISON_OPTIONS.threshold` is different from the `FAILURE_THRESHOLD` above:
+  - `COMPARISON_OPTIONS.threshold`: is the failure threshold for every pixel comparision
+  - `FAILURE_THRESHOLD`: is the failure threshold for the whole comparision
 
 > **Note**: In order to make this custom config values effective, remember to return `getCompareSnapshotsPlugin` instance inside function `setupNodeEvents`:
 

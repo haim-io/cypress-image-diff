@@ -93,7 +93,7 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
     diff.data,
     diff.width,
     diff.height,
-    { threshold: 0.1 }
+    userConfig.COMPARISON_OPTIONS
   )
   
   const percentage = (pixelMismatchResult / diff.width / diff.height) ** 0.5
