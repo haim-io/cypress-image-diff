@@ -13,7 +13,8 @@ const DEFAULT_CONFIG = {
   ROOT_DIR: '',
   FAILURE_THRESHOLD: 0,
   RETRY_OPTIONS: {},
-  FAIL_ON_MISSING_BASELINE: false
+  FAIL_ON_MISSING_BASELINE: false,
+  COMPARISON_OPTIONS: { threshold: 0.1 }
 }
 
 export const userConfig = { ...DEFAULT_CONFIG, ...getUserConfigFile() }
