@@ -31,6 +31,17 @@ const generateReport = (instance = '') => {
   return true
 }
 
+const generateHtmlReport = () => {
+  if (testStatuses.length > 0) {
+    if (typeof userConfig.CUSTOM_HTML_REPORTER === 'function') {
+      userConfig.CUSTOM_HTML_REPORTER(testStatuses)
+    } else {
+      createReport({ tests: JSON.stringify(testStatuses), instance: '' })
+    }
+  }
+  return true
+}
+
 const deleteReport = args => {
   testStatuses = testStatuses.filter(testStatus => testStatus.name !== args.testName)
 
@@ -176,6 +187,7 @@ const getCompareSnapshotsPlugin = (on, config) => {
     copyScreenshot,
     deleteScreenshot,
     generateReport,
+    generateHtmlReport,
     deleteReport,
   })
 

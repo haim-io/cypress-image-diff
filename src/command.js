@@ -70,6 +70,12 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     }
     return undefined
   })
+
+  if (userConfig.GENERATE_HTML_REPORTER) {
+    after(() => {
+      cy.task('generateHtmlReport')
+    })
+  }
 }
 
 module.exports = compareSnapshotCommand
