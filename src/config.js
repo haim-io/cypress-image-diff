@@ -15,8 +15,7 @@ const DEFAULT_CONFIG = {
   RETRY_OPTIONS: {},
   FAIL_ON_MISSING_BASELINE: false,
   COMPARISON_OPTIONS: { threshold: 0.1 },
-  GENERATE_HTML_REPORTER: false,
-  CUSTOM_HTML_REPORTER: null
+  HTML_REPORTER: undefined
 }
 
 export const userConfig = { ...DEFAULT_CONFIG, ...getUserConfigFile() }

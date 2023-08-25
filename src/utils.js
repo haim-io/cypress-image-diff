@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import path from 'path'
 import { PNG } from 'pngjs'
 
 const createDir = dirs => {
@@ -72,4 +73,9 @@ const adjustCanvas = async (image, width, height) => {
   return imageAdjustedCanvas
 }
 
-export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile }
+const getRelativePathFromCwd = (dir) => {
+  const relative = path.relative(process.cwd(), dir)
+  return fs.existsSync(relative) ? relative : ''
+}
+
+export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile, getRelativePathFromCwd }

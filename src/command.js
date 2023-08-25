@@ -51,7 +51,9 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
           const options = {
             testName,
             testThreshold,
-            failOnMissingBaseline: userConfig.FAIL_ON_MISSING_BASELINE
+            failOnMissingBaseline: userConfig.FAIL_ON_MISSING_BASELINE,
+            specFilename: Cypress.spec.name,
+            specPath: Cypress.spec.relative,
           }
           
           return cy.task('compareSnapshotsPlugin', options)
@@ -70,12 +72,6 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     }
     return undefined
   })
-
-  if (userConfig.GENERATE_HTML_REPORTER) {
-    after(() => {
-      cy.task('generateHtmlReport')
-    })
-  }
 }
 
 module.exports = compareSnapshotCommand
