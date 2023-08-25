@@ -6,6 +6,7 @@ Baseline, comparison and diff images will only be added to the report for failin
 
 ## Cypress support index
 
+### Generate default HTML report
 Add the following after hook
 
 ```js
@@ -19,6 +20,25 @@ after(() => {
 The report will look something like:
 
 ![Cypress Image Diff Report](../report-example.png)
+
+### Generate Custom HTML report
+If you want to generate your custom report, pass a builder function to `HTML_REPORTER` in [custom config file](https://github.com/kien-ht/cypress-image-diff#custom-config-file). In the below example, a file named `example.json` will be generated in the current directory after all the tests are run:
+```
+const fs = require('fs-extra')
+
+const config = {
+  ROOT_DIR: '',
+  HTML_REPORTER: (testResults) => {
+    fs.writeFile('./example.json', JSON.stringify(testResults, null, 2), (err) => {
+      console.log(err)
+    })
+  },
+}
+
+module.exports = config
+```
+
+See [example.json](./report-example.json)
 
 ## Folder structure
 
