@@ -121,6 +121,7 @@ Currently supported values in the custom config file:
 - COMPARISON_OPTIONS: custom options passed to pixelmatch, see [pixelmatch options](https://github.com/mapbox/pixelmatch#api), default to `{ threshold: 0.1 }`. Please note that the `COMPARISON_OPTIONS.threshold` is different from the `FAILURE_THRESHOLD` above:
   - `COMPARISON_OPTIONS.threshold`: is the failure threshold for every pixel comparision
   - `FAILURE_THRESHOLD`: is the failure threshold for the whole comparision
+- HTML_REPORTER: this function allows you to build your own custom report with `testResults` argument, see [an example here](./docs/Reporting.md#reporting)
 
 > **Note**: In order to make this custom config values effective, remember to return `getCompareSnapshotsPlugin` instance inside function `setupNodeEvents`:
 
