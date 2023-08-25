@@ -8,7 +8,8 @@ import {
   adjustCanvas,
   parseImage,
   setFilePermission,
-  renameAndMoveFile, renameAndCopyFile
+  renameAndMoveFile, renameAndCopyFile,
+  getRelativePathFromCwd
 } from './utils'
 import paths, { userConfig } from './config'
 import TestStatus from './reporter/test-status'
@@ -27,17 +28,6 @@ const tearDownDirs = () => {
 const generateReport = (instance = '') => {
   if (testStatuses.length > 0) {
     createReport({ tests: JSON.stringify(testStatuses), instance })
-  }
-  return true
-}
-
-const generateHtmlReport = () => {
-  if (testStatuses.length > 0) {
-    if (typeof userConfig.CUSTOM_HTML_REPORTER === 'function') {
-      userConfig.CUSTOM_HTML_REPORTER(testStatuses)
-    } else {
-      createReport({ tests: JSON.stringify(testStatuses), instance: '' })
-    }
   }
   return true
 }
@@ -126,7 +116,12 @@ async function compareSnapshotsPlugin(args) {
     status: !testFailed,
     name: args.testName,
     percentage,
-    failureThreshold: args.testThreshold
+    failureThreshold: args.testThreshold,
+    specFilename: args.specFilename,
+    specPath: args.specPath,
+    baselinePath: getRelativePathFromCwd(paths.image.baseline(args.testName)),
+    diffPath: getRelativePathFromCwd(paths.image.diff(args.testName)),
+    comparisonPath: getRelativePathFromCwd(paths.image.comparison(args.testName)),
   }))
 
   return percentage
@@ -187,8 +182,44 @@ const getCompareSnapshotsPlugin = (on, config) => {
     copyScreenshot,
     deleteScreenshot,
     generateReport,
-    generateHtmlReport,
     deleteReport,
+  })
+
+  on('after:run', (results) => {
+    if (typeof userConfig.HTML_REPORTER === 'function') {
+      const testsMappedBySpecPath = testStatuses.reduce((map, item) => {
+        if (map[item.specPath] === undefined) {
+          // eslint-disable-next-line no-param-reassign
+          map[item.specPath] = {
+            name: item.specFilename,
+            path: item.specPath,
+            tests: []
+          }
+        }
+        map[item.specPath].tests.push(item)
+
+        return map
+      }, {})
+
+      const suites = Object.values(testsMappedBySpecPath)
+      const totalPassed = testStatuses.filter(t => t.status === 'pass' ).length
+
+      const stats = {
+        total: testStatuses.length,
+        totalPassed,
+        totalFailed: testStatuses.length - totalPassed,
+        totalSuites: suites.length,
+        suites,
+        startedAt: results.startedTestsAt,
+        endedAt: results.endedTestsAt,
+        duration: results.totalDuration,
+        browserName: results.browserName,
+        browserVersion: results.browserVersion,
+        cypressVersion: results.cypressVersion,
+      }
+
+      userConfig.HTML_REPORTER(stats)
+    }
   })
 
   // eslint-disable-next-line no-param-reassign
