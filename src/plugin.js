@@ -1,6 +1,7 @@
 import fs from 'fs-extra'
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
+import path from 'path'
 
 import {
   createDir,
@@ -9,7 +10,9 @@ import {
   parseImage,
   setFilePermission,
   renameAndMoveFile, renameAndCopyFile,
-  getRelativePathFromCwd
+  getRelativePathFromCwd,
+  getCleanDate,
+  writeFileIncrement
 } from './utils'
 import paths, { userConfig } from './config'
 import TestStatus from './reporter/test-status'
@@ -22,7 +25,7 @@ const setupFolders = () => {
 }
 
 const tearDownDirs = () => {
-  cleanDir([paths.dir.comparison, paths.dir.diff, paths.reportDir])
+  cleanDir([paths.dir.comparison, paths.dir.diff])
 }
 
 const generateReport = (instance = '') => {
@@ -127,11 +130,55 @@ async function compareSnapshotsPlugin(args) {
   return percentage
 }
 
+const generateJsonReport = async (results) => {
+  const testsMappedBySpecPath = testStatuses.reduce((map, item) => {
+    if (map[item.specPath] === undefined) {
+      // eslint-disable-next-line no-param-reassign
+      map[item.specPath] = {
+        name: item.specFilename,
+        path: item.specPath,
+        tests: []
+      }
+    }
+    map[item.specPath].tests.push(item)
+
+    return map
+  }, {})
+
+  const suites = Object.values(testsMappedBySpecPath)
+  const totalPassed = testStatuses.filter(t => t.status === 'pass' ).length
+
+  const stats = {
+    total: testStatuses.length,
+    totalPassed,
+    totalFailed: testStatuses.length - totalPassed,
+    totalSuites: suites.length,
+    suites,
+    startedAt: results.startedTestsAt,
+    endedAt: results.endedTestsAt,
+    duration: results.totalDuration,
+    browserName: results.browserName,
+    browserVersion: results.browserVersion,
+    cypressVersion: results.cypressVersion,
+  }
+
+  const jsonFilename = userConfig.JSON_REPORT.FILENAME
+  ? `${userConfig.JSON_REPORT.FILENAME}.json`
+  : `report_${getCleanDate(stats.startedAt)}.json`
+
+  const jsonPath = path.join(paths.reportDir, jsonFilename)
+  if (userConfig.JSON_REPORT.OVERWRITE) {
+   await fs.writeFile(jsonPath, JSON.stringify(stats, null, 2))
+  } else {
+   await writeFileIncrement(jsonPath, JSON.stringify(stats, null, 2))
+  }
+}
+
 const getCompareSnapshotsPlugin = (on, config) => {
   // Create folder structure
   setupFolders()
 
-  // Delete comparison, diff images and generated reports to ensure a clean run
+  // Delete comparison and diff images to ensure a clean run
   tearDownDirs()
 
   // Force screenshot resolution to keep consistency of test runs across machines
@@ -177,49 +224,18 @@ const getCompareSnapshotsPlugin = (on, config) => {
     }
   })
 
+  on('after:run', (results) => {
+    if (userConfig.JSON_REPORT) {
+      generateJsonReport(results)
+    }
+  })
+
   on('task', {
     compareSnapshotsPlugin,
     copyScreenshot,
     deleteScreenshot,
     generateReport,
     deleteReport,
-  })
-
-  on('after:run', (results) => {
-    if (typeof userConfig.HTML_REPORTER === 'function') {
-      const testsMappedBySpecPath = testStatuses.reduce((map, item) => {
-        if (map[item.specPath] === undefined) {
-          // eslint-disable-next-line no-param-reassign
-          map[item.specPath] = {
-            name: item.specFilename,
-            path: item.specPath,
-            tests: []
-          }
-        }
-        map[item.specPath].tests.push(item)
-
-        return map
-      }, {})
-
-      const suites = Object.values(testsMappedBySpecPath)
-      const totalPassed = testStatuses.filter(t => t.status === 'pass' ).length
-
-      const stats = {
-        total: testStatuses.length,
-        totalPassed,
-        totalFailed: testStatuses.length - totalPassed,
-        totalSuites: suites.length,
-        suites,
-        startedAt: results.startedTestsAt,
-        endedAt: results.endedTestsAt,
-        duration: results.totalDuration,
-        browserName: results.browserName,
-        browserVersion: results.browserVersion,
-        cypressVersion: results.cypressVersion,
-      }
-
-      userConfig.HTML_REPORTER(stats)
-    }
   })
 
   // eslint-disable-next-line no-param-reassign

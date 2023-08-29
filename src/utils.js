@@ -78,4 +78,24 @@ const getRelativePathFromCwd = (dir) => {
   return fs.existsSync(relative) ? relative : ''
 }
 
-export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile, getRelativePathFromCwd }
+const getCleanDate = (date) => {
+  const source = date ? new Date(date) : new Date()
+  return source
+    .toLocaleString('en-GB')
+    .replace(/(,\s*)|,|\s+/g, '_')
+    .replace(/\\|\//g, '-')
+    .replace(/:/g, '')
+}
+
+const writeFileIncrement = async (name, data, increment = 1) => {
+  const filename = `${path.basename(name, path.extname(name))}${
+    increment >= 2 ? `_${increment}` : ''
+  }${path.extname(name)}`
+
+  const absolutePath = path.join(path.dirname(name), filename)
+  if (fs.existsSync(absolutePath) === false) return fs.writeFile(absolutePath, data)
+
+  return writeFileIncrement(name, data, increment + 1)
+}
+
+export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile, getRelativePathFromCwd, getCleanDate, writeFileIncrement }
