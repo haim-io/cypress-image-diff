@@ -1,4 +1,5 @@
 import path from 'path'
+import merge from 'lodash/merge'
 
 function getUserConfigFile() {
   try {
@@ -15,10 +16,13 @@ const DEFAULT_CONFIG = {
   RETRY_OPTIONS: {},
   FAIL_ON_MISSING_BASELINE: false,
   COMPARISON_OPTIONS: { threshold: 0.1 },
-  HTML_REPORTER: undefined
+  JSON_REPORT: {
+    FILENAME: '',
+    OVERWRITE: true
+  }
 }
 
-export const userConfig = { ...DEFAULT_CONFIG, ...getUserConfigFile() }
+export const userConfig = merge(DEFAULT_CONFIG, getUserConfigFile())
 
 export class Paths {
   constructor() {

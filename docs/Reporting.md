@@ -22,21 +22,8 @@ The report will look something like:
 ![Cypress Image Diff Report](../report-example.png)
 
 ### Generate Custom HTML report
-If you want to generate your custom report, pass a builder function to `HTML_REPORTER` in [custom config file](https://github.com/kien-ht/cypress-image-diff#custom-config-file). In the below example, a file named `example.json` will be generated in the current directory after all the tests are run:
-```
-const fs = require('fs-extra')
 
-const config = {
-  ROOT_DIR: '',
-  HTML_REPORTER: (testResults) => {
-    fs.writeFile('./example.json', JSON.stringify(testResults, null, 2), (err) => {
-      console.log(err)
-    })
-  },
-}
-
-module.exports = config
-```
+If you want to generate your custom report, generate a report json file by passing `JSON_REPORT` in the [custom config file](../README.md#custom-config-file), and build your own HTML file from this json. 
 
 See [example.json](./report-example.json)
 
