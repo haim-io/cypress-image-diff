@@ -224,9 +224,9 @@ const getCompareSnapshotsPlugin = (on, config) => {
     }
   })
 
-  on('after:run', (results) => {
+  on('after:run', async (results) => {
     if (userConfig.JSON_REPORT) {
-      generateJsonReport(results)
+      await generateJsonReport(results)
     }
   })
 
