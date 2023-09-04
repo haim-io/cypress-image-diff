@@ -25,7 +25,7 @@ The report will look something like:
 
 If you want to generate your custom report, generate a report json file by passing `JSON_REPORT` in the [custom config file](../README.md#custom-config-file), and build your own HTML file from this json. 
 
-See [example.json](./report-example.json)
+See [example.json](../report-example.json)
 
 ## Folder structure
 
