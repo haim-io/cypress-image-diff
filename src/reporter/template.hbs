@@ -229,8 +229,12 @@
       .collapse-item.branch[data-current-filter='total'] [data-filter-type='pass'],
       .collapse-item.branch[data-current-filter='total'] [data-filter-type='fail'],
       .collapse-item.branch[data-current-filter='pass'] [data-filter-type='pass'],
-      .collapse-item.branch[data-current-filter='fail'] [data-filter-type='fail'] {
+      .collapse-item.branch[data-current-filter='fail'] [data-filter-type='fail'],
+      .collapse-item.branch[data-current-filter='total'] [data-filter-type='failPercentage'] {
         display: flex;
+      }
+      .collapse-item.branch[data-current-filter='total'] [data-filter-type='failPercentage'] .icon {
+        background-size: 16px;
       }
       @keyframes fadeIn {
         from { opacity: 0 }
@@ -585,6 +589,10 @@
               <div class="icon close-icon"></div>
               <b>$__fails__</b>
             </div>
+            <div class="icon-container" data-filter-type="failPercentage">
+              <div class="icon frown-face-icon"></div>
+              <b>$__failPercentage__%</b>
+            </div>
           </div>
 
           <div class="collapse-item__content"></div>
@@ -850,11 +858,12 @@
           return leaf
         },
 
-        createBranch({ title, passes, fails, children, id }) {
+        createBranch({ title, passes, fails,failPercentage, children, id }) {
           const branch = DOMBuilder.cloneTemplate('branch-template', {
             title,
             passes,
             fails,
+            failPercentage,
             id
           })
           DOMBuilder.insertChildren({
@@ -917,7 +926,7 @@
           return Object.values(itemMap).map((v) => v)
         }
 
-        countTotal(children, status) {
+        countTotal(children, status, percentage) {
           return {
             passes: children.length
               ? children.reduce((acc, i) => acc + i.total.passes, 0)
@@ -928,7 +937,10 @@
               ? children.reduce((acc, i) => acc + i.total.fails, 0)
               : status === ITEM_STATUS.FAIL
               ? 1
-              : 0
+              : 0,
+            failPercentage: children.length
+              ? children.reduce((acc, i) => (acc + i.total.failPercentage)/2, 0)
+              : percentage
           }
         }
 
@@ -944,7 +956,7 @@
                 title,
                 children,
                 ...(children.length ? {} : { status, percentage, failureThreshold }),
-                total: this.countTotal(children, status),
+                total: this.countTotal(children, status, percentage),
               }
             })
         }
@@ -959,6 +971,7 @@
               title: item.title,
               passes: item.total.passes,
               fails: item.total.fails,
+              failPercentage: (item.total.failPercentage * 100).toFixed(1),
               percentage: (item.percentage * 100).toFixed(1),
               failureThreshold: (item.failureThreshold * 100).toFixed(1),
               id: item.id,
