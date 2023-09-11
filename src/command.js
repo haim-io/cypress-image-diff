@@ -1,7 +1,8 @@
 import { recurse } from 'cypress-recurse';
+import DEFAULT_CONFIG from './config.default'
 
 const compareSnapshotCommand = defaultScreenshotOptions => {
-  const userConfig = Cypress.env('cypressImageDiff')
+  const userConfig = Cypress.env('cypressImageDiff') || DEFAULT_CONFIG
 
   const height = Cypress.config('viewportHeight') || 1440
   const width = Cypress.config('viewportWidth') || 1980
