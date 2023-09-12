@@ -1,5 +1,6 @@
 import path from 'path'
 import merge from 'lodash/merge'
+import DEFAULT_CONFIG from './config.default'
 
 function getUserConfigFile() {
   try {
@@ -7,18 +8,6 @@ function getUserConfigFile() {
     return require(path.join(process.cwd(), 'cypress-image-diff.config'))
   } catch (err) {
     return {}
-  }
-}
-
-const DEFAULT_CONFIG = {
-  ROOT_DIR: '',
-  FAILURE_THRESHOLD: 0,
-  RETRY_OPTIONS: {},
-  FAIL_ON_MISSING_BASELINE: false,
-  COMPARISON_OPTIONS: { threshold: 0.1 },
-  JSON_REPORT: {
-    FILENAME: '',
-    OVERWRITE: true
   }
 }
 
