@@ -34,7 +34,7 @@ const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin');
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      getCompareSnapshotsPlugin(on, config);
+      return getCompareSnapshotsPlugin(on, config);
     },
   },
 });
@@ -46,7 +46,7 @@ import getCompareSnapshotsPlugin from 'cypress-image-diff-js/dist/plugin';
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      getCompareSnapshotsPlugin(on, config);
+      return getCompareSnapshotsPlugin(on, config);
     },
   },
 });
@@ -55,7 +55,7 @@ export default defineConfig({
 // cypress/plugin/index.js
 module.exports = (on, config) => {
   const getCompareSnapshotsPlugin = require('cypress-image-diff-js/dist/plugin')
-  getCompareSnapshotsPlugin(on, config)
+  return getCompareSnapshotsPlugin(on, config)
 };
 ```
 
