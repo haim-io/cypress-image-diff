@@ -72,6 +72,15 @@ describe('Visuals', () => {
   })
 })
 ```
+> **Note**: This plugin internally utilizes `cypress.screenshot` command and due to its limitation on taking full page screenshots (https://github.com/cypress-io/cypress/issues/2681), you might encounter some weird results if you have `html`, `body` set to `100%`, or `scroll-behavior: smooth`, this workaround of reseting these CSS properties before invoking the command might help:
+```
+cy.get("html, body").invoke(
+  "attr",
+  "style",
+  "height: auto; scroll-behavior: auto;"
+);
+```
+Full page screenshots are generally not recommended over individual DOM elements, as stated in the [Cypress docs](https://docs.cypress.io/guides/tooling/visual-testing#Visual-diff-elements), so use them sparingly.
 
 ### Take screenshot and compare an element
 
