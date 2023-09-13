@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://example.com/CONTRIBUTING/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Contributing - Cypress image diff</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Contributing";
+        var mkdocs_page_input_path = "CONTRIBUTING.md";
+        var mkdocs_page_url = "/CONTRIBUTING/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Cypress image diff
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="" href="../about.md">About</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Cypress image diff</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+      <li class="breadcrumb-item active">Contributing</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="contributing">Contributing</h1>
+<p>When contributing to this repository, please first discuss the change you wish to make via issue,
+email, or any other method with the owners of this repository before making a change. </p>
+<p>Please note we have a code of conduct, please follow it in all your interactions with the project.</p>
+<h2 id="commits">Commits</h2>
+<p>When committing please always use the following pattern for you messages (scope, body and footer are optional):</p>
+<pre><code>&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+&lt;BLANK LINE&gt;
+&lt;body&gt;
+&lt;BLANK LINE&gt;
+&lt;footer&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Commit message types (tags)</th>
+<th>Release type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>feat</strong>: A new feature</td>
+<td>Minor release (0.<strong>1</strong>.0)</td>
+<td><code>feat: Add "Investment project" activity card</code></td>
+</tr>
+<tr>
+<td><strong>fix</strong>: A bug fix</td>
+<td>Patch release (0.0.<strong>1</strong>)</td>
+<td><code>fix: Remove default activity card</code></td>
+</tr>
+<tr>
+<td><strong>docs</strong>: Documentation only changes</td>
+<td>None</td>
+<td><code>docs(README): Add testing instructions</code></td>
+</tr>
+<tr>
+<td><strong>style</strong>: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)</td>
+<td>None</td>
+<td><code>style: Use tabs instead of spaces</code></td>
+</tr>
+<tr>
+<td><strong>refactor</strong>: A code change that neither fixes a bug nor adds a feature</td>
+<td>None</td>
+<td><code>refactor: Add missing props validation to ActivityFeed</code></td>
+</tr>
+<tr>
+<td><strong>perf</strong>: A code change that improves performance</td>
+<td>None</td>
+<td><code>perf: Improve rendering speed of ActivityFeed</code></td>
+</tr>
+<tr>
+<td><strong>test</strong>: Adding missing or correcting existing tests</td>
+<td>None</td>
+<td><code>test: Add integration tests to ActivityFeedCard</code></td>
+</tr>
+<tr>
+<td><strong>build</strong> Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)</td>
+<td>None</td>
+<td><code>build: Update webpack config</code></td>
+</tr>
+<tr>
+<td><strong>ci</strong> Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)</td>
+<td>None</td>
+<td><code>ci: Update CircleCI config</code></td>
+</tr>
+<tr>
+<td><strong>chore</strong>: Changes to the build process or auxiliary tools and libraries such as documentation generation</td>
+<td>None</td>
+<td><code>chore: Update CircleCI config</code></td>
+</tr>
+</tbody>
+</table>
+<p>To create a major/breaking (<strong>1</strong>.0.0) release, please add <code>BREAKING CHANGE</code> to the commit message body with some explanation, example message:</p>
+<pre><code>fix: Update flaky screenshot function.
+BREAKING CHANGE: Update third party driver object.
+Optionally add more info in the second line of your message.
+</code></pre>
+<h2 id="pull-request-process">Pull Request Process</h2>
+<ol>
+<li>Ensure any install or build dependencies are removed before the end of the layer when doing a 
+   build.</li>
+<li>Update the README.md with details of changes to the interface, this includes new environment 
+   variables, exposed ports, useful file locations and container parameters.</li>
+<li>You may merge the Pull Request in once you have the sign-off of the mantainer, or if you 
+   do not have permission to do that, you may request the reviewer to merge it for you.</li>
+</ol>
+<h2 id="code-of-conduct">Code of Conduct</h2>
+<h3 id="our-pledge">Our Pledge</h3>
+<p>In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our project and
+our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, gender identity and expression, level of experience,
+nationality, personal appearance, race, religion, or sexual identity and
+orientation.</p>
+<h3 id="our-standards">Our Standards</h3>
+<p>Examples of behavior that contributes to creating a positive environment
+include:</p>
+<ul>
+<li>Using welcoming and inclusive language</li>
+<li>Being respectful of differing viewpoints and experiences</li>
+<li>Gracefully accepting constructive criticism</li>
+<li>Focusing on what is best for the community</li>
+<li>Showing empathy towards other community members</li>
+</ul>
+<p>Examples of unacceptable behavior by participants include:</p>
+<ul>
+<li>The use of sexualized language or imagery and unwelcome sexual attention or
+advances</li>
+<li>Trolling, insulting/derogatory comments, and personal or political attacks</li>
+<li>Public or private harassment</li>
+<li>Publishing others' private information, such as a physical or electronic
+  address, without explicit permission</li>
+<li>Other conduct which could reasonably be considered inappropriate in a
+  professional setting</li>
+</ul>
+<h3 id="our-responsibilities">Our Responsibilities</h3>
+<p>Project maintainers are responsible for clarifying the standards of acceptable
+behavior and are expected to take appropriate and fair corrective action in
+response to any instances of unacceptable behavior.</p>
+<p>Project maintainers have the right and responsibility to remove, edit, or
+reject comments, commits, code, wiki edits, issues, and other contributions
+that are not aligned to this Code of Conduct, or to ban temporarily or
+permanently any contributor for other behaviors that they deem inappropriate,
+threatening, offensive, or harmful.</p>
+<h3 id="scope">Scope</h3>
+<p>This Code of Conduct applies both within project spaces and in public spaces
+when an individual is representing the project or its community. Examples of
+representing a project or community include using an official project e-mail
+address, posting via an official social media account, or acting as an appointed
+representative at an online or offline event. Representation of a project may be
+further defined and clarified by project maintainers.</p>
+<h3 id="enforcement">Enforcement</h3>
+<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported by contacting the project team at [INSERT EMAIL ADDRESS]. All
+complaints will be reviewed and investigated and will result in a response that
+is deemed necessary and appropriate to the circumstances. The project team is
+obligated to maintain confidentiality with regard to the reporter of an incident.
+Further details of specific enforcement policies may be posted separately.</p>
+<p>Project maintainers who do not follow or enforce the Code of Conduct in good
+faith may face temporary or permanent repercussions as determined by other
+members of the project's leadership.</p>
+<h3 id="attribution">Attribution</h3>
+<p>This Code of Conduct is adapted from the <a href="http://contributor-covenant.org">Contributor Covenant</a>, version 1.4,
+available at <a href="http://contributor-covenant.org/version/1/4/">http://contributor-covenant.org/version/1/4</a></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
