@@ -29,6 +29,6 @@ describe('Visuals', () => {
 })
 ```
 
-## [Cypress Image Diff documentation](https://haim-1.gitbook.io/cypress-image-diff-documentation/)
+## [Cypress Image Diff documentation](https://cypress.visual-image-diff.dev/)
 
 Above you will find comprehensive documentation on how to setup this plugin within a cypress test suite
