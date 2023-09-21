@@ -21,7 +21,7 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
       recurseOptions = userConfig.RETRY_OPTIONS
     ) => {
       const specName = Cypress.spec.name
-      const testName = `${specName.replace('.js', '')}${/^\//.test(name) ? '' : '-'}${name}`
+      const testName = `${specName.replace('.js', '').replace('.ts', '')}${/^\//.test(name) ? '' : '-'}${name}`
 
       const defaultRecurseOptions = {
         limit: 1,
