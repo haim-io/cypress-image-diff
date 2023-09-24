@@ -1,4 +1,8 @@
-# cypress-image-diff
+<p align="center">
+	<a href="https://cypress.visual-image-diff.dev/"><img src="./cypress-image-diff-logo.png" width="150" /></a>
+</p>
+
+<h1 align="center">cypress-image-diff</h1>
 
 Visual regression test with cypress
 
