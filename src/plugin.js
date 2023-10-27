@@ -205,24 +205,50 @@ const getCompareSnapshotsPlugin = (on, config) => {
 
   // Intercept cypress screenshot and create a new image with our own
   // name convention and file structure for simplicity and consistency
-  on('after:screenshot', details => {
-    // A screenshot could be taken automatically due to a test failure
-    // and not a call to cy.compareSnapshot / cy.screenshot. These files
-    // should be left alone
+  on('after:screenshot', async function (details) {
     if (details.testFailure) {
       return;
     }
-
-    // Change screenshots file permission so it can be moved from drive to drive
-    setFilePermission(details.path, 0o777)
-    setFilePermission(paths.image.comparison(details.name), 0o777)
-
-    if (config.env.preserveOriginalScreenshot === true) {
-      renameAndCopyFile(details.path, paths.image.comparison(details.name))
-    } else {
-      renameAndMoveFile(details.path, paths.image.comparison(details.name))
+  
+    // Your existing code to change screenshots file permissions
+    (0, _utils.setFilePermission)(details.path, 511);
+    (0, _utils.setFilePermission)(_config["default"].image.comparison(details.name), 511);
+  
+    // Now, add the code to crop the screenshot
+    const inputImagePath = details.path;
+    const cropOptions = { left: 470, top: 80, width: 3330, height: 1200 }; // Define your crop options
+    const croppedImagePath = _config["default"].image.comparison(details.name); // Use the same path for the cropped image as for the comparison image
+  
+    try {
+      // Read the original image
+      const originalImage = fs.readFileSync(inputImagePath);
+      const originalPng = _pngjs.PNG.sync.read(originalImage);
+  
+      // Create a new PNG instance for the cropped image
+      const croppedPng = new _pngjs.PNG({
+        width: cropOptions.width,
+        height: cropOptions.height,
+      });
+  
+      // Crop the image
+      for (let y = 0; y < cropOptions.height; y++) {
+        for (let x = 0; x < cropOptions.width; x++) {
+          const originalIdx = (cropOptions.top + y) * originalPng.width * 4 + (cropOptions.left + x) * 4;
+          const croppedIdx = y * croppedPng.width * 4 + x * 4;
+  
+          for (let i = 0; i < 4; i++) {
+            croppedPng.data[croppedIdx + i] = originalPng.data[originalIdx + i];
+          }
+        }
+      }
+  
+      // Save the cropped image
+      const croppedImageData = _pngjs.PNG.sync.write(croppedPng);
+      fs.writeFileSync(croppedImagePath, croppedImageData);
+    } catch (error) {
+      console.error('Error cropping image:', error);
     }
-  })
+  });
 
   on('after:run', async (results) => {
     if (userConfig.JSON_REPORT) {
