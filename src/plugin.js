@@ -210,11 +210,10 @@ const getCompareSnapshotsPlugin = (on, config) => {
       return;
     }
   
-    // Your existing code to change screenshots file permissions
+    // Change screenshots file permission so it can be moved from drive to drive
     (0, _utils.setFilePermission)(details.path, 511);
     (0, _utils.setFilePermission)(_config["default"].image.comparison(details.name), 511);
   
-    // Now, add the code to crop the screenshot
     const inputImagePath = details.path;
     const cropOptions = { left: 470, top: 80, width: 3330, height: 1200 }; // Define your crop options
     const croppedImagePath = _config["default"].image.comparison(details.name); // Use the same path for the cropped image as for the comparison image
