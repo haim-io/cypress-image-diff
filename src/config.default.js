@@ -8,4 +8,5 @@ export default {
     FILENAME: '',
     OVERWRITE: true,
   },
+  CYPRESS_SCREENSHOT_OPTIONS: {},
 }
