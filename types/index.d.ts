@@ -1,17 +1,42 @@
-import type { RecurseDefaults } from 'cypress-recurse';
+import type { RecurseDefaults } from 'cypress-recurse'
+
+interface CompareSnapshotOptions {
+  /**
+   * The name of the snapshots that will be generated
+   */
+  name: string
+  /**
+   * A number between 0 and 1 that represents the allowed percentage of pixels that can be different between the two snapshots
+   * @default 0
+   */
+  testThreshold?: number
+  /**
+   * @see {@link RecurseDefaults}
+   * @default {limit:1}
+   */
+  retryOptions?: Partial<typeof RecurseDefaults>
+  /**
+   * If set to true, will use the given name as it is without transforming it to [spec_file_name]-[name]
+   * @default false
+   */
+  exactName?: boolean
+  /**
+   * options object to change the default behavior of cy.screenshot()
+   * @default undefined
+   */
+  cypressScreenshotOptions?: Partial<
+    Cypress.ScreenshotOptions & Cypress.Loggable & Cypress.Timeoutable
+  >
+}
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {
     /**
-     * @param name The name of the snapshots that will be generated
-     * @param testThreshold @default 0 A number between 0 and 1 that represents the allowed percentage of pixels that can be different between the two snapshots
-     * @param retryOptions @default { limit: 1 } @see {@link RecurseDefaults}
-     * @example cy.compareSnapshot('empty-canvas', 0.1)
+     * @example cy.compareSnapshot({
+     *   name: 'empty-canvas',
+     *   testThreshold: 0.1
+     * })
      */
-    compareSnapshot(
-      name: string,
-      testThreshold?: number,
-      retryOptions?: Partial<typeof RecurseDefaults>
-    ): Chainable<Element>
+    compareSnapshot(options: string | CompareSnapshotOptions): Chainable<Element>
   }
 }
