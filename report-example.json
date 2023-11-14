@@ -15,9 +15,9 @@
           "failureThreshold": 0,
           "specPath": "cypress/specs/image-diff.cy.js",
           "specFilename": "image-diff.cy.js",
-          "baselinePath": "cypress-visual-screenshots/baseline/image-diff.cy-wholePage.png",
-          "diffPath": "cypress-visual-screenshots/diff/image-diff.cy-wholePage.png",
-          "comparisonPath": "cypress-visual-screenshots/comparison/image-diff.cy-wholePage.png"
+          "baselinePath": "cypress-image-diff-screenshots/baseline/image-diff.cy-wholePage.png",
+          "diffPath": "cypress-image-diff-screenshots/diff/image-diff.cy-wholePage.png",
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/image-diff.cy-wholePage.png"
         },
         {
           "status": "pass",
@@ -26,9 +26,9 @@
           "failureThreshold": 0.2,
           "specPath": "cypress/specs/image-diff.cy.js",
           "specFilename": "image-diff.cy.js",
-          "baselinePath": "cypress-visual-screenshots/baseline/image-diff.cy-wholePageThreshold.png",
+          "baselinePath": "cypress-image-diff-screenshots/baseline/image-diff.cy-wholePageThreshold.png",
           "diffPath": "",
-          "comparisonPath": "cypress-visual-screenshots/comparison/image-diff.cy-wholePageThreshold.png"
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/image-diff.cy-wholePageThreshold.png"
         },
         {
           "status": "pass",
@@ -37,9 +37,9 @@
           "failureThreshold": 0,
           "specPath": "cypress/specs/image-diff.cy.js",
           "specFilename": "image-diff.cy.js",
-          "baselinePath": "cypress-visual-screenshots/baseline/image-diff.cy-element.png",
+          "baselinePath": "cypress-image-diff-screenshots/baseline/image-diff.cy-element.png",
           "diffPath": "",
-          "comparisonPath": "cypress-visual-screenshots/comparison/image-diff.cy-element.png"
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/image-diff.cy-element.png"
         },
         {
           "status": "fail",
@@ -48,9 +48,9 @@
           "failureThreshold": 0,
           "specPath": "cypress/specs/image-diff.cy.js",
           "specFilename": "image-diff.cy.js",
-          "baselinePath": "cypress-visual-screenshots/baseline/image-diff.cy-hideElement.png",
-          "diffPath": "cypress-visual-screenshots/diff/image-diff.cy-hideElement.png",
-          "comparisonPath": "cypress-visual-screenshots/comparison/image-diff.cy-hideElement.png"
+          "baselinePath": "cypress-image-diff-screenshots/baseline/image-diff.cy-hideElement.png",
+          "diffPath": "cypress-image-diff-screenshots/diff/image-diff.cy-hideElement.png",
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/image-diff.cy-hideElement.png"
         }
       ]
     },
@@ -65,9 +65,9 @@
           "failureThreshold": 0,
           "specPath": "cypress/specs/retry.cy.js",
           "specFilename": "retry.cy.js",
-          "baselinePath": "cypress-visual-screenshots/baseline/retry.cy-retry.png",
+          "baselinePath": "cypress-image-diff-screenshots/baseline/retry.cy-retry.png",
           "diffPath": "",
-          "comparisonPath": "cypress-visual-screenshots/comparison/retry.cy-retry.png"
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/retry.cy-retry.png"
         }
       ]
     },
@@ -82,9 +82,9 @@
           "failureThreshold": 0,
           "specPath": "cypress/specs/folder-structure-test/folder-structure.cy.js",
           "specFilename": "folder-structure.cy.js",
-          "baselinePath": "cypress-visual-screenshots/baseline/folder-structure.cy-wholePage.png",
-          "diffPath": "cypress-visual-screenshots/diff/folder-structure.cy-wholePage.png",
-          "comparisonPath": "cypress-visual-screenshots/comparison/folder-structure.cy-wholePage.png"
+          "baselinePath": "cypress-image-diff-screenshots/baseline/folder-structure.cy-wholePage.png",
+          "diffPath": "cypress-image-diff-screenshots/diff/folder-structure.cy-wholePage.png",
+          "comparisonPath": "cypress-image-diff-screenshots/comparison/folder-structure.cy-wholePage.png"
         }
       ]
     }

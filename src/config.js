@@ -16,8 +16,8 @@ export const userConfig = merge(DEFAULT_CONFIG, getUserConfigFile())
 export class Paths {
   constructor() {
     this.rootDir = userConfig.ROOT_DIR
-    this.screenshotFolderName = 'cypress-visual-screenshots'
-    this.reportFolderName = 'cypress-visual-report'
+    this.screenshotFolderName = 'cypress-image-diff-screenshots'
+    this.reportFolderName = 'cypress-image-diff-html-report'
   }
 
   get screenshotDir() {
@@ -63,7 +63,7 @@ export class Paths {
   }
 
   report(instance) {
-    return path.join(this.reportDir, `cypress-visual-report${instance}.html`)
+    return path.join(this.reportDir, `cypress-image-diff-html-report${instance}.html`)
   }
 }
 

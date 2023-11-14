@@ -13,25 +13,25 @@ describe('Path config', () => {
     const paths = new Paths()
 
     expect(paths.image.baseline('test')).toBe(
-      'User/my-project/cypress-visual-screenshots/baseline/test.png'
+      'User/my-project/cypress-image-diff-screenshots/baseline/test.png'
     )
     expect(paths.image.comparison('test')).toBe(
-      'User/my-project/cypress-visual-screenshots/comparison/test.png'
+      'User/my-project/cypress-image-diff-screenshots/comparison/test.png'
     )
     expect(paths.image.diff('test')).toBe(
-      'User/my-project/cypress-visual-screenshots/diff/test.png'
+      'User/my-project/cypress-image-diff-screenshots/diff/test.png'
     )
 
     expect(paths.dir).toEqual({
-      baseline: 'User/my-project/cypress-visual-screenshots/baseline',
-      comparison: 'User/my-project/cypress-visual-screenshots/comparison',
-      diff: 'User/my-project/cypress-visual-screenshots/diff',
+      baseline: 'User/my-project/cypress-image-diff-screenshots/baseline',
+      comparison: 'User/my-project/cypress-image-diff-screenshots/comparison',
+      diff: 'User/my-project/cypress-image-diff-screenshots/diff',
     })
 
-    expect(paths.reportDir).toBe('User/my-project/cypress-visual-report')
+    expect(paths.reportDir).toBe('User/my-project/cypress-image-diff-html-report')
 
     expect(paths.report('test')).toBe(
-      'User/my-project/cypress-visual-report/cypress-visual-reporttest.html'
+      'User/my-project/cypress-image-diff-html-report/cypress-image-diff-html-reporttest.html'
     )
   })
 
@@ -42,30 +42,30 @@ describe('Path config', () => {
     paths.rootDir = 'visual-test/custom-folder-name'
 
     expect(paths.image.baseline('test')).toBe(
-      'User/my-project/visual-test/custom-folder-name/cypress-visual-screenshots/baseline/test.png'
+      'User/my-project/visual-test/custom-folder-name/cypress-image-diff-screenshots/baseline/test.png'
     )
     expect(paths.image.comparison('test')).toBe(
-      'User/my-project/visual-test/custom-folder-name/cypress-visual-screenshots/comparison/test.png'
+      'User/my-project/visual-test/custom-folder-name/cypress-image-diff-screenshots/comparison/test.png'
     )
     expect(paths.image.diff('test')).toBe(
-      'User/my-project/visual-test/custom-folder-name/cypress-visual-screenshots/diff/test.png'
+      'User/my-project/visual-test/custom-folder-name/cypress-image-diff-screenshots/diff/test.png'
     )
 
     expect(paths.dir).toEqual({
       baseline:
-        'User/my-project/visual-test/custom-folder-name/cypress-visual-screenshots/baseline',
+        'User/my-project/visual-test/custom-folder-name/cypress-image-diff-screenshots/baseline',
       comparison:
-        'User/my-project/visual-test/custom-folder-name/cypress-visual-screenshots/comparison',
+        'User/my-project/visual-test/custom-folder-name/cypress-image-diff-screenshots/comparison',
       diff:
-        'User/my-project/visual-test/custom-folder-name/cypress-visual-screenshots/diff',
+        'User/my-project/visual-test/custom-folder-name/cypress-image-diff-screenshots/diff',
     })
 
     expect(paths.reportDir).toBe(
-      'User/my-project/visual-test/custom-folder-name/cypress-visual-report'
+      'User/my-project/visual-test/custom-folder-name/cypress-image-diff-html-report'
     )
 
     expect(paths.report('test')).toBe(
-      'User/my-project/visual-test/custom-folder-name/cypress-visual-report/cypress-visual-reporttest.html'
+      'User/my-project/visual-test/custom-folder-name/cypress-image-diff-html-report/cypress-image-diff-html-reporttest.html'
     )
   })
 })

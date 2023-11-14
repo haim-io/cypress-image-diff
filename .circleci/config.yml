@@ -22,9 +22,9 @@ jobs:
           name: Run e2e
           command: make e2e-test
       - store-artifacts:
-          path: cypress-visual-screenshots
+          path: cypress-image-diff-screenshots
       - store-artifacts:
-          path: cypress-visual-report
+          path: cypress-image-diff-html-report
 
   build_and_publish:
     docker:
