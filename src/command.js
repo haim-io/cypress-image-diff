@@ -1,7 +1,8 @@
+import merge from 'lodash/merge'
 import { recurse } from 'cypress-recurse';
 import DEFAULT_CONFIG from './config.default'
 
-const compareSnapshotCommand = defaultScreenshotOptions => {
+const compareSnapshotCommand = () => {
   const userConfig = Cypress.env('cypressImageDiff') || DEFAULT_CONFIG
 
   const height = Cypress.config('viewportHeight') || 1440
@@ -16,14 +17,20 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     { prevSubject: 'optional' },
     (
       subject, 
-      name, 
-      testThreshold = userConfig.FAILURE_THRESHOLD,
-      recurseOptions = userConfig.RETRY_OPTIONS
+      orignalOptions, 
     ) => {
-      const specName = Cypress.spec.name
-      const testName = `${specName.replace('.js', '')}${/^\//.test(name) ? '' : '-'}${name}`
+      const {
+        name, 
+        testThreshold = userConfig.FAILURE_THRESHOLD,
+        retryOptions = userConfig.RETRY_OPTIONS,
+        exactName = false,
+        cypressScreenshotOptions
+      } = typeof orignalOptions === 'string' ? { name: orignalOptions } : orignalOptions
 
-      const defaultRecurseOptions = {
+      const specName = Cypress.spec.name
+      const testName = exactName ? name : `${specName.replace('.js', '')}${/^\//.test(name) ? '' : '-'}${name}`
+
+      const defaultRetryOptions = {
         limit: 1,
         log: (percentage) => {
           const prefix = percentage <= testThreshold ? 'PASS' : 'FAIL'
@@ -38,8 +45,9 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
           cy.task('deleteScreenshot', { testName })
           cy.task('deleteReport', { testName })
 
+          const screenshotOptions = merge({}, userConfig.CYPRESS_SCREENSHOT_OPTIONS, cypressScreenshotOptions)
           const objToOperateOn = subject ? cy.get(subject) : cy
-          const screenshotted = objToOperateOn.screenshot(testName, defaultScreenshotOptions)
+          const screenshotted = objToOperateOn.screenshot(testName, screenshotOptions)
 
           if (userConfig.FAIL_ON_MISSING_BASELINE === false) {
             // copy to baseline if it does not exist
@@ -60,7 +68,7 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
           return cy.task('compareSnapshotsPlugin', options)
         },
         (percentage) => percentage <= testThreshold,
-        Object.assign({}, defaultRecurseOptions, recurseOptions)
+        Object.assign({}, defaultRetryOptions, retryOptions)
       );
     }
   )

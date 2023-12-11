@@ -11,13 +11,13 @@ function getUserConfigFile() {
   }
 }
 
-export const userConfig = merge(DEFAULT_CONFIG, getUserConfigFile())
+export const userConfig = merge({}, DEFAULT_CONFIG, getUserConfigFile())
 
 export class Paths {
-  constructor() {
-    this.rootDir = userConfig.ROOT_DIR
-    this.screenshotFolderName = 'cypress-visual-screenshots'
-    this.reportFolderName = 'cypress-visual-report'
+  constructor(config) {
+    this.rootDir = config.ROOT_DIR
+    this.screenshotFolderName = config.SCREENSHOTS_DIR
+    this.reportFolderName = config.REPORT_DIR
   }
 
   get screenshotDir() {
@@ -63,8 +63,8 @@ export class Paths {
   }
 
   report(instance) {
-    return path.join(this.reportDir, `cypress-visual-report${instance}.html`)
+    return path.join(this.reportDir, `${this.reportFolderName}${instance}.html`)
   }
 }
 
-export default new Paths()
+export default new Paths(userConfig)

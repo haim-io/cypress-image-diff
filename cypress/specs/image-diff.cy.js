@@ -10,7 +10,10 @@ describe('Visuals', () => {
   
   it('should compare screenshot of the entire page', () => {
     cy.visit('../../report-example.html')
-    cy.compareSnapshot('wholePageThreshold', 0.2)
+    cy.compareSnapshot({
+      name: 'wholePageThreshold', 
+      testThreshold: 0.2
+    })
   })
   
   it('should compare screenshot from a given element', () => {

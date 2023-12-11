@@ -33,7 +33,7 @@ When a report is generated it will create the following folder:
 
 ```
     .
-    ├── cypress-visual-report
+    ├── cypress-image-diff-html-report
 ```
 
 There will be enhancements coming in to make the folder name/location configurable.

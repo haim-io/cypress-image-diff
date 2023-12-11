@@ -5,6 +5,10 @@ describe('Retry', () => {
 
   it('should retry until comparison passes or limit is reached', () => {
     cy.visit('../../retry-example.html')
-    cy.compareSnapshot('retry', 0, { limit: 6, delay: 1000 })
+    cy.compareSnapshot({
+      name: 'retry', 
+      testThreshold: 0, 
+      retryOptions: { limit: 6, delay: 1000 }
+    })
   })
 })
