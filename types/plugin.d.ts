@@ -3,6 +3,6 @@
 declare function getCompareSnapshotsPlugin(
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions,
-): void
+): Cypress.PluginConfigOptions
 
 export default getCompareSnapshotsPlugin;
