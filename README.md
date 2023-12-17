@@ -29,6 +29,16 @@ describe('Visuals', () => {
 })
 ```
 
+## Beautiful HTML Report
+
+### Update baseline screenshots with one click
+
+<img src="https://raw.githubusercontent.com/kien-ht/cypress-image-diff-html-report/main/assets/showcase-update-baseline.gif" alt="showcase-update-baseline"/>
+
+### Support different screenshot inspectors
+
+<img src="https://raw.githubusercontent.com/kien-ht/cypress-image-diff-html-report/main/assets/showcase-screenshot-inspectors.gif" alt="showcase-screenshot-inspectors"/>
+
 ## [Cypress Image Diff documentation](https://cypress.visual-image-diff.dev/)
 
 Above you will find comprehensive documentation on how to setup this plugin within a cypress test suite
