@@ -5,11 +5,11 @@
   "exports": {
     "./command": {
       "types": "./types/command.d.ts",
-      "default": "./dist/command"
+      "default": "./dist/command.js"
     },
     "./plugin": {
       "types": "./types/plugin.d.ts",
-      "default": "./dist/plugin"
+      "default": "./dist/plugin.js"
     }
   },
   "files": ["dist", "types"],
