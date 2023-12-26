@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import fs from 'fs-extra'
 import DEFAULT_CONFIG from './config.default'
 
-function getUserConfigFile() {
+export function getUserConfigFile() {
   try {
     if (fs.existsSync(path.join(process.cwd(), 'cypress-image-diff.config.cjs'))) {
       // eslint-disable-next-line import/no-dynamic-require, global-require
