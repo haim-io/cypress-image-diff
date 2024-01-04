@@ -16,8 +16,7 @@ export function getUserConfigFile() {
   }
 }
 
-export const userConfig = merge({}, DEFAULT_CONFIG, getUserConfigFile())
-
+export const getUserConfig = () => merge({}, DEFAULT_CONFIG, getUserConfigFile());
 export class Paths {
   constructor(config) {
     this.rootDir = config.ROOT_DIR
@@ -72,4 +71,4 @@ export class Paths {
   }
 }
 
-export default new Paths(userConfig)
+export default new Paths(getUserConfig())

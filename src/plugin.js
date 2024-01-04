@@ -14,11 +14,12 @@ import {
   getCleanDate,
   writeFileIncrement
 } from './utils'
-import paths, { userConfig } from './config'
+import paths, { getUserConfig } from './config'
 import TestStatus from './reporter/test-status'
 import { createReport } from './reporter'
 
 let testStatuses = []
+const userConfig = getUserConfig()
 
 const setupFolders = () => {
   createDir([paths.dir.baseline, paths.dir.comparison, paths.dir.diff, paths.reportDir])
