@@ -72,8 +72,12 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
       ? { percentage: 1, testFailed: true }
       : { percentage: 0, testFailed: false }
   }
-
-  const comparisonImg = await parseImage(paths.image.comparison(args.testName))
+  let comparisonImg
+  try {
+    comparisonImg = await parseImage(paths.image.comparison(args.testName))
+  } catch (e) {
+    return { percentage: 1, testFailed: true }
+  }
   const diff = new PNG({
     width: Math.max(comparisonImg.width, baselineImg.width),
     height: Math.max(comparisonImg.height, baselineImg.height),
