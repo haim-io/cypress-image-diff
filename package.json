@@ -5,6 +5,9 @@
   "main": "./dist/command.js",
   "types": "./types/command.d.ts",
   "exports": {
+    "./dist/config.default": {
+      "default": "./dist/config.default.js"
+    },
     ".": {
       "types": "./types/command.d.ts",
       "default": "./dist/command.js"
