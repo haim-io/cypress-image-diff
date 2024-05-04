@@ -11,4 +11,5 @@ export default {
     OVERWRITE: true,
   },
   CYPRESS_SCREENSHOT_OPTIONS: {},
+  INLINE_ASSETS: false
 }
