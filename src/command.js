@@ -63,6 +63,7 @@ const compareSnapshotCommand = () => {
             failOnMissingBaseline: userConfig.FAIL_ON_MISSING_BASELINE,
             specFilename: Cypress.spec.name,
             specPath: Cypress.spec.relative,
+            inlineAssets: userConfig.INLINE_ASSETS
           }
           
           return cy.task('compareSnapshotsPlugin', options)
