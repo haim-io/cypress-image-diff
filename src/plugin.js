@@ -110,7 +110,15 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
 
   if (testFailed) {
     fs.ensureFileSync(paths.image.diff(args.testName))
-    diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
+    const stream = diff
+      .pack()
+      .pipe(fs.createWriteStream(paths.image.diff(args.testName)))
+
+    // make sure the diff image fully populated before proceeding further
+    await new Promise((resolve, reject) => {
+      stream.once('finish', resolve)
+      stream.once('error', reject)
+    })
   }
 
   return { percentage, testFailed }
