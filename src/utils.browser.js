@@ -10,8 +10,7 @@ const getFileName = ({
     return (
       nameTemplate
         .replace(/\[givenName\]/, givenName)
-        // IN-QUEUE-FOR-BREAKING-CHANGE: should remove all spec file name extensions, instead of removing only .js extension
-        .replace(/\[specName\]/, specName.replace('.js', ''))
+        .replace(/\[specName\]/, specName.replace(/\.(js|jsx|ts|tsx)$/, ''))
         .replace(/\[browserName\]/, browserName)
         .replace(/\[width\]/, width)
         .replace(/\[height\]/, height)
