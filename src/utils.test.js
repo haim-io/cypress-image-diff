@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, emptyDirSync, readdirSync, moveSync, copySync, writeFile } from 'fs-extra'
 import { createDir, cleanDir, renameAndMoveFile, renameAndCopyFile, getRelativePathFromCwd, getCleanDate, writeFileIncrement } from './utils'
+import { getFileName } from './utils.browser'
 
 jest.mock('fs-extra', () => ({
   ...jest.requireActual('fs-extra'),
@@ -131,4 +132,32 @@ describe('Utils', () => {
       expect(writeFile).toBeCalledWith(filenameIncremented, fakeData)
     })
   })
+
+  describe('getFileName', () => {
+    it('should replace placeholders correctly', () => {
+      const template = '[browserName]/[givenName]-[specName]-[width]x[height].js';
+      const result = getFileName({
+        nameTemplate: template,
+        givenName: 'test',
+        specName: 'example.spec.js',
+        browserName: 'chrome',
+        width: 1280,
+        height: 720
+      });
+      expect(result).toBe('chrome/test-example.spec-1280x720.js');
+    });
+  
+    it('should remove special characters correctly', () => {
+      const template = '[givenName]-[specName]-[browserName]-[width]x[height].js';
+      const result = getFileName({
+        nameTemplate: template,
+        givenName: 'test$123',
+        specName: 'spec file.js',
+        browserName: 'safari',
+        width: 800,
+        height: 600
+      });
+      expect(result).toBe('test123-specfile-safari-800x600.js');
+    });
+  });
 })

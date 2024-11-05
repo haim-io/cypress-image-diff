@@ -1,6 +1,7 @@
 import merge from 'lodash/merge'
 import { recurse } from 'cypress-recurse';
 import DEFAULT_CONFIG from './config.default'
+import { getFileName } from './utils.browser'
 
 const compareSnapshotCommand = () => {
   const userConfig = Cypress.env('cypressImageDiff') || DEFAULT_CONFIG
@@ -16,19 +17,34 @@ const compareSnapshotCommand = () => {
     'compareSnapshot',
     { prevSubject: 'optional' },
     (
-      subject, 
-      orignalOptions, 
+      subject,
+      orignalOptions,
     ) => {
       const {
-        name, 
+        name,
         testThreshold = userConfig.FAILURE_THRESHOLD,
         retryOptions = userConfig.RETRY_OPTIONS,
         exactName = false,
-        cypressScreenshotOptions
+        cypressScreenshotOptions,
+        nameTemplate = userConfig.NAME_TEMPLATE
       } = typeof orignalOptions === 'string' ? { name: orignalOptions } : orignalOptions
 
-      const specName = Cypress.spec.name
-      const testName = exactName ? name : `${specName.replace('.js', '')}${/^\//.test(name) ? '' : '-'}${name}`
+      // IN-QUEUE-FOR-BREAKING-CHANGE: Ternary condition here is to avoid a breaking change with the new option nameTemplate, will be simplified once we remove the exactName option
+      // eslint-disable-next-line no-nested-ternary
+      const testName = nameTemplate
+        ? getFileName({
+            nameTemplate,
+            givenName: name,
+            specName: Cypress.spec.name,
+            browserName: Cypress.browser.name,
+            width: Cypress.config('viewportWidth'),
+            height: Cypress.config('viewportHeight'),
+          })
+        : exactName
+        ? name
+        : `${Cypress.spec.name.replace('.js', '')}${
+            /^\//.test(name) ? '' : '-'
+          }${name}`
 
       const defaultRetryOptions = {
         limit: 1,
@@ -65,7 +81,7 @@ const compareSnapshotCommand = () => {
             specPath: Cypress.spec.relative,
             inlineAssets: userConfig.INLINE_ASSETS
           }
-          
+
           return cy.task('compareSnapshotsPlugin', options)
         },
         (percentage) => percentage <= testThreshold,
