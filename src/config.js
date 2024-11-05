@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import fs from 'fs-extra'
 import DEFAULT_CONFIG from './config.default'
 
-function getUserConfigFile() {
+export function getUserConfigFile() {
   try {
     if (fs.existsSync(path.join(process.cwd(), 'cypress-image-diff.config.cjs'))) {
       // eslint-disable-next-line import/no-dynamic-require, global-require
@@ -16,8 +16,7 @@ function getUserConfigFile() {
   }
 }
 
-export const userConfig = merge({}, DEFAULT_CONFIG, getUserConfigFile())
-
+export const getUserConfig = () => merge({}, DEFAULT_CONFIG, getUserConfigFile());
 export class Paths {
   constructor(config) {
     this.rootDir = config.ROOT_DIR
@@ -72,4 +71,4 @@ export class Paths {
   }
 }
 
-export default new Paths(userConfig)
+export default new Paths(getUserConfig())
