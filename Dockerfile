@@ -3,7 +3,7 @@ FROM cypress/base:16.3.0
 ENV NPM_CONFIG_LOGLEVEL    warn
 ENV NPM_CONFIG_UNSAFE_PERM true
 ENV TERM                   xterm
-ENV CHROME_VERSION         119.0.6045.123-1
+ENV CHROME_VERSION         130.0.6723.91-1
 
 RUN apt-get update
 
