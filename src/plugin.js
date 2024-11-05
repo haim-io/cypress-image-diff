@@ -160,6 +160,7 @@ async function compareSnapshotsPlugin(args) {
 }
 
 const generateJsonReport = async (results) => {
+  results = results || {}
   const testsMappedBySpecPath = testStatuses.reduce((map, item) => {
     if (map[item.specPath] === undefined) {
       // eslint-disable-next-line no-param-reassign
@@ -201,6 +202,11 @@ const generateJsonReport = async (results) => {
   } else {
    await writeFileIncrement(jsonPath, JSON.stringify(stats, null, 2))
   }
+}
+
+const generateJsonReportTask = function (result) {
+  generateJsonReport(result)
+  return true
 }
 
 const getCompareSnapshotsPlugin = (on, config) => {
@@ -265,6 +271,7 @@ const getCompareSnapshotsPlugin = (on, config) => {
     deleteScreenshot,
     generateReport,
     deleteReport,
+    generateJsonReport: generateJsonReportTask,
   })
 
   // eslint-disable-next-line no-param-reassign
