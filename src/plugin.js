@@ -12,7 +12,8 @@ import {
   renameAndMoveFile, renameAndCopyFile,
   getRelativePathFromCwd,
   getCleanDate,
-  writeFileIncrement
+  writeFileIncrement,
+  toBase64
 } from './utils'
 import paths, { userConfig } from './config'
 import TestStatus from './reporter/test-status'
@@ -72,8 +73,12 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
       ? { percentage: 1, testFailed: true }
       : { percentage: 0, testFailed: false }
   }
-
-  const comparisonImg = await parseImage(paths.image.comparison(args.testName))
+  let comparisonImg
+  try {
+    comparisonImg = await parseImage(paths.image.comparison(args.testName))
+  } catch (e) {
+    return { percentage: 1, testFailed: true }
+  }
   const diff = new PNG({
     width: Math.max(comparisonImg.width, baselineImg.width),
     height: Math.max(comparisonImg.height, baselineImg.height),
@@ -105,7 +110,15 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
 
   if (testFailed) {
     fs.ensureFileSync(paths.image.diff(args.testName))
-    diff.pack().pipe(fs.createWriteStream(paths.image.diff(args.testName)))
+    const stream = diff
+      .pack()
+      .pipe(fs.createWriteStream(paths.image.diff(args.testName)))
+
+    // make sure the diff image fully populated before proceeding further
+    await new Promise((resolve, reject) => {
+      stream.once('finish', resolve)
+      stream.once('error', reject)
+    })
   }
 
   return { percentage, testFailed }
@@ -115,7 +128,7 @@ async function compareSnapshotsPlugin(args) {
   const { percentage, testFailed } = await getStatsComparisonAndPopulateDiffIfAny(args)
 
   // Saving test status object to build report if task is triggered
-  testStatuses.push(new TestStatus({ 
+  let newTest = new TestStatus({ 
     status: !testFailed,
     name: args.testName,
     percentage,
@@ -124,8 +137,24 @@ async function compareSnapshotsPlugin(args) {
     specPath: args.specPath,
     baselinePath: getRelativePathFromCwd(paths.image.baseline(args.testName)),
     diffPath: getRelativePathFromCwd(paths.image.diff(args.testName)),
-    comparisonPath: getRelativePathFromCwd(paths.image.comparison(args.testName)),
-  }))
+    comparisonPath: getRelativePathFromCwd(paths.image.comparison(args.testName))
+  })
+
+  if (args.inlineAssets) {
+    const [baselineDataUrl, diffDataUrl, comparisonDataUrl] = await Promise.all([
+      toBase64(newTest.baselinePath),
+      toBase64(newTest.diffPath),
+      toBase64(newTest.comparisonPath),
+    ])
+    newTest = {
+      ...newTest,
+      baselineDataUrl,
+      diffDataUrl,
+      comparisonDataUrl
+    }
+  }
+
+  testStatuses.push(newTest)
 
   return percentage
 }

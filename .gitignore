@@ -2,8 +2,8 @@ node_modules
 dist
 
 # test
-cypress-visual-screenshots/comparison
-cypress-visual-screenshots/diff
-cypress-visual-report
+cypress-image-diff-screenshots/comparison
+cypress-image-diff-screenshots/diff
+cypress-image-diff-html-report
 cypress/videos
 cypress/fixtures

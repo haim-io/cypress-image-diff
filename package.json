@@ -2,8 +2,26 @@
   "name": "cypress-image-diff-js",
   "version": "0.0.0",
   "description": "Visual regression testing tool with cypress",
-  "main": "dist/command.js",
-  "types": "types/index.d.ts",
+  "main": "./dist/command.js",
+  "types": "./types/command.d.ts",
+  "exports": {
+    "./dist/config.default": {
+      "default": "./dist/config.default.js"
+    },
+    ".": {
+      "types": "./types/command.d.ts",
+      "default": "./dist/command.js"
+    },
+    "./command": {
+      "types": "./types/command.d.ts",
+      "default": "./dist/command.js"
+    },
+    "./plugin": {
+      "types": "./types/plugin.d.ts",
+      "default": "./dist/plugin.js"
+    }
+  },
+  "files": ["dist", "types"],
   "bin": {
     "cypress-image-diff": "./bin/cypress-image-diff.js"
   },

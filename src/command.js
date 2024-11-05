@@ -1,7 +1,9 @@
+import merge from 'lodash/merge'
 import { recurse } from 'cypress-recurse';
 import DEFAULT_CONFIG from './config.default'
+import { getFileName } from './utils.browser'
 
-const compareSnapshotCommand = defaultScreenshotOptions => {
+const compareSnapshotCommand = () => {
   const userConfig = Cypress.env('cypressImageDiff') || DEFAULT_CONFIG
 
   const height = Cypress.config('viewportHeight') || 1440
@@ -15,15 +17,36 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
     'compareSnapshot',
     { prevSubject: 'optional' },
     (
-      subject, 
-      name, 
-      testThreshold = userConfig.FAILURE_THRESHOLD,
-      recurseOptions = userConfig.RETRY_OPTIONS
+      subject,
+      orignalOptions,
     ) => {
-      const specName = Cypress.spec.name
-      const testName = `${specName.replace('.js', '')}${/^\//.test(name) ? '' : '-'}${name}`
+      const {
+        name,
+        testThreshold = userConfig.FAILURE_THRESHOLD,
+        retryOptions = userConfig.RETRY_OPTIONS,
+        exactName = false,
+        cypressScreenshotOptions,
+        nameTemplate = userConfig.NAME_TEMPLATE
+      } = typeof orignalOptions === 'string' ? { name: orignalOptions } : orignalOptions
 
-      const defaultRecurseOptions = {
+      // IN-QUEUE-FOR-BREAKING-CHANGE: Ternary condition here is to avoid a breaking change with the new option nameTemplate, will be simplified once we remove the exactName option
+      // eslint-disable-next-line no-nested-ternary
+      const testName = nameTemplate
+        ? getFileName({
+            nameTemplate,
+            givenName: name,
+            specName: Cypress.spec.name,
+            browserName: Cypress.browser.name,
+            width: Cypress.config('viewportWidth'),
+            height: Cypress.config('viewportHeight'),
+          })
+        : exactName
+        ? name
+        : `${Cypress.spec.name.replace('.js', '')}${
+            /^\//.test(name) ? '' : '-'
+          }${name}`
+
+      const defaultRetryOptions = {
         limit: 1,
         log: (percentage) => {
           const prefix = percentage <= testThreshold ? 'PASS' : 'FAIL'
@@ -38,8 +61,9 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
           cy.task('deleteScreenshot', { testName })
           cy.task('deleteReport', { testName })
 
+          const screenshotOptions = merge({}, userConfig.CYPRESS_SCREENSHOT_OPTIONS, cypressScreenshotOptions)
           const objToOperateOn = subject ? cy.get(subject) : cy
-          const screenshotted = objToOperateOn.screenshot(testName, defaultScreenshotOptions)
+          const screenshotted = objToOperateOn.screenshot(testName, screenshotOptions)
 
           if (userConfig.FAIL_ON_MISSING_BASELINE === false) {
             // copy to baseline if it does not exist
@@ -55,12 +79,13 @@ const compareSnapshotCommand = defaultScreenshotOptions => {
             failOnMissingBaseline: userConfig.FAIL_ON_MISSING_BASELINE,
             specFilename: Cypress.spec.name,
             specPath: Cypress.spec.relative,
+            inlineAssets: userConfig.INLINE_ASSETS
           }
-          
+
           return cy.task('compareSnapshotsPlugin', options)
         },
         (percentage) => percentage <= testThreshold,
-        Object.assign({}, defaultRecurseOptions, recurseOptions)
+        Object.assign({}, defaultRetryOptions, retryOptions)
       );
     }
   )

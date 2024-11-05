@@ -547,19 +547,19 @@ exports[`Reporter create report should create html template 1`] = `
             <h3>Comparison</h3>
             <div class=\\"baseline-container\\">
               <img
-                src=\\"../cypress-visual-screenshots/baseline/$__id__.png\\"
+                src=\\"../cypress-image-diff-screenshots/baseline/$__id__.png\\"
                 alt=\\"$__id__\\"
               />
             </div>
             <div class=\\"diff-container\\">
               <img
-                src=\\"../cypress-visual-screenshots/diff/$__id__.png\\"
+                src=\\"../cypress-image-diff-screenshots/diff/$__id__.png\\"
                 alt=\\"$__id__\\"
               />
             </div>
             <div class=\\"comparison-container\\">
               <img
-                src=\\"../cypress-visual-screenshots/comparison/$__id__.png\\"
+                src=\\"../cypress-image-diff-screenshots/comparison/$__id__.png\\"
                 alt=\\"$__id__\\"
               />
             </div>
@@ -735,10 +735,10 @@ exports[`Reporter create report should create html template 1`] = `
         getDisplaySnapshotSrc({slideIndex, snapshotName, currentSrc }) {
           const isDisplaySnapshotEmpty = snapshotName !== undefined
           return isDisplaySnapshotEmpty
-            ? \`../cypress-visual-screenshots/\${SNAPSHOT_SLIDES[slideIndex]}/\${snapshotName}.png\`
+            ? \`../cypress-image-diff-screenshots/\${SNAPSHOT_SLIDES[slideIndex]}/\${snapshotName}.png\`
             : currentSrc.replace(
-                /\\\\/cypress-visual-screenshots\\\\/(baseline|diff|comparison)\\\\//,
-                \`/cypress-visual-screenshots/\${SNAPSHOT_SLIDES[slideIndex]}/\`
+                /\\\\/cypress-image-diff-screenshots\\\\/(baseline|diff|comparison)\\\\//,
+                \`/cypress-image-diff-screenshots/\${SNAPSHOT_SLIDES[slideIndex]}/\`
               )
         },
 

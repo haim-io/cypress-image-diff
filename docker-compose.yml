@@ -6,6 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./cypress-visual-screenshots:/code/cypress-visual-screenshots
-      - ./cypress-visual-report:/code/cypress-visual-report
+      - ./cypress-image-diff-screenshots:/code/cypress-image-diff-screenshots
+      - ./cypress-image-diff-html-report:/code/cypress-image-diff-html-report
       - ./cypress/videos:/code/cypress/videos

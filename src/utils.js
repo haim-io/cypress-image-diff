@@ -98,4 +98,11 @@ const writeFileIncrement = async (name, data, increment = 1) => {
   return writeFileIncrement(name, data, increment + 1)
 }
 
-export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile, getRelativePathFromCwd, getCleanDate, writeFileIncrement }
+const toBase64 = async (relativePath) => {
+  if (relativePath === '') return ''
+  const absolutePath = path.join(process.cwd(), relativePath)
+  const content = await fs.readFile(absolutePath, { encoding: 'base64' })
+  return `data:image/png;base64,${content}`
+}
+
+export { createDir, cleanDir, readDir, parseImage, adjustCanvas, setFilePermission, renameAndMoveFile, renameAndCopyFile, getRelativePathFromCwd, getCleanDate, writeFileIncrement, toBase64 }
