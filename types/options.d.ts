@@ -8,6 +8,14 @@ export interface CompareSnapshotOptions {
      */
     name: string
     /**
+     * The snapshot naming pattern using replaceable labels. All possible labels are: specName, givenName, browserName, width and height. 
+     * All labels in square brackets are replaced with actual values during runtime.
+     * giveName is the name property above. 
+     * @default undefined
+     * @example '[browserName]/[specName]-[givenName].[width]x[height]'
+     */
+    nameTemplate?: string
+    /**
      * A number between 0 and 1 that represents the allowed percentage of pixels that can be different between the two snapshots
      * @default 0
      */

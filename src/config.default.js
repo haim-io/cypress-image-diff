@@ -11,4 +11,7 @@ export default {
     OVERWRITE: true,
   },
   CYPRESS_SCREENSHOT_OPTIONS: {},
+  INLINE_ASSETS: false,
+  // IN-QUEUE-FOR-BREAKING-CHANGE: default NAME_TEMPLATE can be set until the next breaking change
+  // NAME_TEMPLATE: '[specName]-[givenName]'
 }
