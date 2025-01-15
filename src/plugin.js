@@ -160,7 +160,6 @@ async function compareSnapshotsPlugin(args) {
 }
 
 const generateJsonReport = async (results) => {
-  results = results || {}
   const testsMappedBySpecPath = testStatuses.reduce((map, item) => {
     if (map[item.specPath] === undefined) {
       // eslint-disable-next-line no-param-reassign
@@ -205,7 +204,7 @@ const generateJsonReport = async (results) => {
 }
 
 const generateJsonReportTask = function (result) {
-  generateJsonReport(result)
+  generateJsonReport(result || {})
   return true
 }
 
