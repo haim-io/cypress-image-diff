@@ -203,6 +203,11 @@ const generateJsonReport = async (results) => {
   }
 }
 
+const generateJsonReportTask = function (result) {
+  generateJsonReport(result || {})
+  return true
+}
+
 const getCompareSnapshotsPlugin = (on, config) => {
   // Create folder structure
   setupFolders()
@@ -265,6 +270,7 @@ const getCompareSnapshotsPlugin = (on, config) => {
     deleteScreenshot,
     generateReport,
     deleteReport,
+    generateJsonReport: generateJsonReportTask,
   })
 
   // eslint-disable-next-line no-param-reassign
