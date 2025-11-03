@@ -220,7 +220,7 @@ const getCompareSnapshotsPlugin = (on, config) => {
     const width = config.viewportWidth || '1280'
     const height = config.viewportHeight || '720'
 
-    if (browser.name === 'chrome') {
+    if (browser.name === 'chrome' || browser.name === 'chromium' || browser.name === 'edge') {
       launchOptions.args.push(`--window-size=${width},${height}`)
       launchOptions.args.push('--force-device-scale-factor=1')
     }
