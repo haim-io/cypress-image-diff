@@ -273,6 +273,10 @@ const getCompareSnapshotsPlugin = (on, config) => {
     generateJsonReport: generateJsonReportTask,
   })
 
+  if (!config.expose) {
+    // eslint-disable-next-line no-param-reassign
+    config.expose = {};
+  }
   // eslint-disable-next-line no-param-reassign
   config.expose.cypressImageDiff = userConfig
 
