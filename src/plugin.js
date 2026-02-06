@@ -47,7 +47,7 @@ const copyScreenshot = args => {
   if (!fs.existsSync(paths.image.baseline(args.testName))) {
     fs.copySync(paths.image.comparison(args.testName), paths.image.baseline(args.testName))
   }
-  
+
   return true
 }
 
@@ -104,7 +104,7 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
     diff.height,
     userConfig.COMPARISON_OPTIONS
   )
-  
+
   const percentage = (pixelMismatchResult / diff.width / diff.height) ** 0.5
   const testFailed = percentage > args.testThreshold
 
@@ -128,7 +128,7 @@ async function compareSnapshotsPlugin(args) {
   const { percentage, testFailed } = await getStatsComparisonAndPopulateDiffIfAny(args)
 
   // Saving test status object to build report if task is triggered
-  let newTest = new TestStatus({ 
+  let newTest = new TestStatus({
     status: !testFailed,
     name: args.testName,
     percentage,
@@ -273,8 +273,13 @@ const getCompareSnapshotsPlugin = (on, config) => {
     generateJsonReport: generateJsonReportTask,
   })
 
-  // eslint-disable-next-line no-param-reassign
-  config.env.cypressImageDiff = userConfig
+  if (config.expose) { // Version 15.10 or higher
+    // eslint-disable-next-line no-param-reassign
+    config.expose.cypressImageDiff = userConfig
+  } else {
+    // eslint-disable-next-line no-param-reassign
+    config.env.cypressImageDiff = userConfig
+  }
 
   return config
 }
