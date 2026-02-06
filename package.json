@@ -85,7 +85,7 @@
     "semantic-release": "^19.0.2"
   },
   "peerDependencies": {
-    "cypress": ">=15.10.0"
+    "cypress": ">=9.6.1"
   },
   "resolutions": {
     "y18n": ">=4.0.1",
