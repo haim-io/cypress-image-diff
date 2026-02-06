@@ -4,7 +4,7 @@ import DEFAULT_CONFIG from './config.default'
 import { getFileName } from './utils.browser'
 
 const compareSnapshotCommand = () => {
-  const userConfig = Cypress.env('cypressImageDiff') || DEFAULT_CONFIG
+  const userConfig = Cypress.expose('cypressImageDiff') || DEFAULT_CONFIG
 
   const height = Cypress.config('viewportHeight') || 1440
   const width = Cypress.config('viewportWidth') || 1980

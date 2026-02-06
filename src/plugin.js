@@ -274,7 +274,7 @@ const getCompareSnapshotsPlugin = (on, config) => {
   })
 
   // eslint-disable-next-line no-param-reassign
-  config.env.cypressImageDiff = userConfig
+  config.expose.cypressImageDiff = userConfig
 
   return config
 }
