@@ -27,6 +27,7 @@ RUN apt-get install -y --fix-missing xvfb xdg-utils libu2f-udev libvulkan1 libgt
 WORKDIR /code
 
 # Install dev packages
+RUN npm install -g npm@10
 COPY package.json .
 COPY package-lock.json .
 RUN npm install
