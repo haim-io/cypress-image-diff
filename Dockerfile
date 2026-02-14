@@ -5,8 +5,7 @@ ENV NPM_CONFIG_UNSAFE_PERM true
 ENV TERM                   xterm
 ENV CHROME_VERSION         145.0.7632.75-1
 
-# Remove any NodeSource apt repo that could overwrite the base image's Node 20
-RUN rm -f /etc/apt/sources.list.d/nodesource* && apt-get update
+RUN apt-get update
 
 # Install common dependencies
 RUN apt-get install -y --fix-missing \

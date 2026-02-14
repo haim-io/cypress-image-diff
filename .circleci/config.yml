@@ -1,6 +1,6 @@
 version: 2
 aliases:
-  - &node_version node:14.17.0
+  - &node_version node:20
 
 jobs:
   test:
