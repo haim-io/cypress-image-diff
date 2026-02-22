@@ -18,4 +18,5 @@ declare global {
 
 declare function compareSnapshotCommand(): void
 
+
 export default compareSnapshotCommand;
