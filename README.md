@@ -1,5 +1,6 @@
 ### 🚀 Help Us Build the Future
 
+
 We're actively integrating **AI-powered visual testing** and we need your support to keep this project alive and evolving.
 
 **Love this tool? [Buy us a coffee](https://www.paypal.com/donate/?business=Z9FNYQ5RVF6DQ&no_recurring=0&currency_code=BRL)**
