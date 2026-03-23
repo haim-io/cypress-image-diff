@@ -70,8 +70,8 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
     baselineImg = await parseImage(paths.image.baseline(args.testName))
   } catch (e) {
     return args.failOnMissingBaseline
-      ? { percentage: 1, testFailed: true }
-      : { percentage: 0, testFailed: false }
+      ? { testFailed: true, missingBaseline: true }
+      : { testFailed: false }
   }
   let comparisonImg
   try {
@@ -125,7 +125,7 @@ const getStatsComparisonAndPopulateDiffIfAny = async (args) => {
 }
 
 async function compareSnapshotsPlugin(args) {
-  const { percentage, testFailed } = await getStatsComparisonAndPopulateDiffIfAny(args)
+  const { percentage, testFailed, missingBaseline } = await getStatsComparisonAndPopulateDiffIfAny(args)
 
   // Saving test status object to build report if task is triggered
   let newTest = new TestStatus({
@@ -156,7 +156,11 @@ async function compareSnapshotsPlugin(args) {
 
   testStatuses.push(newTest)
 
-  return percentage
+  return {
+    testFailed,
+    percentage,
+    missingBaseline,
+  }
 }
 
 const generateJsonReport = async (results) => {

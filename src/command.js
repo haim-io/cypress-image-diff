@@ -49,11 +49,12 @@ const compareSnapshotCommand = () => {
 
       const defaultRetryOptions = {
         limit: 1,
-        log: (percentage) => {
-          const prefix = percentage <= testThreshold ? 'PASS' : 'FAIL'
+        log: ({percentage, testFailed}) => {
+          const prefix = testFailed ? 'FAIL' : 'PASS'
           cy.log(`${prefix}: Image difference percentage ${percentage}`)
         },
-        error: `Image difference greater than threshold: ${testThreshold}`
+        doNotFail: true,
+        yield: 'value',
       }
 
       recurse(
@@ -85,9 +86,19 @@ const compareSnapshotCommand = () => {
 
           return cy.task('compareSnapshotsPlugin', options)
         },
-        (percentage) => percentage <= testThreshold,
+        ({percentage, missingBaseline}) => {
+          if (missingBaseline) return true
+          return percentage <= testThreshold
+        },
         Object.assign({}, defaultRetryOptions, retryOptions)
-      );
+      ).then(({percentage, testFailed, missingBaseline}) => {
+        if (testFailed) {
+          if (missingBaseline) throw new Error('Missing baseline image')
+
+          const nicePercent = Math.round(percentage * 1000) / 1000
+          throw new Error(`Image difference ${nicePercent} greater than threshold ${testThreshold}`)
+        }
+      });
     }
   )
 
