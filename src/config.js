@@ -18,6 +18,7 @@ function getUserConfigFile() {
 
 export const userConfig = merge({}, DEFAULT_CONFIG, getUserConfigFile())
 
+
 export class Paths {
   constructor(config) {
     this.rootDir = config.ROOT_DIR
